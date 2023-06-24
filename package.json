@@ -3,21 +3,6 @@
   "version": "0.1.0",
   "main": "./electron/main.js",
   "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.36",
-    "@types/react": "^18.2.12",
-    "@types/react-dom": "^18.2.5",
-    "electron": "^25.1.1",
-    "electron-log": "^4.4.8",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
-  },
   "scripts": {
     "electron:serve": "npm run electron:build && electron ./dist/electron/main.js",
     "electron:build": "tsc",
@@ -44,7 +29,23 @@
       "last 1 safari version"
     ]
   },
+  "dependencies": {
+    "electron": "^25.1.1",
+    "electron-log": "^4.4.8",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "reset-css": "^5.0.1",
+    "web-vitals": "^2.1.4"
+  },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.36",
+    "@types/react": "^18.2.12",
+    "@types/react-dom": "^18.2.5",
     "@typescript-eslint/eslint-plugin": "^5.60.0",
     "@typescript-eslint/parser": "^5.60.0",
     "eslint": "^8.43.0",
@@ -56,6 +57,8 @@
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.32.2",
     "prettier": "^2.8.8",
+    "scss": "^0.2.4",
+    "scss-loader": "^0.0.1",
     "typescript": "^5.1.3"
   }
 }

@@ -16,6 +16,6 @@ module.exports = {
     '@typescript-eslint/dot-notation': 'error',
     'prettier/prettier': 'error',
     '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/no-floating-promises': 'warn',
+    '@typescript-eslint/no-floating-promises': 'off',
   },
 };
