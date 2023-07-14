@@ -6,18 +6,8 @@ interface Props {
 }
 
 const DragBar: React.FC<Props> = (props): JSX.Element => {
-  /** state **/
-
-  /** effect **/
-
-  /** methods **/
-
   /** render **/
-  return (
-    <div className={'drag-bar-main'}>
-      你好
-    </div>
-  );
+  return <div className={'drag-bar-main'}></div>;
 };
 
 export default DragBar;

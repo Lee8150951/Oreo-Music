@@ -1,5 +1,7 @@
 .drag-bar-main {
-  background-color: black;
-  height: 20px;
+  -webkit-app-region: drag;
+  -webkit-user-select: none;
+  height: 30px;
   width: 100%;
+  position: absolute;
 }
