@@ -28,22 +28,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
 const react_router_dom_1 = require("react-router-dom");
+const Frame_1 = __importDefault(require("../components/Frame"));
 const routes_1 = __importDefault(require("./routes"));
 const Element = (props) => {
-    const { component: Component, meta } = props;
+    const { component: Component } = props;
     const navigate = (0, react_router_dom_1.useNavigate)();
     const location = (0, react_router_dom_1.useLocation)();
     const params = (0, react_router_dom_1.useParams)();
     const [usp] = (0, react_router_dom_1.useSearchParams)();
     /** state **/
+    const [meta, setMeta] = (0, react_1.useState)({ extra: false });
     /** effect **/
     (0, react_1.useEffect)(() => {
-        console.log(meta);
+        if (props.meta != null) {
+            setMeta(props.meta);
+        }
     }, []);
     /** methods **/
     /** render **/
     return (<>
-      <Component navigate={navigate} location={location} param={params} usp={usp}></Component>
+      {meta.extra ? (<Component navigate={navigate} location={location} param={params} usp={usp}></Component>) : (<Frame_1.default>
+          <div>2</div>
+        </Frame_1.default>)}
     </>);
 };
 function RouterView() {

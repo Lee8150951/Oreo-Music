@@ -9,8 +9,8 @@ const react_router_dom_1 = require("react-router-dom");
 const router_1 = __importDefault(require("./router"));
 // reset css
 require("tdesign-react/dist/reset.css");
-// tdesign
-require("tdesign-react/es/style/index.css");
+// tdesign theme
+require("../src/style/theme.css");
 function App() {
     return (<>
       <DragBar_1.default />

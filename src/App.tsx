@@ -6,8 +6,8 @@ import RouterView from './router';
 // reset css
 import 'tdesign-react/dist/reset.css';
 
-// tdesign
-import 'tdesign-react/es/style/index.css';
+// tdesign theme
+import '../src/style/theme.css';
 
 function App() {
   return (

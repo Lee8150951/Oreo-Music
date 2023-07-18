@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route, useNavigate, useLocation, useParams, useSearchParams } from 'react-router-dom';
+import Frame from '../components/Frame';
 import routes from './routes';
 import { type PropsType } from '../types/props';
 
@@ -8,21 +9,26 @@ interface Props {
   path: string;
   name: string;
   component: React.FC<PropsType>;
-  meta?: any;
+  meta?: {
+    extra: boolean;
+  };
 }
 
 const Element: React.FC<Props> = (props): JSX.Element => {
-  const { component: Component, meta } = props;
+  const { component: Component } = props;
   const navigate = useNavigate();
   const location = useLocation();
   const params = useParams();
   const [usp] = useSearchParams();
 
   /** state **/
+  const [meta, setMeta] = useState({ extra: false });
 
   /** effect **/
   useEffect(() => {
-    console.log(meta);
+    if (props.meta != null) {
+      setMeta(props.meta);
+    }
   }, []);
 
   /** methods **/
@@ -30,7 +36,13 @@ const Element: React.FC<Props> = (props): JSX.Element => {
   /** render **/
   return (
     <>
-      <Component navigate={navigate} location={location} param={params} usp={usp}></Component>
+      {meta.extra ? (
+        <Component navigate={navigate} location={location} param={params} usp={usp}></Component>
+      ) : (
+        <Frame>
+          <div>2</div>
+        </Frame>
+      )}
     </>
   );
 };
