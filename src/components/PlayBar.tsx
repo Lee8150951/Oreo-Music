@@ -22,7 +22,7 @@ const PlayBar: React.FC<Props> = (props): JSX.Element => {
       </div>
       <Row className={'play-bar-contain'}>
         <Col className={'play-info'} span={5}>
-          <img className={'album-cover'} src="https://tdesign.gtimg.com/demo/demo-image-1.png" alt="" />
+          <img className={'album-cover'} src="https://tdesign.gtimg.com/demo/demo-image-1.png" alt="album" />
         </Col>
         <Col className={'control-btn'} span={2}>
           1
