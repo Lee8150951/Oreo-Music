@@ -24,11 +24,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
-const tdesign_react_1 = require("tdesign-react");
 require("../style/components/SideNavbar.scss");
 const SideNavbar = (props) => {
-    const { MenuItem } = tdesign_react_1.Menu;
-    const Logo = () => <img width="136" src="https://www.tencent.com/img/index/menu_logo_hover.png" alt="logo"/>;
     /** state **/
     const [windowHeight, setWindowHeight] = (0, react_1.useState)(window.innerHeight);
     /** effect **/
@@ -43,13 +40,13 @@ const SideNavbar = (props) => {
     }, []);
     /** methods **/
     /** render **/
-    return (<tdesign_react_1.Menu style={{ width: '100%', height: `${windowHeight - 60}px`, boxShadow: 'none' }} logo={<Logo />} {...props}>
-      <MenuItem value="1">侧边内容一</MenuItem>
-      <MenuItem value="2">侧边内容二</MenuItem>
-      <MenuItem value="3">侧边内容三</MenuItem>
-      <MenuItem value="4">侧边内容四</MenuItem>
-      <MenuItem value="5">侧边内容无</MenuItem>
-    </tdesign_react_1.Menu>);
+    return (<div className={'navbar-contain'} style={{ height: `${windowHeight - 60}px` }}>
+      <div className={'navbar-logo-panel'}>
+        
+      </div>
+      <div className={'navbar-menu-panel'}></div>
+      <div className={'navbar-playlist-panel'}></div>
+    </div>);
 };
 exports.default = SideNavbar;
 //# sourceMappingURL=SideNavbar.jsx.map

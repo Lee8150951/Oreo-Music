@@ -1,17 +1,53 @@
 import React, { useEffect, useState } from 'react';
-import { Menu } from 'tdesign-react';
 import '../style/components/SideNavbar.scss';
+import logo from '../assets/logo.png';
+import NavbarCard from './NavbarCard';
+import home from '../assets/icon/home.png';
+import homeActive from '../assets/icon/home-active.png';
+import focus from '../assets/icon/focus.png';
+import focusActive from '../assets/icon/focus-active.png';
+import download from '../assets/icon/download.png';
+import downloadActive from '../assets/icon/download-active.png';
+import cloud from '../assets/icon/cloud.png';
+import cloudActive from '../assets/icon/cloud-active.png';
 
 interface Props {
   children?: React.ReactNode;
 }
 
 const SideNavbar: React.FC<Props> = (props): JSX.Element => {
-  const { MenuItem } = Menu;
-  const Logo = () => <img width="136" src="https://www.tencent.com/img/index/menu_logo_hover.png" alt="logo" />;
-
   /** state **/
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+  const [navlist] = useState([
+    {
+      title: '发现',
+      logo: home,
+      logoActive: homeActive,
+      active: true,
+      path: '',
+    },
+    {
+      title: '关注',
+      logo: focus,
+      logoActive: focusActive,
+      active: false,
+      path: '',
+    },
+    {
+      title: '下载',
+      logo: download,
+      logoActive: downloadActive,
+      active: false,
+      path: '',
+    },
+    {
+      title: '云盘',
+      logo: cloud,
+      logoActive: cloudActive,
+      active: false,
+      path: '',
+    },
+  ]);
 
   /** effect **/
   useEffect(() => {
@@ -28,13 +64,29 @@ const SideNavbar: React.FC<Props> = (props): JSX.Element => {
 
   /** render **/
   return (
-    <Menu style={{ width: '100%', height: `${windowHeight - 60}px`, boxShadow: 'none' }} logo={<Logo />} {...props}>
-      <MenuItem value="1">侧边内容一</MenuItem>
-      <MenuItem value="2">侧边内容二</MenuItem>
-      <MenuItem value="3">侧边内容三</MenuItem>
-      <MenuItem value="4">侧边内容四</MenuItem>
-      <MenuItem value="5">侧边内容无</MenuItem>
-    </Menu>
+    <div className={'navbar-contain'} style={{ height: `${windowHeight - 60}px` }}>
+      <div className={'navbar-logo-panel'}>
+        <img className={'navbar-logo'} src={logo} alt="logo" />
+        <div className={'logo-title'}>Oreo&apos;s Music</div>
+      </div>
+      <div className={'navbar-menu-panel'}>
+        {navlist.map((item, index) => {
+          return (
+            <NavbarCard
+              active={item.active}
+              logo={item.logo}
+              logoActive={item.logoActive}
+              title={item.title}
+              path={item.path}
+              key={index}
+            />
+          );
+        })}
+      </div>
+      <div className={'navbar-playlist-panel'}>
+        <div>歌单</div>
+      </div>
+    </div>
   );
 };
 

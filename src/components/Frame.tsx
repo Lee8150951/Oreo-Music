@@ -2,6 +2,7 @@ import React from 'react';
 import { Layout } from 'tdesign-react';
 import SideNavbar from './SideNavbar';
 import PlayBar from './PlayBar';
+import '../style/components/Frame.scss';
 
 interface Props {
   children?: React.ReactNode;
@@ -9,7 +10,7 @@ interface Props {
 
 const Frame: React.FC<Props> = (props): JSX.Element => {
   const { children } = props;
-  const { Content, Footer, Aside } = Layout;
+  const { Content, Aside } = Layout;
 
   /** state **/
 
@@ -24,11 +25,10 @@ const Frame: React.FC<Props> = (props): JSX.Element => {
         <Aside>
           <SideNavbar></SideNavbar>
         </Aside>
-        <Layout>
+        <Layout className={'layout'}>
           <Content>
             <div>{children}</div>
           </Content>
-          <Footer>Copyright @ 2019-2020 Tencent. All Rights Reserved</Footer>
         </Layout>
       </Layout>
       <PlayBar />

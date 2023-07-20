@@ -1,0 +1,26 @@
+.navbar-card {
+  display: flex;
+  padding: 6px 8px;
+  align-items: center;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.15s;
+  .navbar-card-logo {
+    width: 24px;
+  }
+  .navbar-card-title {
+    font-weight: bold;
+    padding-left: 10px;
+  }
+}
+.navbar-card:hover {
+  background-color: #FFFFFF;
+  border-radius: 10px;
+}
+.navbar-card-active {
+  background-color: #FFFFFF;
+  border-radius: 10px;
+}
+.navbar-card-title-active {
+  color: #3590F5;
+}

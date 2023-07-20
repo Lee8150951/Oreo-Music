@@ -11,6 +11,8 @@ const previous_png_1 = __importDefault(require("../assets/icon/previous.png"));
 const next_png_1 = __importDefault(require("../assets/icon/next.png"));
 const random_png_1 = __importDefault(require("../assets/icon/random.png"));
 const single_png_1 = __importDefault(require("../assets/icon/single.png"));
+const voice_png_1 = __importDefault(require("../assets/icon/voice.png"));
+const like_png_1 = __importDefault(require("../assets/icon/like.png"));
 const PlayBar = (props) => {
     /** state **/
     /** effect **/
@@ -47,7 +49,15 @@ const PlayBar = (props) => {
           </div>
         </tdesign_react_1.Col>
         <tdesign_react_1.Col className={'other-btn'} span={5}>
-          <div></div>
+          <div className={'like-icon-panel'}>
+            <img className={'like-icon'} src={like_png_1.default} alt="next"/>
+          </div>
+          <div className={'voice-icon-panel'}>
+            <img className={'voice-icon'} src={voice_png_1.default} alt="next"/>
+          </div>
+          <div className={'voice-slider'}>
+            <tdesign_react_1.Slider label={false}></tdesign_react_1.Slider>
+          </div>
         </tdesign_react_1.Col>
       </tdesign_react_1.Row>
     </div>);
