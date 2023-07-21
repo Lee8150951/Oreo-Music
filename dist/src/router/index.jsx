@@ -29,6 +29,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
 const react_router_dom_1 = require("react-router-dom");
 const Frame_1 = __importDefault(require("../components/Frame"));
+const Mask_1 = __importDefault(require("../components/Mask"));
 const routes_1 = __importDefault(require("./routes"));
 const Element = (props) => {
     const { component: Component } = props;
@@ -48,19 +49,19 @@ const Element = (props) => {
     /** render **/
     return (<>
       {meta.extra ? (<Component navigate={navigate} location={location} param={params} usp={usp}></Component>) : (<Frame_1.default>
-          <div>2</div>
+          <Component navigate={navigate} location={location} param={params} usp={usp}></Component>
         </Frame_1.default>)}
     </>);
 };
 function RouterView() {
-    return (<div>
+    return (<react_1.Suspense fallback={<Mask_1.default />}>
       <react_router_dom_1.Routes>
         {routes_1.default.map((item) => {
             const { name, path } = item;
             return <react_router_dom_1.Route key={name} path={path} element={<Element {...item}/>}></react_router_dom_1.Route>;
         })}
       </react_router_dom_1.Routes>
-    </div>);
+    </react_1.Suspense>);
 }
 exports.default = RouterView;
 //# sourceMappingURL=index.jsx.map

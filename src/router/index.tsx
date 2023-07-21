@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { Routes, Route, useNavigate, useLocation, useParams, useSearchParams } from 'react-router-dom';
 import Frame from '../components/Frame';
+import Mask from '../components/Mask';
 import routes from './routes';
 import { type PropsType } from '../types/props';
 
@@ -40,7 +41,7 @@ const Element: React.FC<Props> = (props): JSX.Element => {
         <Component navigate={navigate} location={location} param={params} usp={usp}></Component>
       ) : (
         <Frame>
-          <div>2</div>
+          <Component navigate={navigate} location={location} param={params} usp={usp}></Component>
         </Frame>
       )}
     </>
@@ -49,13 +50,13 @@ const Element: React.FC<Props> = (props): JSX.Element => {
 
 export default function RouterView() {
   return (
-    <div>
+    <Suspense fallback={<Mask />}>
       <Routes>
         {routes.map((item) => {
           const { name, path } = item;
           return <Route key={name} path={path} element={<Element {...item} />}></Route>;
         })}
       </Routes>
-    </div>
+    </Suspense>
   );
 }

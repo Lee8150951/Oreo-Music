@@ -19,6 +19,12 @@
     padding: 15px;
   }
   .navbar-playlist-panel {
-    padding: 15px;
+    padding-left: 22px;
+    padding-top: 5px;
+    .navbar-playlist-title {
+      font-size: 13px;
+      font-weight: bold;
+      color: #B0AFB3;
+    }
   }
 }

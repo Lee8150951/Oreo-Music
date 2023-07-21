@@ -1,0 +1,17 @@
+.skeleton-content {
+  padding: 30px;
+  .skeleton-list-li {
+    padding: 16px 0;
+    display: flex;
+  }
+  .skeleton-list-avatar {
+    display: inline-block;
+    height: 56px;
+    margin: 6px 16px 6px 0;
+    flex-shrink: 0;
+  }
+  .skeleton-list-paragraph {
+    display: inline-block;
+    width: 90%;
+  }
+}

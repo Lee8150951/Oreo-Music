@@ -1,5 +1,8 @@
 import React from 'react';
 import '../style/components/NavbarCard.scss';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../store/hooks';
+import { changeActive } from '../store/slices/navbarSlice';
 
 interface Props {
   children?: React.ReactNode;
@@ -11,6 +14,8 @@ interface Props {
 }
 
 const NavbarCard: React.FC<Props> = (props): JSX.Element => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const { title, active, logo, logoActive, path } = props;
   /** state **/
 
@@ -18,7 +23,8 @@ const NavbarCard: React.FC<Props> = (props): JSX.Element => {
 
   /** methods **/
   const cardClick = () => {
-    console.log(path);
+    dispatch(changeActive(path));
+    navigate(path);
   };
 
   /** render **/
