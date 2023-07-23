@@ -30,47 +30,11 @@ const react_1 = __importStar(require("react"));
 require("../style/components/SideNavbar.scss");
 const logo_png_1 = __importDefault(require("../assets/logo.png"));
 const NavbarCard_1 = __importDefault(require("./NavbarCard"));
-const home_png_1 = __importDefault(require("../assets/icon/home.png"));
-const home_active_png_1 = __importDefault(require("../assets/icon/home-active.png"));
-const focus_png_1 = __importDefault(require("../assets/icon/focus.png"));
-const focus_active_png_1 = __importDefault(require("../assets/icon/focus-active.png"));
-const download_png_1 = __importDefault(require("../assets/icon/download.png"));
-const download_active_png_1 = __importDefault(require("../assets/icon/download-active.png"));
-const cloud_png_1 = __importDefault(require("../assets/icon/cloud.png"));
-const cloud_active_png_1 = __importDefault(require("../assets/icon/cloud-active.png"));
+const hooks_1 = require("../store/hooks");
 const SideNavbar = (props) => {
+    const navbar = (0, hooks_1.useAppSelector)((state) => state.navbar);
     /** state **/
     const [windowHeight, setWindowHeight] = (0, react_1.useState)(window.innerHeight);
-    const [navlist] = (0, react_1.useState)([
-        {
-            title: '发现',
-            logo: home_png_1.default,
-            logoActive: home_active_png_1.default,
-            active: true,
-            path: '/',
-        },
-        {
-            title: '关注',
-            logo: focus_png_1.default,
-            logoActive: focus_active_png_1.default,
-            active: false,
-            path: '/focus',
-        },
-        {
-            title: '下载',
-            logo: download_png_1.default,
-            logoActive: download_active_png_1.default,
-            active: false,
-            path: '/download',
-        },
-        {
-            title: '云盘',
-            logo: cloud_png_1.default,
-            logoActive: cloud_active_png_1.default,
-            active: false,
-            path: '/cloud',
-        },
-    ]);
     /** effect **/
     (0, react_1.useEffect)(() => {
         const handleResize = () => {
@@ -89,7 +53,7 @@ const SideNavbar = (props) => {
         <div className={'logo-title'}>Oreo&apos;s Music</div>
       </div>
       <div className={'navbar-menu-panel'}>
-        {navlist.map((item, index) => {
+        {navbar.map((item, index) => {
             return (<NavbarCard_1.default active={item.active} logo={item.logo} logoActive={item.logoActive} title={item.title} path={item.path} key={index}/>);
         })}
       </div>

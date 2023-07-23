@@ -1,5 +1,6 @@
 import React from 'react';
 import { type PropsType } from '../types/props';
+import '../style/views/Error.scss';
 
 interface Props extends PropsType {
   children?: React.ReactNode;

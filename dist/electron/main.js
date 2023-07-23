@@ -12,8 +12,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const electron_1 = require("electron");
 const createWindow = () => __awaiter(void 0, void 0, void 0, function* () {
     const win = new electron_1.BrowserWindow({
-        width: 1100,
-        height: 780,
+        minWidth: 1000,
+        minHeight: 670,
+        width: 1000,
+        height: 670,
         titleBarStyle: 'hidden',
         webPreferences: {
             nodeIntegration: true,

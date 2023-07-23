@@ -1,5 +1,6 @@
 import React from 'react';
 import { type PropsType } from '../types/props';
+import '../style/views/Login.scss';
 
 interface Props extends PropsType {
   children?: React.ReactNode;

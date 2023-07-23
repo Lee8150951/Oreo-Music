@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importDefault(require("react"));
+require("../style/views/Login.scss");
 const Login = (props) => {
     /** state **/
     /** effect **/

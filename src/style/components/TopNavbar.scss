@@ -1,0 +1,37 @@
+.top-navbar-main {
+  padding: 15px 10px 0 30px;
+  height: 60px;
+  display: flex;
+  width: 100%;
+  .search-bar {
+    width: 80%;
+    .t-input {
+      color: #FFFFFF;
+      background-color: #FFFFFF;
+      border-radius: 15px;
+    }
+  }
+  .user-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -15px;
+    width: 20%;
+    .user-name {
+      font-weight: bold;
+      font-size: 13px;
+      color: #6D6D6C;
+    }
+    .user-avatar {
+      .drop-list {
+        margin-left: 5px;
+        padding: 5px;
+        cursor: pointer;
+        .down-icon {
+          margin-left: 8px;
+          color: #6D6D6C;
+        }
+      }
+    }
+  }
+}

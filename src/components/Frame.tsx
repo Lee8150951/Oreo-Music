@@ -1,5 +1,6 @@
 import React from 'react';
 import { Layout } from 'tdesign-react';
+import TopNavbar from './TopNavbar';
 import SideNavbar from './SideNavbar';
 import PlayBar from './PlayBar';
 import '../style/components/Frame.scss';
@@ -27,7 +28,8 @@ const Frame: React.FC<Props> = (props): JSX.Element => {
         </Aside>
         <Layout className={'layout'}>
           <Content>
-            <div>{children}</div>
+            <TopNavbar />
+            <>{children}</>
           </Content>
         </Layout>
       </Layout>

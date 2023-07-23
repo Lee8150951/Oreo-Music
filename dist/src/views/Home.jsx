@@ -4,12 +4,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importDefault(require("react"));
+require("../style/views/Home.scss");
 const Home = (props) => {
     /** state **/
     /** effect **/
     /** methods **/
     /** render **/
-    return (<div>
+    return (<div className={'home-main'}>
       <div>首页</div>
     </div>);
 };
