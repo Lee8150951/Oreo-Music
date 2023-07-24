@@ -31,6 +31,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
     "@types/react-router-dom": "^5.3.3",
+    "axios": "^1.4.0",
     "electron": "^25.1.1",
     "electron-log": "^4.4.8",
     "react": "^18.2.0",

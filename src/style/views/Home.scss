@@ -1,0 +1,38 @@
+.home-main {
+  padding: 20px;
+  .recommend-list-contain {
+    .recommend-list-title {
+      font-weight: bolder;
+      font-size: 22px;
+    }
+  }
+  .other-recommend-contain {
+    display: flex;
+    .daily-recommend-contain {
+      width: 50%;
+      .daily-recommend-title {
+        font-weight: bolder;
+        font-size: 18px;
+      }
+    }
+    .singer-list-contain {
+      width: 50%;
+      .singer-list-title {
+        font-weight: bolder;
+        font-size: 18px;
+      }
+    }
+  }
+  .album-list-contain {
+    .album-list-title {
+      font-weight: bolder;
+      font-size: 18px;
+    }
+  }
+  .charts-list-contain {
+    .charts-list-title {
+      font-weight: bolder;
+      font-size: 18px;
+    }
+  }
+}
