@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { type PropsType } from '../types/props';
+import homeApi from '../http/apis/homeApi';
+import type ResponseType from '../types/res';
+import { type PlaylistType } from './types/home';
 import '../style/views/Home.scss';
 
 interface Props extends PropsType {
@@ -8,8 +11,15 @@ interface Props extends PropsType {
 
 const Home: React.FC<Props> = (props): JSX.Element => {
   /** state **/
+  const [playlist, setPlaylist] = useState<PlaylistType[]>([]);
 
   /** effect **/
+  useEffect(() => {
+    (async () => {
+      const playlistRes = (await homeApi.getPlaylist()) as ResponseType;
+      setPlaylist(playlistRes.result);
+    })();
+  }, []);
 
   /** methods **/
 
@@ -18,7 +28,15 @@ const Home: React.FC<Props> = (props): JSX.Element => {
     <div className={'home-main'}>
       <div className={'recommend-list-contain'}>
         <div className={'recommend-list-title'}>For you</div>
-        <div className={'recommend-list-panel'}></div>
+        <div className={'recommend-list-panel'}>
+          {playlist.map((item, index) => {
+            return (
+              <div key={index} className={'recommend-card'}>
+                {item.name}
+              </div>
+            );
+          })}
+        </div>
       </div>
       <div className={'other-recommend-contain'}>
         <div className={'daily-recommend-contain'}>

@@ -1,18 +1,19 @@
 import qs from 'qs';
 import axios from 'axios';
+import ENV from './env';
 
-// 配置默认请求路径
+// Configure default request pat
 let baseURL;
 if (process.env.NODE_ENV === 'development') {
-  // 开发、测试环境
-  baseURL = 'http://localhost:3000';
+  // development
+  baseURL = ENV.development.host;
 } else if (process.env.NODE_ENV === 'production') {
-  // 正式环境
-  baseURL = 'http://localhost:3000';
+  // production
+  baseURL = ENV.production.host;
 }
 axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded';
 
-// 创建axios实例
+// Create an Axios
 const Axios = axios.create({
   baseURL,
   headers: {
@@ -22,7 +23,21 @@ const Axios = axios.create({
   },
 });
 
-// 请求方法
+// Configure Unified Response Interceptor
+Axios.interceptors.response.use(
+  (response) => {
+    const { data } = response;
+    if (data.code !== 200) {
+      throw new Error('Network Error');
+    }
+    return response;
+  },
+  (error) => {
+    console.log(error);
+  }
+);
+
+// Request
 const request = async function (url: string, config?: any, method?: string) {
   return await new Promise((resolve, reject) => {
     if (method === 'get') {
@@ -65,7 +80,7 @@ const http = {
     const p = qs.stringify(params);
     return await request(url, p, 'post');
   },
-  get: async (url: string, params: object) => {
+  get: async (url: string, params?: object) => {
     return await request(url, { params }, 'get');
   },
 };
