@@ -3,6 +3,7 @@ import { type PropsType } from '../types/props';
 import homeApi from '../http/apis/homeApi';
 import type ResponseType from '../types/res';
 import { type PlaylistType } from './types/home';
+import RecommendCard from '../components/RecommendCard';
 import '../style/views/Home.scss';
 
 interface Props extends PropsType {
@@ -29,10 +30,15 @@ const Home: React.FC<Props> = (props): JSX.Element => {
       <div className={'recommend-list-contain'}>
         <div className={'recommend-list-title'}>For you</div>
         <div className={'recommend-list-panel'}>
-          {playlist.map((item, index) => {
+          {playlist.slice(0, 5).map((item, index) => {
             return (
-              <div key={index} className={'recommend-card'}>
-                {item.name}
+              <div
+                key={index}
+                style={{
+                  marginLeft: index % 5 === 0 ? '0px' : '15px',
+                }}
+              >
+                <RecommendCard picture={item.picUrl} title={item.name} />
               </div>
             );
           })}

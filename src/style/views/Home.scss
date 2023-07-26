@@ -1,9 +1,14 @@
 .home-main {
-  padding: 20px;
+  padding: 20px 30px;
   .recommend-list-contain {
     .recommend-list-title {
       font-weight: bolder;
       font-size: 22px;
+      padding: 0 0 20px 0;
+    }
+    .recommend-list-panel {
+      display: flex;
+      flex-wrap: wrap;
     }
   }
   .other-recommend-contain {
@@ -13,6 +18,7 @@
       .daily-recommend-title {
         font-weight: bolder;
         font-size: 18px;
+        padding: 20px 0;
       }
     }
     .singer-list-contain {
@@ -20,6 +26,7 @@
       .singer-list-title {
         font-weight: bolder;
         font-size: 18px;
+        padding: 20px 0;
       }
     }
   }
@@ -27,12 +34,14 @@
     .album-list-title {
       font-weight: bolder;
       font-size: 18px;
+      padding: 20px 0;
     }
   }
   .charts-list-contain {
     .charts-list-title {
       font-weight: bolder;
       font-size: 18px;
+      padding: 20px 0;
     }
   }
 }
