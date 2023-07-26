@@ -1,0 +1,11 @@
+.artist-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .artist-name {
+    margin-top: 6px;
+    font-size: 13px;
+    color: #9f9f9f;
+  }
+}
