@@ -17,7 +17,12 @@ const http_1 = __importDefault(require("../http"));
 const getPlaylist = () => __awaiter(void 0, void 0, void 0, function* () {
     return yield http_1.default.get('/personalized');
 });
+// Get recommend singer
+const getSinger = () => __awaiter(void 0, void 0, void 0, function* () {
+    return yield http_1.default.get('/top/artists');
+});
 exports.default = {
     getPlaylist,
+    getSinger,
 };
 //# sourceMappingURL=homeApi.js.map

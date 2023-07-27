@@ -1,3 +1,28 @@
+.aside {
+  position: fixed;
+}
 .layout {
   background-color: #F9F9F9;
+  .header {
+    background-color: #F9F9F9;
+    --width: calc(100% - 232px);
+    position: fixed;
+    top: 0;
+    left: 232px;
+    width: var(--width);
+    z-index: 100;
+  }
+  .content {
+    margin-top: 60px;
+    margin-left: 232px;
+    padding-bottom: 60px;
+  }
+}
+.footer {
+  background-color: #FFFFFF;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
 }

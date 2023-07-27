@@ -68,6 +68,10 @@
       font-size: 18px;
       padding: 20px 0 15px 0;
     }
+    .album-list-panel {
+      display: flex;
+      flex-wrap: wrap;
+    }
   }
   .charts-list-contain {
     .charts-list-title {
@@ -75,5 +79,13 @@
       font-size: 18px;
       padding: 20px 0 15px 0;
     }
+    .charts-list-panel {
+      display: flex;
+    }
+  }
+  .more-btn {
+    float: right;
+    cursor: pointer;
+    font-size: 20px;
   }
 }

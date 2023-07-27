@@ -23,17 +23,21 @@ const Frame: React.FC<Props> = (props): JSX.Element => {
   return (
     <>
       <Layout>
-        <Aside>
+        <Aside className={'aside'}>
           <SideNavbar></SideNavbar>
         </Aside>
         <Layout className={'layout'}>
           <Content>
-            <TopNavbar />
-            <>{children}</>
+            <div className={'header'}>
+              <TopNavbar />
+            </div>
+            <div className={'content'}>{children}</div>
           </Content>
         </Layout>
       </Layout>
-      <PlayBar />
+      <div className={'footer'}>
+        <PlayBar />
+      </div>
     </>
   );
 };

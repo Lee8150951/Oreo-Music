@@ -10,6 +10,7 @@ interface Props {
 
 const ArtistCard: React.FC<Props> = (props): JSX.Element => {
   const { url, name } = props;
+  const mask = <div className={'card-mask'}></div>;
   /** state **/
   const [cardSize, setCardSize] = useState(((window.innerWidth - 232 - 60) / 2 - 10 - 10 * 3) / 4);
 
@@ -30,7 +31,13 @@ const ArtistCard: React.FC<Props> = (props): JSX.Element => {
   /** render **/
   return (
     <div className={'artist-panel'}>
-      <Image src={url} shape="circle" style={{ width: cardSize, height: cardSize }} />
+      <Image
+        src={url}
+        shape="circle"
+        style={{ width: cardSize, height: cardSize }}
+        overlayContent={mask}
+        overlayTrigger="hover"
+      />
       <div className={'artist-name'}>{name}</div>
     </div>
   );

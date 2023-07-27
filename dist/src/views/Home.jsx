@@ -38,15 +38,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
 const homeApi_1 = __importDefault(require("../http/apis/homeApi"));
 const RecommendCard_1 = __importDefault(require("../components/RecommendCard"));
+const ArtistCard_1 = __importDefault(require("../components/ArtistCard"));
+const recommend_png_1 = __importDefault(require("../assets/image/recommend.png"));
+const tdesign_react_1 = require("tdesign-react");
 require("../style/views/Home.scss");
 const Home = (props) => {
+    const mask = <div className={'recommend-mask'}></div>;
     /** state **/
     const [playlist, setPlaylist] = (0, react_1.useState)([]);
+    const [singer, setSinger] = (0, react_1.useState)([]);
     /** effect **/
     (0, react_1.useEffect)(() => {
         (() => __awaiter(void 0, void 0, void 0, function* () {
             const playlistRes = (yield homeApi_1.default.getPlaylist());
+            const singerRes = (yield homeApi_1.default.getSinger());
             setPlaylist(playlistRes.result);
+            setSinger(singerRes.artists);
         }))();
     }, []);
     /** methods **/
@@ -67,9 +74,27 @@ const Home = (props) => {
       <div className={'other-recommend-contain'}>
         <div className={'daily-recommend-contain'}>
           <div className={'daily-recommend-title'}>每日推荐</div>
+          <div className={'daily-recommend-panel'}>
+            <tdesign_react_1.Image src={recommend_png_1.default} className={'album-image'} fit="cover" overlayContent={mask}/>
+            <div className={'daily-recommend-info'}>
+              <div>
+                <div className={'recommend-title'}>City of Star</div>
+                <div className={'recommend-singer'}>Ryan Gosling</div>
+              </div>
+            </div>
+          </div>
         </div>
         <div className={'singer-list-contain'}>
           <div className={'singer-list-title'}>推荐艺人</div>
+          <div className={'singer-list-panel'}>
+            {singer.slice(0, 4).map((item, index) => {
+            return (<div key={index} style={{
+                    marginLeft: index % 4 === 0 ? '0px' : '15px',
+                }}>
+                  <ArtistCard_1.default url={item.img1v1Url} name={item.name}/>
+                </div>);
+        })}
+          </div>
         </div>
       </div>
       <div className={'album-list-contain'}>
