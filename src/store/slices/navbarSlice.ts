@@ -1,42 +1,38 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { type RootState } from '../reducer';
-import home from '../../assets/icon/home.png';
-import homeActive from '../../assets/icon/home-active.png';
-import focus from '../../assets/icon/focus.png';
-import focusActive from '../../assets/icon/focus-active.png';
-import download from '../../assets/icon/download.png';
-import downloadActive from '../../assets/icon/download-active.png';
-import cloud from '../../assets/icon/cloud.png';
-import cloudActive from '../../assets/icon/cloud-active.png';
+import HomeSvg from '../../assets/svg/home.svg';
+import CloudSvg from '../../assets/svg/cloud.svg';
+import DownloadSvg from '../../assets/svg/download.svg';
+import FavorSvg from '../../assets/svg/favor.svg';
 
 const initial = [
   {
     title: '发现',
-    logo: home,
-    logoActive: homeActive,
+    logo: HomeSvg,
+    logoActive: HomeSvg,
     active: true,
     path: '/',
   },
   {
-    title: '关注',
-    logo: focus,
-    logoActive: focusActive,
+    title: '云盘',
+    logo: CloudSvg,
+    logoActive: CloudSvg,
     active: false,
-    path: '/focus',
+    path: '/cloud',
   },
   {
     title: '下载',
-    logo: download,
-    logoActive: downloadActive,
+    logo: DownloadSvg,
+    logoActive: DownloadSvg,
     active: false,
     path: '/download',
   },
   {
-    title: '云盘',
-    logo: cloud,
-    logoActive: cloudActive,
+    title: '喜欢',
+    logo: FavorSvg,
+    logoActive: FavorSvg,
     active: false,
-    path: '/cloud',
+    path: '/favor',
   },
 ];
 

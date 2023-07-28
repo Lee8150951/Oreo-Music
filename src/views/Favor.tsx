@@ -1,12 +1,12 @@
 import React from 'react';
 import { type PropsType } from '../types/props';
-import '../style/views/Focus.scss';
+import '../style/views/Favor.scss';
 
 interface Props extends PropsType {
   children?: React.ReactNode;
 }
 
-const Focus: React.FC<Props> = (props): JSX.Element => {
+const Favor: React.FC<Props> = (props): JSX.Element => {
   /** state **/
 
   /** effect **/
@@ -21,4 +21,4 @@ const Focus: React.FC<Props> = (props): JSX.Element => {
   );
 };
 
-export default Focus;
+export default Favor;

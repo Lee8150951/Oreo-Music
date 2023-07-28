@@ -41,26 +41,38 @@ const RecommendCard_1 = __importDefault(require("../components/RecommendCard"));
 const ArtistCard_1 = __importDefault(require("../components/ArtistCard"));
 const recommend_png_1 = __importDefault(require("../assets/image/recommend.png"));
 const tdesign_react_1 = require("tdesign-react");
+const tdesign_icons_react_1 = require("tdesign-icons-react");
 require("../style/views/Home.scss");
 const Home = (props) => {
     const mask = <div className={'recommend-mask'}></div>;
     /** state **/
     const [playlist, setPlaylist] = (0, react_1.useState)([]);
     const [singer, setSinger] = (0, react_1.useState)([]);
+    const [albums, setAlbums] = (0, react_1.useState)([]);
+    const [toplist, setToplist] = (0, react_1.useState)([]);
     /** effect **/
     (0, react_1.useEffect)(() => {
         (() => __awaiter(void 0, void 0, void 0, function* () {
             const playlistRes = (yield homeApi_1.default.getPlaylist());
             const singerRes = (yield homeApi_1.default.getSinger());
+            const albumRes = (yield homeApi_1.default.getAlbum());
+            const toplistRes = (yield homeApi_1.default.getToplist());
             setPlaylist(playlistRes.result);
             setSinger(singerRes.artists);
+            setAlbums(albumRes.albums);
+            setToplist(toplistRes.list);
         }))();
     }, []);
     /** methods **/
     /** render **/
     return (<div className={'home-main'}>
       <div className={'recommend-list-contain'}>
-        <div className={'recommend-list-title'}>For you</div>
+        <div className={'recommend-list-title'}>
+          For you
+          <span className={'more-btn'}>
+            <tdesign_icons_react_1.ChevronRightIcon />
+          </span>
+        </div>
         <div className={'recommend-list-panel'}>
           {playlist.slice(0, 5).map((item, index) => {
             return (<div key={index} style={{
@@ -73,7 +85,12 @@ const Home = (props) => {
       </div>
       <div className={'other-recommend-contain'}>
         <div className={'daily-recommend-contain'}>
-          <div className={'daily-recommend-title'}>每日推荐</div>
+          <div className={'daily-recommend-title'}>
+            每日推荐
+            <span className={'more-btn'}>
+              <tdesign_icons_react_1.ChevronRightIcon />
+            </span>
+          </div>
           <div className={'daily-recommend-panel'}>
             <tdesign_react_1.Image src={recommend_png_1.default} className={'album-image'} fit="cover" overlayContent={mask}/>
             <div className={'daily-recommend-info'}>
@@ -85,7 +102,12 @@ const Home = (props) => {
           </div>
         </div>
         <div className={'singer-list-contain'}>
-          <div className={'singer-list-title'}>推荐艺人</div>
+          <div className={'singer-list-title'}>
+            推荐艺人
+            <span className={'more-btn'}>
+              <tdesign_icons_react_1.ChevronRightIcon />
+            </span>
+          </div>
           <div className={'singer-list-panel'}>
             {singer.slice(0, 4).map((item, index) => {
             return (<div key={index} style={{
@@ -98,10 +120,39 @@ const Home = (props) => {
         </div>
       </div>
       <div className={'album-list-contain'}>
-        <div className={'album-list-title'}>新碟上架</div>
+        <div className={'album-list-title'}>
+          新碟上架
+          <span className={'more-btn'}>
+            <tdesign_icons_react_1.ChevronRightIcon />
+          </span>
+        </div>
+        <div className={'album-list-panel'}>
+          {albums.slice(0, 10).map((item, index) => {
+            return (<div key={index} style={{
+                    marginLeft: index % 5 === 0 ? '0px' : '15px',
+                    marginTop: index >= 5 ? '15px' : '0px',
+                }}>
+                <RecommendCard_1.default picture={item.picUrl} title={item.name}/>
+              </div>);
+        })}
+        </div>
       </div>
       <div className={'charts-list-contain'}>
-        <div className={'charts-list-title'}>排行榜</div>
+        <div className={'charts-list-title'}>
+          排行榜
+          <span className={'more-btn'}>
+            <tdesign_icons_react_1.ChevronRightIcon />
+          </span>
+        </div>
+        <div className={'charts-list-panel'}>
+          {toplist.slice(0, 5).map((item, index) => {
+            return (<div key={index} style={{
+                    marginLeft: index % 5 === 0 ? '0px' : '15px',
+                }}>
+                <RecommendCard_1.default picture={item.coverImgUrl} title={item.name}/>
+              </div>);
+        })}
+        </div>
       </div>
     </div>);
 };

@@ -5,42 +5,38 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.navbar = exports.changeActive = exports.navbarSlice = void 0;
 const toolkit_1 = require("@reduxjs/toolkit");
-const home_png_1 = __importDefault(require("../../assets/icon/home.png"));
-const home_active_png_1 = __importDefault(require("../../assets/icon/home-active.png"));
-const focus_png_1 = __importDefault(require("../../assets/icon/focus.png"));
-const focus_active_png_1 = __importDefault(require("../../assets/icon/focus-active.png"));
-const download_png_1 = __importDefault(require("../../assets/icon/download.png"));
-const download_active_png_1 = __importDefault(require("../../assets/icon/download-active.png"));
-const cloud_png_1 = __importDefault(require("../../assets/icon/cloud.png"));
-const cloud_active_png_1 = __importDefault(require("../../assets/icon/cloud-active.png"));
+const home_svg_1 = __importDefault(require("../../assets/svg/home.svg"));
+const cloud_svg_1 = __importDefault(require("../../assets/svg/cloud.svg"));
+const download_svg_1 = __importDefault(require("../../assets/svg/download.svg"));
+const favor_svg_1 = __importDefault(require("../../assets/svg/favor.svg"));
 const initial = [
     {
         title: '发现',
-        logo: home_png_1.default,
-        logoActive: home_active_png_1.default,
+        logo: home_svg_1.default,
+        logoActive: home_svg_1.default,
         active: true,
         path: '/',
     },
     {
-        title: '关注',
-        logo: focus_png_1.default,
-        logoActive: focus_active_png_1.default,
+        title: '云盘',
+        logo: cloud_svg_1.default,
+        logoActive: cloud_svg_1.default,
         active: false,
-        path: '/focus',
+        path: '/cloud',
     },
     {
         title: '下载',
-        logo: download_png_1.default,
-        logoActive: download_active_png_1.default,
+        logo: download_svg_1.default,
+        logoActive: download_svg_1.default,
         active: false,
         path: '/download',
     },
     {
-        title: '云盘',
-        logo: cloud_png_1.default,
-        logoActive: cloud_active_png_1.default,
+        title: '喜欢',
+        logo: favor_svg_1.default,
+        logoActive: favor_svg_1.default,
         active: false,
-        path: '/cloud',
+        path: '/favor',
     },
 ];
 exports.navbarSlice = (0, toolkit_1.createSlice)({

@@ -28,6 +28,7 @@ const tdesign_react_1 = require("tdesign-react");
 require("../style/components/ArtistCard.scss");
 const ArtistCard = (props) => {
     const { url, name } = props;
+    const mask = <div className={'card-mask'}></div>;
     /** state **/
     const [cardSize, setCardSize] = (0, react_1.useState)(((window.innerWidth - 232 - 60) / 2 - 10 - 10 * 3) / 4);
     /** effect **/
@@ -44,7 +45,7 @@ const ArtistCard = (props) => {
     };
     /** render **/
     return (<div className={'artist-panel'}>
-      <tdesign_react_1.Image src={url} shape="circle" style={{ width: cardSize, height: cardSize }}/>
+      <tdesign_react_1.Image src={url} shape="circle" style={{ width: cardSize, height: cardSize }} overlayContent={mask} overlayTrigger="hover"/>
       <div className={'artist-name'}>{name}</div>
     </div>);
 };

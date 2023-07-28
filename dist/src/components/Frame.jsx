@@ -18,17 +18,21 @@ const Frame = (props) => {
     /** render **/
     return (<>
       <tdesign_react_1.Layout>
-        <Aside>
+        <Aside className={'aside'}>
           <SideNavbar_1.default></SideNavbar_1.default>
         </Aside>
         <tdesign_react_1.Layout className={'layout'}>
           <Content>
-            <TopNavbar_1.default />
-            <>{children}</>
+            <div className={'header'}>
+              <TopNavbar_1.default />
+            </div>
+            <div className={'content'}>{children}</div>
           </Content>
         </tdesign_react_1.Layout>
       </tdesign_react_1.Layout>
-      <PlayBar_1.default />
+      <div className={'footer'}>
+        <PlayBar_1.default />
+      </div>
     </>);
 };
 exports.default = Frame;

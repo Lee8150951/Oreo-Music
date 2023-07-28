@@ -1,8 +1,8 @@
 import React from 'react';
-import '../style/components/NavbarCard.scss';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../store/hooks';
 import { changeActive } from '../store/slices/navbarSlice';
+import '../style/components/NavbarCard.scss';
 
 interface Props {
   children?: React.ReactNode;

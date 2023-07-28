@@ -21,8 +21,18 @@ const getPlaylist = () => __awaiter(void 0, void 0, void 0, function* () {
 const getSinger = () => __awaiter(void 0, void 0, void 0, function* () {
     return yield http_1.default.get('/top/artists');
 });
+// Get new album list
+const getAlbum = () => __awaiter(void 0, void 0, void 0, function* () {
+    return yield http_1.default.get('/album/newest');
+});
+// Get all toplist
+const getToplist = () => __awaiter(void 0, void 0, void 0, function* () {
+    return yield http_1.default.get('/toplist');
+});
 exports.default = {
     getPlaylist,
     getSinger,
+    getAlbum,
+    getToplist,
 };
 //# sourceMappingURL=homeApi.js.map

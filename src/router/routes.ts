@@ -1,7 +1,10 @@
-import { lazy } from 'react';
 import Home from '../views/Home';
 import Login from '../views/Login';
 import Register from '../views/Register';
+import Cloud from '../views/Cloud';
+import Download from '../views/Download';
+import Favor from '../views/Favor';
+import Playlist from '../views/Playlist';
 
 const routes = [
   {
@@ -12,22 +15,22 @@ const routes = [
   {
     path: '/cloud',
     name: 'cloud',
-    component: lazy(async () => await import('../views/Cloud')),
+    component: Cloud,
   },
   {
     path: '/download',
     name: 'download',
-    component: lazy(async () => await import('../views/Download')),
+    component: Download,
   },
   {
-    path: '/focus',
-    name: 'focus',
-    component: lazy(async () => await import('../views/Focus')),
+    path: '/favor',
+    name: 'favor',
+    component: Favor,
   },
   {
     path: '/playlist',
     name: 'playlist',
-    component: lazy(async () => await import('../views/Playlist')),
+    component: Playlist,
   },
   {
     path: '/login',
