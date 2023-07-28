@@ -30,7 +30,7 @@ const Element: React.FC<Props> = (props): JSX.Element => {
     if (props.meta != null) {
       setMeta(props.meta);
     }
-  }, []);
+  }, [props]);
 
   /** methods **/
 

@@ -5,6 +5,7 @@ import Cloud from '../views/Cloud';
 import Download from '../views/Download';
 import Favor from '../views/Favor';
 import Playlist from '../views/Playlist';
+import Setting from '../views/Setting';
 
 const routes = [
   {
@@ -31,6 +32,11 @@ const routes = [
     path: '/playlist',
     name: 'playlist',
     component: Playlist,
+  },
+  {
+    path: '/setting',
+    name: 'setting',
+    component: Setting,
   },
   {
     path: '/login',

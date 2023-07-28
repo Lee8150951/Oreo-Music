@@ -1,25 +1,26 @@
 import React from 'react';
 import { Input, Dropdown, Avatar } from 'tdesign-react';
-import { SearchIcon, Icon } from 'tdesign-icons-react';
+import { SearchIcon, Icon, SettingIcon, LoginIcon } from 'tdesign-icons-react';
 import '../style/components/TopNavbar.scss';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   children?: React.ReactNode;
 }
 
 const TopNavbar: React.FC<Props> = (props): JSX.Element => {
+  const navigate = useNavigate();
   const options = [
     {
-      content: '操作一',
-      value: 1,
+      content: '设置',
+      value: '/setting',
+      prefixIcon: <SettingIcon />,
+      divider: true,
     },
     {
-      content: '操作二',
-      value: 2,
-    },
-    {
-      content: '操作三',
-      value: 3,
+      content: '登录',
+      value: '/login',
+      prefixIcon: <LoginIcon />,
     },
   ];
   /** state **/
@@ -28,7 +29,7 @@ const TopNavbar: React.FC<Props> = (props): JSX.Element => {
 
   /** methods **/
   const clickHandler = (data: any) => {
-    console.log(data);
+    navigate(data.value);
   };
 
   /** render **/
