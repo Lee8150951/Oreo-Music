@@ -3,10 +3,15 @@ import { type PropsType } from '../types/props';
 import { Image } from 'tdesign-react';
 import loginApi from '../http/apis/loginApi';
 import { ChevronRightIcon } from 'tdesign-icons-react';
+import type ResponseType from '../types/res';
+import utils from '../util/utils';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../store/hooks';
+import { saveUser } from '../store/slices/userSlice';
+import { type UserType } from '../store/types/user';
 import LoginBG from '../assets/background/login-bg.png';
 import logo from '../assets/logo.png';
 import '../style/views/Login.scss';
-import { useNavigate } from 'react-router-dom';
 
 interface Props extends PropsType {
   children?: React.ReactNode;
@@ -14,6 +19,8 @@ interface Props extends PropsType {
 
 const Login: React.FC<Props> = (props): JSX.Element => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
   /** state **/
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
   const [qrImg, setQrImg] = useState<string>('');
@@ -29,10 +36,31 @@ const Login: React.FC<Props> = (props): JSX.Element => {
     };
   }, []);
 
+  // Initialize QR code
   useEffect(() => {
     (async () => {
-      const qrImgRes = await loginApi.getLoginCode();
+      const [qrImgRes, qrKey] = await loginApi.getLoginCode();
       setQrImg(qrImgRes);
+      const timer = setInterval(() => {
+        (async () => {
+          const statusRes = (await loginApi.getCheckStatus(qrKey)) as ResponseType;
+          const code = statusRes.code;
+          if (code === 800) {
+            // Time out
+            clearInterval(timer);
+          } else if (code === 803) {
+            // Successfully logged in
+            clearInterval(timer);
+            const cookie = statusRes.cookie;
+            // Save token
+            utils.storage.set('tk', cookie);
+            // Save profile to redux
+            const userInfo = (await loginApi.getUserStatus(cookie)) as UserType;
+            dispatch(saveUser(userInfo));
+            console.log(userInfo);
+          }
+        })();
+      }, 3000);
     })();
   }, []);
 

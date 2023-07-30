@@ -50,7 +50,9 @@ const SideNavbar = (props) => {
     return (<div className={'navbar-contain'} style={{ height: `${windowHeight - 60}px` }}>
       <div className={'navbar-logo-panel'}>
         <img className={'navbar-logo'} src={logo_png_1.default} alt="logo"/>
-        <div className={'logo-title'}>Oreo&apos;s Music</div>
+        <div className={'logo-title'}>
+          Oreo&apos;s Music<span style={{ color: '#008AF5' }}>.</span>
+        </div>
       </div>
       <div className={'navbar-menu-panel'}>
         {navbar.map((item, index) => {

@@ -41,10 +41,14 @@ const Element = (props) => {
     const [meta, setMeta] = (0, react_1.useState)({ extra: false });
     /** effect **/
     (0, react_1.useEffect)(() => {
+        console.log(props);
         if (props.meta != null) {
             setMeta(props.meta);
         }
-    }, [props]);
+        else {
+            setMeta({ extra: false });
+        }
+    }, [props, location]);
     /** methods **/
     /** render **/
     return (<>

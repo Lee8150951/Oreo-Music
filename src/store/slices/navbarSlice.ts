@@ -1,11 +1,12 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { type NavbarType } from '../types/navbar';
 import { type RootState } from '../reducer';
 import HomeSvg from '../../assets/svg/home.svg';
 import CloudSvg from '../../assets/svg/cloud.svg';
 import DownloadSvg from '../../assets/svg/download.svg';
 import FavorSvg from '../../assets/svg/favor.svg';
 
-const initial = [
+const initial: NavbarType[] = [
   {
     title: '发现',
     logo: HomeSvg,

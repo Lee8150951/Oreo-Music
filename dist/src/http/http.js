@@ -37,10 +37,6 @@ const Axios = axios_1.default.create({
 });
 // Configure Unified Response Interceptor
 Axios.interceptors.response.use((response) => {
-    const { data } = response;
-    if (data.code !== 200) {
-        throw new Error('Network Error');
-    }
     return response;
 }, (error) => {
     console.log(error);

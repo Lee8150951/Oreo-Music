@@ -27,7 +27,8 @@ const Axios = axios.create({
 Axios.interceptors.response.use(
   (response) => {
     const { data } = response;
-    if (data.code !== 200) {
+    const special = [200, 800, 801, 802, 803];
+    if (!special.includes(data.code) && data.code !== undefined) {
       throw new Error('Network Error');
     }
     return response;
