@@ -44,7 +44,7 @@ const Element = (props) => {
         if (props.meta != null) {
             setMeta(props.meta);
         }
-    }, []);
+    }, [props]);
     /** methods **/
     /** render **/
     return (<>

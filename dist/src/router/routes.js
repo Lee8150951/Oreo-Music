@@ -10,6 +10,7 @@ const Cloud_1 = __importDefault(require("../views/Cloud"));
 const Download_1 = __importDefault(require("../views/Download"));
 const Favor_1 = __importDefault(require("../views/Favor"));
 const Playlist_1 = __importDefault(require("../views/Playlist"));
+const Setting_1 = __importDefault(require("../views/Setting"));
 const routes = [
     {
         path: '/',
@@ -35,6 +36,11 @@ const routes = [
         path: '/playlist',
         name: 'playlist',
         component: Playlist_1.default,
+    },
+    {
+        path: '/setting',
+        name: 'setting',
+        component: Setting_1.default,
     },
     {
         path: '/login',

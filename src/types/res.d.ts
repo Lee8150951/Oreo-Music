@@ -1,4 +1,4 @@
 export default interface ResponseType {
   code: number;
-  [prop: string]: any[];
+  [prop: string]: any;
 }

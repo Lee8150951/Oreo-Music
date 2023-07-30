@@ -31,7 +31,9 @@ const SideNavbar: React.FC<Props> = (props): JSX.Element => {
     <div className={'navbar-contain'} style={{ height: `${windowHeight - 60}px` }}>
       <div className={'navbar-logo-panel'}>
         <img className={'navbar-logo'} src={logo} alt="logo" />
-        <div className={'logo-title'}>Oreo&apos;s Music</div>
+        <div className={'logo-title'}>
+          Oreo&apos;s Music<span style={{ color: '#008AF5' }}>.</span>
+        </div>
       </div>
       <div className={'navbar-menu-panel'}>
         {navbar.map((item, index) => {

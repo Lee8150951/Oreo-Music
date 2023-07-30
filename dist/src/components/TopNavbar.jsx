@@ -7,26 +7,27 @@ const react_1 = __importDefault(require("react"));
 const tdesign_react_1 = require("tdesign-react");
 const tdesign_icons_react_1 = require("tdesign-icons-react");
 require("../style/components/TopNavbar.scss");
+const react_router_dom_1 = require("react-router-dom");
 const TopNavbar = (props) => {
+    const navigate = (0, react_router_dom_1.useNavigate)();
     const options = [
         {
-            content: '操作一',
-            value: 1,
+            content: '设置',
+            value: '/setting',
+            prefixIcon: <tdesign_icons_react_1.SettingIcon />,
+            divider: true,
         },
         {
-            content: '操作二',
-            value: 2,
-        },
-        {
-            content: '操作三',
-            value: 3,
+            content: '登录',
+            value: '/login',
+            prefixIcon: <tdesign_icons_react_1.LoginIcon />,
         },
     ];
     /** state **/
     /** effect **/
     /** methods **/
     const clickHandler = (data) => {
-        console.log(data);
+        navigate(data.value);
     };
     /** render **/
     return (<div className={'top-navbar-main'}>
