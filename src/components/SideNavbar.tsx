@@ -10,6 +10,7 @@ interface Props {
 
 const SideNavbar: React.FC<Props> = (props): JSX.Element => {
   const navbar = useAppSelector((state) => state.navbar);
+
   /** state **/
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
 

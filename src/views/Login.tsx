@@ -43,22 +43,24 @@ const Login: React.FC<Props> = (props): JSX.Element => {
       setQrImg(qrImgRes);
       const timer = setInterval(() => {
         (async () => {
-          const statusRes = (await loginApi.getCheckStatus(qrKey)) as ResponseType;
-          const code = statusRes.code;
-          if (code === 800) {
-            // Time out
-            clearInterval(timer);
-          } else if (code === 803) {
-            // Successfully logged in
-            clearInterval(timer);
-            const cookie = statusRes.cookie;
-            // Save token
-            utils.storage.set('tk', cookie);
-            // Save profile to redux
-            const userInfo = (await loginApi.getUserStatus(cookie)) as UserType;
-            dispatch(saveUser(userInfo));
-            console.log(userInfo);
-          }
+          try {
+            const statusRes = (await loginApi.getCheckStatus(qrKey)) as ResponseType;
+            const code = statusRes.code;
+            if (code === 800) {
+              // Time out
+              clearInterval(timer);
+            } else if (code === 803) {
+              // Successfully logged in
+              clearInterval(timer);
+              const cookie = statusRes.cookie;
+              // Save token
+              utils.storage.set('om_tk', cookie);
+              // Save profile to redux
+              const userInfo = (await loginApi.getUserStatus(cookie)) as UserType;
+              dispatch(saveUser(userInfo));
+              navigate('/');
+            }
+          } catch (_) {}
         })();
       }, 3000);
     })();
