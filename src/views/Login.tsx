@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { type PropsType } from '../types/props';
 import { Image } from 'tdesign-react';
 import loginApi from '../http/apis/loginApi';
+import userApi from '../http/apis/userApi';
 import { ChevronRightIcon } from 'tdesign-icons-react';
 import type ResponseType from '../types/res';
 import utils from '../util/utils';
@@ -57,7 +58,9 @@ const Login: React.FC<Props> = (props): JSX.Element => {
               // Save token
               utils.storage.set('om_tk', cookie);
               // Save profile to redux
-              const userInfo = (await loginApi.getUserStatus(cookie)) as UserType;
+              const userInfo = (await userApi.getUserStatus(cookie)) as UserType;
+              // Save uid
+              utils.storage.set('om_uid', userInfo.data.profile.userId);
               dispatch(saveUser(userInfo));
               navigate('/');
             }

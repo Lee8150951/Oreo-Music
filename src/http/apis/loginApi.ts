@@ -16,16 +16,13 @@ const getCheckStatus = async (key: string) => {
   return await http.get(`/login/qr/check?key=${key}&timestamp=${timestamp}&noCookie=true`);
 };
 
-// Get user status
-const getUserStatus = async (cookie: string) => {
-  const timestamp = Date.now();
-  return await http.post(`/login/status?timestamp=${timestamp}`, {
-    cookie,
-  });
+// Log out
+const userLogout = async () => {
+  return await http.get('/logout');
 };
 
 export default {
   getLoginCode,
   getCheckStatus,
-  getUserStatus,
+  userLogout,
 };

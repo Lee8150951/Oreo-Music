@@ -1,5 +1,6 @@
 import qs from 'qs';
 import axios from 'axios';
+import utils from '../util/utils';
 import ENV from './env';
 
 // Configure default request pat
@@ -21,6 +22,18 @@ const Axios = axios.create({
       'Content-Type': 'application/x-www-form-urlencoded',
     },
   },
+});
+
+// Configure visit with cookies
+Axios.interceptors.request.use((config) => {
+  const tk = utils.storage.get('om_tk');
+  if (tk !== null && config.method === 'get') {
+    config.params = {
+      ...config.params,
+      cookie: tk,
+    };
+  }
+  return config;
 });
 
 // Configure Unified Response Interceptor
