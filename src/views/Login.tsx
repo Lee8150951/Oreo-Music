@@ -47,8 +47,9 @@ const Login: React.FC<Props> = (props): JSX.Element => {
             const statusRes = (await loginApi.getCheckStatus(qrKey)) as ResponseType;
             const code = statusRes.code;
             if (code === 800) {
-              // Time out
-              clearInterval(timer);
+              // Time out/
+              const qrImgRes = (await loginApi.getLoginCode())[0];
+              setQrImg(qrImgRes);
             } else if (code === 803) {
               // Successfully logged in
               clearInterval(timer);
