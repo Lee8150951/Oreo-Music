@@ -61,7 +61,7 @@ const Login: React.FC<Props> = (props): JSX.Element => {
               const userInfo = (await userApi.getUserStatus(cookie)) as UserType;
               // Save uid
               utils.storage.set('om_uid', userInfo.data.profile.userId);
-              dispatch(saveUser(userInfo));
+              dispatch(saveUser(userInfo.profile));
               navigate('/');
             }
           } catch (_) {}

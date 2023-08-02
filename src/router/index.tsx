@@ -27,7 +27,6 @@ const Element: React.FC<Props> = (props): JSX.Element => {
 
   /** effect **/
   useEffect(() => {
-    console.log(props);
     if (props.meta != null) {
       setMeta(props.meta);
     } else {
