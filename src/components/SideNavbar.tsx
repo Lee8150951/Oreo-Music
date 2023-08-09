@@ -6,6 +6,7 @@ import playlistApi from '../http/apis/playlistApi';
 import type ResponseType from '../types/res';
 import { type PlaylistType } from '../store/types/user';
 import PlaylistCard from './PlaylistCard';
+import { ChevronRightIcon, ChevronDownIcon } from 'tdesign-icons-react';
 import '../style/components/SideNavbar.scss';
 
 interface Props {
@@ -18,8 +19,12 @@ const SideNavbar: React.FC<Props> = (props): JSX.Element => {
 
   /** state **/
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
-  const [playlist, setPlaylist] = useState<PlaylistType[]>();
+  const [userPlaylist, setUserPlaylist] = useState<PlaylistType[]>([]);
+  const [otherPlaylist, setOtherPlaylist] = useState<PlaylistType[]>([]);
   const [loginStatus, setLoginStatus] = useState<boolean>(false);
+  const [collapsePlaylist, setCollapsePlaylist] = useState<boolean>(true);
+  // Animation control
+  const [playlistHeight, setPlaylistHeight] = useState<number>(0);
 
   /** effect **/
   useEffect(() => {
@@ -35,10 +40,17 @@ const SideNavbar: React.FC<Props> = (props): JSX.Element => {
   useEffect(() => {
     if (userInfo.userId !== undefined) {
       (async () => {
-        const uid: string = userInfo.userId;
+        const uid: number = userInfo.userId;
         const res = (await playlistApi.getUserPlaylist(uid)) as ResponseType;
         const playlist: PlaylistType[] = res.playlist;
-        setPlaylist(playlist);
+        const userPl: PlaylistType[] = [];
+        const otherPl: PlaylistType[] = [];
+        playlist.forEach((item) => {
+          if (uid === item.userId) userPl.push(item);
+          else otherPl.push(item);
+        });
+        setUserPlaylist(userPl);
+        setOtherPlaylist(otherPl);
         setLoginStatus(true);
       })();
     } else {
@@ -47,6 +59,16 @@ const SideNavbar: React.FC<Props> = (props): JSX.Element => {
   }, [userInfo]);
 
   /** methods **/
+  const collapseClick = () => {
+    setCollapsePlaylist(!collapsePlaylist);
+    if (playlistHeight === 0) {
+      // Calculate the height of other collection lists
+      const length = otherPlaylist.length;
+      setPlaylistHeight(45 * length);
+    } else {
+      setPlaylistHeight(0);
+    }
+  };
 
   /** render **/
   return (
@@ -73,14 +95,39 @@ const SideNavbar: React.FC<Props> = (props): JSX.Element => {
       </div>
       {loginStatus ? (
         <div className={'navbar-playlist-panel'}>
-          <div className={'navbar-playlist-title'}>歌单</div>
-          {playlist?.map((item, index) => (
+          <div className={'navbar-playlist-title'}>我的歌单</div>
+          {userPlaylist?.map((item, index) => (
             <PlaylistCard key={index} name={item.name} plid={item.id} />
           ))}
         </div>
       ) : (
         <></>
       )}
+      {loginStatus ? (
+        <div className={'navbar-playlist-panel'}>
+          <div className={'navbar-playlist-title'}>
+            <div>收藏歌单</div>
+            {collapsePlaylist ? (
+              <div className={'collapse-btn'} onClick={collapseClick}>
+                <ChevronRightIcon />
+              </div>
+            ) : (
+              <div className={'collapse-btn'} onClick={collapseClick}>
+                <ChevronDownIcon />
+              </div>
+            )}
+          </div>
+          <div className={'animated-div'} style={{ height: playlistHeight }}>
+            {otherPlaylist?.map((item, index) => (
+              <PlaylistCard key={index} name={item.name} plid={item.id} />
+            ))}
+          </div>
+        </div>
+      ) : (
+        <></>
+      )}
+      {/* Occupy mask */}
+      <div className={'occupy-mask'}></div>
     </div>
   );
 };

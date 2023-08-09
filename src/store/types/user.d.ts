@@ -2,6 +2,7 @@ export type UserType = Record<string, any>;
 
 export interface PlaylistType {
   id: number;
+  userId: number;
   name: string;
   backgroundCoverUrl: string;
   coverImgUrl: string;
