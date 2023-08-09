@@ -60,7 +60,6 @@ const TopNavbar: React.FC<Props> = (props): JSX.Element => {
     } else {
       (async () => {
         const userInfo = (await userApi.getUserInfo(uid)) as UserType;
-        console.log(userInfo);
         setUserName(userInfo.profile.nickname);
         setUserAvatar(userInfo.profile.avatarUrl);
         dispatch(saveUser(userInfo.profile));

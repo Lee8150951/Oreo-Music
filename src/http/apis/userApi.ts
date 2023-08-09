@@ -13,7 +13,12 @@ const getUserStatus = async (cookie: string) => {
   });
 };
 
+const getUserPlaylist = async (uid: string) => {
+  return await http.get(`/user/playlist?uid=${uid}`);
+};
+
 export default {
   getUserInfo,
   getUserStatus,
+  getUserPlaylist,
 };

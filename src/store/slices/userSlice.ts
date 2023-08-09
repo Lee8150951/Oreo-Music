@@ -11,7 +11,7 @@ export const userSlice = createSlice({
   reducers: {
     saveUser: (state, action: PayloadAction<UserType>) => {
       const profile = action.payload;
-      state = utils.deepClone(profile);
+      return utils.deepClone(profile);
     },
   },
 });

@@ -1,0 +1,30 @@
+.playlist-card {
+  display: flex;
+  padding: 6px 8px;
+  align-items: center;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.15s;
+  .playlist-card-logo {
+    width: 20px;
+  }
+  .playlist-card-title {
+    font-size: 13px;
+    font-weight: bold;
+    padding-left: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+.playlist-card:hover {
+  background-color: #FFFFFF;
+  border-radius: 10px;
+}
+.playlist-card-active {
+  background-color: #FFFFFF;
+  border-radius: 10px;
+}
+.playlist-card-title-active {
+  color: #3590F5;
+}
