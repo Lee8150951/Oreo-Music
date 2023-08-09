@@ -9,6 +9,8 @@ import 'tdesign-react/dist/reset.css';
 // tdesign theme
 import '../src/style/theme.css';
 
+import './style/global.scss';
+
 function App() {
   return (
     <>

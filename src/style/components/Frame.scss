@@ -9,7 +9,8 @@
 .layout {
   background-color: #F9F9F9;
   .header {
-    background-color: #F9F9F9;
+    background: rgba(249, 249, 249, 0.95);
+    backdrop-filter: blur(6px);
     --width: calc(100% - 232px);
     position: fixed;
     top: 0;
