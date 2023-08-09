@@ -27,44 +27,32 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
+const playlist_svg_1 = __importDefault(require("../assets/svg/playlist.svg"));
 const react_router_dom_1 = require("react-router-dom");
-const Frame_1 = __importDefault(require("../components/Frame"));
-const Mask_1 = __importDefault(require("../components/Mask"));
-const routes_1 = __importDefault(require("./routes"));
-const Element = (props) => {
-    const { component: Component } = props;
+require("../style/components/PlaylistCard.scss");
+const navbarSlice_1 = require("../store/slices/navbarSlice");
+const hooks_1 = require("../store/hooks");
+const PlaylistCard = (props) => {
+    const { name, plid } = props;
     const navigate = (0, react_router_dom_1.useNavigate)();
-    const location = (0, react_router_dom_1.useLocation)();
-    const params = (0, react_router_dom_1.useParams)();
-    const [usp] = (0, react_router_dom_1.useSearchParams)();
+    const { id } = (0, react_router_dom_1.useParams)();
+    const dispatch = (0, hooks_1.useAppDispatch)();
     /** state **/
-    const [meta, setMeta] = (0, react_1.useState)({ extra: false });
+    const [active, setActive] = (0, react_1.useState)(false);
     /** effect **/
     (0, react_1.useEffect)(() => {
-        if (props.meta != null) {
-            setMeta(props.meta);
-        }
-        else {
-            setMeta({ extra: false });
-        }
-    }, [props, location]);
+        setActive(id === String(plid));
+    }, [id]);
     /** methods **/
+    const cardClick = () => {
+        dispatch((0, navbarSlice_1.changeActive)(''));
+        navigate(`/playlist/${plid}`);
+    };
     /** render **/
-    return (<>
-      {meta.extra ? (<Component navigate={navigate} location={location} param={params} usp={usp}></Component>) : (<Frame_1.default>
-          <Component navigate={navigate} location={location} param={params} usp={usp}></Component>
-        </Frame_1.default>)}
-    </>);
+    return (<div className={`playlist-card ${active ? 'playlist-card-active' : ''}`} onClick={cardClick}>
+      <img className={`playlist-card-logo`} src={playlist_svg_1.default} alt="logo"/>
+      <div className={`playlist-card-title ${active ? 'playlist-card-title-active' : ''}`}>{name}</div>
+    </div>);
 };
-function RouterView() {
-    return (<react_1.Suspense fallback={<Mask_1.default />}>
-      <react_router_dom_1.Routes>
-        {routes_1.default.map((item) => {
-            const { name, path } = item;
-            return <react_router_dom_1.Route key={name} path={path} element={<Element {...item}/>}></react_router_dom_1.Route>;
-        })}
-      </react_router_dom_1.Routes>
-    </react_1.Suspense>);
-}
-exports.default = RouterView;
-//# sourceMappingURL=index.jsx.map
+exports.default = PlaylistCard;
+//# sourceMappingURL=PlaylistCard.jsx.map

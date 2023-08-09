@@ -33,7 +33,7 @@ const routes = [
         component: Favor_1.default,
     },
     {
-        path: '/playlist',
+        path: '/playlist/:id',
         name: 'playlist',
         component: Playlist_1.default,
     },

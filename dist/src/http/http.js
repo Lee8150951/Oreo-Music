@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const qs_1 = __importDefault(require("qs"));
 const axios_1 = __importDefault(require("axios"));
+const utils_1 = __importDefault(require("../util/utils"));
 const env_1 = __importDefault(require("./env"));
 // Configure default request pat
 let baseURL;
@@ -35,8 +36,21 @@ const Axios = axios_1.default.create({
         },
     },
 });
+// Configure visit with cookies
+Axios.interceptors.request.use((config) => {
+    const tk = utils_1.default.storage.get('om_tk');
+    if (tk !== null && config.method === 'get') {
+        config.params = Object.assign(Object.assign({}, config.params), { cookie: tk });
+    }
+    return config;
+});
 // Configure Unified Response Interceptor
 Axios.interceptors.response.use((response) => {
+    const { data } = response;
+    const special = [200, 800, 801, 802, 803];
+    if (!special.includes(data.code) && data.code !== undefined) {
+        throw new Error('Network Error');
+    }
     return response;
 }, (error) => {
     console.log(error);

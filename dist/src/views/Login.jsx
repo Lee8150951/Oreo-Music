@@ -38,17 +38,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
 const tdesign_react_1 = require("tdesign-react");
 const loginApi_1 = __importDefault(require("../http/apis/loginApi"));
+const userApi_1 = __importDefault(require("../http/apis/userApi"));
 const tdesign_icons_react_1 = require("tdesign-icons-react");
+const utils_1 = __importDefault(require("../util/utils"));
+const react_router_dom_1 = require("react-router-dom");
+const hooks_1 = require("../store/hooks");
+const userSlice_1 = require("../store/slices/userSlice");
 const login_bg_png_1 = __importDefault(require("../assets/background/login-bg.png"));
 const logo_png_1 = __importDefault(require("../assets/logo.png"));
 require("../style/views/Login.scss");
-const react_router_dom_1 = require("react-router-dom");
 const Login = (props) => {
     const navigate = (0, react_router_dom_1.useNavigate)();
+    const dispatch = (0, hooks_1.useAppDispatch)();
     /** state **/
     const [windowHeight, setWindowHeight] = (0, react_1.useState)(window.innerHeight);
     const [qrImg, setQrImg] = (0, react_1.useState)('');
-    const [qrKey, setQrKey] = (0, react_1.useState)('');
     /** effect **/
     (0, react_1.useEffect)(() => {
         const handleResize = () => {
@@ -62,23 +66,36 @@ const Login = (props) => {
     // Initialize QR code
     (0, react_1.useEffect)(() => {
         (() => __awaiter(void 0, void 0, void 0, function* () {
-            const [qrImgRes, key] = yield loginApi_1.default.getLoginCode();
+            const [qrImgRes, qrKey] = yield loginApi_1.default.getLoginCode();
             setQrImg(qrImgRes);
-            setQrKey(key);
+            const timer = setInterval(() => {
+                (() => __awaiter(void 0, void 0, void 0, function* () {
+                    try {
+                        const statusRes = (yield loginApi_1.default.getCheckStatus(qrKey));
+                        const code = statusRes.code;
+                        if (code === 800) {
+                            // Time out/
+                            const qrImgRes = (yield loginApi_1.default.getLoginCode())[0];
+                            setQrImg(qrImgRes);
+                        }
+                        else if (code === 803) {
+                            // Successfully logged in
+                            clearInterval(timer);
+                            const cookie = statusRes.cookie;
+                            // Save token
+                            utils_1.default.storage.set('om_tk', cookie);
+                            // Save profile to redux
+                            const userInfo = (yield userApi_1.default.getUserStatus(cookie));
+                            // Save uid
+                            utils_1.default.storage.set('om_uid', userInfo.data.profile.userId);
+                            dispatch((0, userSlice_1.saveUser)(userInfo.profile));
+                            navigate('/');
+                        }
+                    }
+                    catch (_) { }
+                }))();
+            }, 3000);
         }))();
-    }, []);
-    // Scan Code Login Logic
-    (0, react_1.useEffect)(() => {
-        const timer = setInterval(() => {
-            (() => __awaiter(void 0, void 0, void 0, function* () {
-                console.log(qrKey);
-                const statusRes = yield loginApi_1.default.getCheckStatus(qrKey);
-                console.log(statusRes);
-            }))();
-        }, 3000);
-        return () => {
-            clearInterval(timer);
-        };
     }, []);
     /** methods **/
     const backClick = () => {

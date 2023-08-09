@@ -13,26 +13,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const http_1 = __importDefault(require("../http"));
-// Get login qr code
-const getLoginCode = () => __awaiter(void 0, void 0, void 0, function* () {
-    const timestamp = Date.now();
-    const qrKeyRes = (yield http_1.default.get(`/login/qr/key?timestamp=${timestamp}`));
-    const key = qrKeyRes.data.unikey;
-    const res = (yield http_1.default.get(`/login/qr/create?key=${key}&qrimg=true&timestamp=${timestamp}`));
-    return [res.data.qrimg, key];
-});
-// Get check status
-const getCheckStatus = (key) => __awaiter(void 0, void 0, void 0, function* () {
-    const timestamp = Date.now();
-    return yield http_1.default.get(`/login/qr/check?key=${key}&timestamp=${timestamp}&noCookie=true`);
-});
-// Log out
-const userLogout = () => __awaiter(void 0, void 0, void 0, function* () {
-    return yield http_1.default.get('/logout');
+// Get all the playlists of current user
+const getUserPlaylist = (uid) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield http_1.default.get(`/user/playlist?uid=${uid}`);
 });
 exports.default = {
-    getLoginCode,
-    getCheckStatus,
-    userLogout,
+    getUserPlaylist,
 };
-//# sourceMappingURL=loginApi.js.map
+//# sourceMappingURL=playlistApi.js.map

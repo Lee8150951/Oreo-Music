@@ -1,5 +1,10 @@
 .aside {
   position: fixed;
+  overflow-y: auto;
+  background-color: #F2F1F6;
+}
+.aside::-webkit-scrollbar {
+  display: none; /* Chrome Safari */
 }
 .layout {
   background-color: #F9F9F9;

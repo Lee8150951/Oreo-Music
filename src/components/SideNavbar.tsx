@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import logo from '../assets/logo.png';
 import NavbarCard from './NavbarCard';
 import { useAppSelector } from '../store/hooks';
-import userApi from '../http/apis/userApi';
+import playlistApi from '../http/apis/playlistApi';
 import type ResponseType from '../types/res';
 import { type PlaylistType } from '../store/types/user';
 import PlaylistCard from './PlaylistCard';
@@ -19,6 +19,7 @@ const SideNavbar: React.FC<Props> = (props): JSX.Element => {
   /** state **/
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
   const [playlist, setPlaylist] = useState<PlaylistType[]>();
+  const [loginStatus, setLoginStatus] = useState<boolean>(false);
 
   /** effect **/
   useEffect(() => {
@@ -35,10 +36,13 @@ const SideNavbar: React.FC<Props> = (props): JSX.Element => {
     if (userInfo.userId !== undefined) {
       (async () => {
         const uid: string = userInfo.userId;
-        const res = (await userApi.getUserPlaylist(uid)) as ResponseType;
+        const res = (await playlistApi.getUserPlaylist(uid)) as ResponseType;
         const playlist: PlaylistType[] = res.playlist;
         setPlaylist(playlist);
+        setLoginStatus(true);
       })();
+    } else {
+      setLoginStatus(false);
     }
   }, [userInfo]);
 
@@ -67,12 +71,16 @@ const SideNavbar: React.FC<Props> = (props): JSX.Element => {
           );
         })}
       </div>
-      <div className={'navbar-playlist-panel'}>
-        <div className={'navbar-playlist-title'}>歌单</div>
-        {playlist?.map((item, index) => (
-          <PlaylistCard key={index} name={item.name} />
-        ))}
-      </div>
+      {loginStatus ? (
+        <div className={'navbar-playlist-panel'}>
+          <div className={'navbar-playlist-title'}>歌单</div>
+          {playlist?.map((item, index) => (
+            <PlaylistCard key={index} name={item.name} plid={item.id} />
+          ))}
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

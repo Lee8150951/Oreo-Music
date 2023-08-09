@@ -1,1 +1,1 @@
-{"version":3,"file":"reducer.js","sourceRoot":"","sources":["../../../src/store/reducer.ts"],"names":[],"mappings":";;;;;AAAA,8CAAmD;AACnD,uEAA0C;AAE1C,MAAM,QAAQ,GAAG;IACf,MAAM,EAAN,qBAAM;CACP,CAAC;AAEF,MAAM,WAAW,GAAG,IAAA,yBAAe,EAAC,QAAQ,CAAC,CAAC;AAG9C,kBAAe,WAAW,CAAC"}
+{"version":3,"file":"reducer.js","sourceRoot":"","sources":["../../../src/store/reducer.ts"],"names":[],"mappings":";;;;;AAAA,8CAAmD;AACnD,uEAA0C;AAC1C,mEAAsC;AAEtC,MAAM,QAAQ,GAAG;IACf,MAAM,EAAN,qBAAM;IACN,IAAI,EAAJ,mBAAI;CACL,CAAC;AAEF,MAAM,WAAW,GAAG,IAAA,yBAAe,EAAC,QAAQ,CAAC,CAAC;AAG9C,kBAAe,WAAW,CAAC"}

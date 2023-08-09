@@ -17,6 +17,7 @@ const NavbarCard: React.FC<Props> = (props): JSX.Element => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { title, active, logo, logoActive, path } = props;
+
   /** state **/
 
   /** effect **/
