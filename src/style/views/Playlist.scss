@@ -1,0 +1,12 @@
+.playlist-main {
+  padding: 20px 35px;
+  .playlist-header-contain {
+    display: flex;
+    .playlist-cover {
+      .playlist-cover-img {
+        width: 230px;
+        height: 230px;
+      }
+    }
+  }
+}

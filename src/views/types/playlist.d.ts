@@ -16,3 +16,19 @@ export interface AlbumType {
   name: string;
   picUrl: string;
 }
+
+export interface PlaylistDetailType {
+  id: number;
+  name: string;
+  coverImgUrl: string;
+  creator: CreatorType;
+  createTime: number;
+  trackCount: number;
+}
+
+export interface CreatorType {
+  userId: number;
+  nickname: string;
+  avatarUrl: string;
+  city: number;
+}

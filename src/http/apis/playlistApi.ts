@@ -10,7 +10,13 @@ const getSongFromPlaylist = async (sid: string) => {
   return await http.get(`/playlist/track/all?id=${sid}`);
 };
 
+// Get playlist detail
+const getPlaylistDetail = async (sid: string) => {
+  return await http.get(`/playlist/detail?id=${sid}`);
+};
+
 export default {
   getUserPlaylist,
   getSongFromPlaylist,
+  getPlaylistDetail,
 };
