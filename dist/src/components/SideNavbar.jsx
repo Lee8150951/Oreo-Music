@@ -41,13 +41,19 @@ const NavbarCard_1 = __importDefault(require("./NavbarCard"));
 const hooks_1 = require("../store/hooks");
 const playlistApi_1 = __importDefault(require("../http/apis/playlistApi"));
 const PlaylistCard_1 = __importDefault(require("./PlaylistCard"));
+const tdesign_icons_react_1 = require("tdesign-icons-react");
 require("../style/components/SideNavbar.scss");
 const SideNavbar = (props) => {
     const navbar = (0, hooks_1.useAppSelector)((state) => state.navbar);
     const userInfo = (0, hooks_1.useAppSelector)((state) => state.user);
     /** state **/
     const [windowHeight, setWindowHeight] = (0, react_1.useState)(window.innerHeight);
-    const [playlist, setPlaylist] = (0, react_1.useState)();
+    const [userPlaylist, setUserPlaylist] = (0, react_1.useState)([]);
+    const [otherPlaylist, setOtherPlaylist] = (0, react_1.useState)([]);
+    const [loginStatus, setLoginStatus] = (0, react_1.useState)(false);
+    const [collapsePlaylist, setCollapsePlaylist] = (0, react_1.useState)(true);
+    // Animation control
+    const [playlistHeight, setPlaylistHeight] = (0, react_1.useState)(0);
     /** effect **/
     (0, react_1.useEffect)(() => {
         const handleResize = () => {
@@ -64,11 +70,35 @@ const SideNavbar = (props) => {
                 const uid = userInfo.userId;
                 const res = (yield playlistApi_1.default.getUserPlaylist(uid));
                 const playlist = res.playlist;
-                setPlaylist(playlist);
+                const userPl = [];
+                const otherPl = [];
+                playlist.forEach((item) => {
+                    if (uid === item.userId)
+                        userPl.push(item);
+                    else
+                        otherPl.push(item);
+                });
+                setUserPlaylist(userPl);
+                setOtherPlaylist(otherPl);
+                setLoginStatus(true);
             }))();
+        }
+        else {
+            setLoginStatus(false);
         }
     }, [userInfo]);
     /** methods **/
+    const collapseClick = () => {
+        setCollapsePlaylist(!collapsePlaylist);
+        if (playlistHeight === 0) {
+            // Calculate the height of other collection lists
+            const length = otherPlaylist.length;
+            setPlaylistHeight(45 * length);
+        }
+        else {
+            setPlaylistHeight(0);
+        }
+    };
     /** render **/
     return (<div className={'navbar-contain'} style={{ height: `${windowHeight - 60}px` }}>
       <div className={'navbar-logo-panel'}>
@@ -82,10 +112,25 @@ const SideNavbar = (props) => {
             return (<NavbarCard_1.default active={item.active} logo={item.logo} logoActive={item.logoActive} title={item.title} path={item.path} key={index}/>);
         })}
       </div>
-      <div className={'navbar-playlist-panel'}>
-        <div className={'navbar-playlist-title'}>歌单</div>
-        {playlist === null || playlist === void 0 ? void 0 : playlist.map((item, index) => (<PlaylistCard_1.default key={index} name={item.name} plid={item.id}/>))}
-      </div>
+      {loginStatus ? (<div className={'navbar-playlist-panel'}>
+          <div className={'navbar-playlist-title'}>我的歌单</div>
+          {userPlaylist === null || userPlaylist === void 0 ? void 0 : userPlaylist.map((item, index) => (<PlaylistCard_1.default key={index} name={item.name} plid={item.id}/>))}
+        </div>) : (<></>)}
+      {loginStatus ? (<div className={'navbar-playlist-panel'}>
+          <div className={'navbar-playlist-title'}>
+            <div>收藏歌单</div>
+            {collapsePlaylist ? (<div className={'collapse-btn'} onClick={collapseClick}>
+                <tdesign_icons_react_1.ChevronRightIcon />
+              </div>) : (<div className={'collapse-btn'} onClick={collapseClick}>
+                <tdesign_icons_react_1.ChevronDownIcon />
+              </div>)}
+          </div>
+          <div className={'animated-div'} style={{ height: playlistHeight }}>
+            {otherPlaylist === null || otherPlaylist === void 0 ? void 0 : otherPlaylist.map((item, index) => (<PlaylistCard_1.default key={index} name={item.name} plid={item.id}/>))}
+          </div>
+        </div>) : (<></>)}
+      {/* Occupy mask */}
+      <div className={'occupy-mask'}></div>
     </div>);
 };
 exports.default = SideNavbar;

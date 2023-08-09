@@ -17,7 +17,17 @@ const http_1 = __importDefault(require("../http"));
 const getUserPlaylist = (uid) => __awaiter(void 0, void 0, void 0, function* () {
     return yield http_1.default.get(`/user/playlist?uid=${uid}`);
 });
+// Get all songs in the playlist
+const getSongFromPlaylist = (sid) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield http_1.default.get(`/playlist/track/all?id=${sid}`);
+});
+// Get playlist detail
+const getPlaylistDetail = (sid) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield http_1.default.get(`/playlist/detail?id=${sid}`);
+});
 exports.default = {
     getUserPlaylist,
+    getSongFromPlaylist,
+    getPlaylistDetail,
 };
 //# sourceMappingURL=playlistApi.js.map

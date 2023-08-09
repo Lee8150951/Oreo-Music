@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import PlaylistSVG from '../assets/svg/playlist.svg';
 import { useNavigate, useParams } from 'react-router-dom';
-import '../style/components/PlaylistCard.scss';
 import { changeActive } from '../store/slices/navbarSlice';
 import { useAppDispatch } from '../store/hooks';
+import '../style/components/PlaylistCard.scss';
 
 interface Props {
   children?: React.ReactNode;

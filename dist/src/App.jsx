@@ -11,6 +11,7 @@ const router_1 = __importDefault(require("./router"));
 require("tdesign-react/dist/reset.css");
 // tdesign theme
 require("../src/style/theme.css");
+require("./style/global.scss");
 function App() {
     return (<>
       <DragBar_1.default />

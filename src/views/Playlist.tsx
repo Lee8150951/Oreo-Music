@@ -37,7 +37,22 @@ const Playlist: React.FC<Props> = (props): JSX.Element => {
     <div className={'playlist-main'}>
       <div className={'playlist-header-contain'}>
         <div className={'playlist-cover'}>
-          <Image className={'playlist-cover-img'} src={playlistInfo?.coverImgUrl} gallery overlayContent={<></>} />
+          <Image className={'playlist-cover-img'} src={playlistInfo?.coverImgUrl} overlayContent={<></>} />
+        </div>
+        <div className={'playlist-info'}>
+          <h1 className={'playlist-info-title'}>{playlistInfo?.name}</h1>
+          <h4 className={'playlist-info-creator'}>
+            <span className={'created-by'}>Created by {playlistInfo?.creator.nickname}</span>
+            <span className={'songs-account'}>{playlistInfo?.trackCount}首歌</span>
+          </h4>
+          {playlistInfo?.description != null ? (
+            <div>
+              <h3 className={'playlist-info-about-title'}>About</h3>
+              <div className={'playlist-info-about'}>{playlistInfo.description}</div>
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
       <div className={'playlist-list-contain'}>
