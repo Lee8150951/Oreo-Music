@@ -37,7 +37,18 @@ const deepClone = (obj: Record<string, any>): any => {
   return newObj;
 };
 
+// Millisecond conversion
+const formatMillisecondsToMinutesSeconds = (milliseconds: number): string => {
+  const totalSeconds = Math.floor(milliseconds / 1000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  const formattedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
+  const formattedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+  return `${formattedMinutes}:${formattedSeconds}`;
+};
+
 export default {
   storage,
   deepClone,
+  formatMillisecondsToMinutesSeconds,
 };

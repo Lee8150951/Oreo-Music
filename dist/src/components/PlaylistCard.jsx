@@ -29,9 +29,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
 const playlist_svg_1 = __importDefault(require("../assets/svg/playlist.svg"));
 const react_router_dom_1 = require("react-router-dom");
-require("../style/components/PlaylistCard.scss");
 const navbarSlice_1 = require("../store/slices/navbarSlice");
 const hooks_1 = require("../store/hooks");
+require("../style/components/PlaylistCard.scss");
 const PlaylistCard = (props) => {
     const { name, plid } = props;
     const navigate = (0, react_router_dom_1.useNavigate)();

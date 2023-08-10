@@ -3,6 +3,7 @@ export interface SongType {
   name: string;
   al: AlbumType;
   ar: ArtistType[];
+  dt: number;
   [prop: string]: any;
 }
 

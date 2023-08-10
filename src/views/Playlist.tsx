@@ -5,6 +5,7 @@ import playlistApi from '../http/apis/playlistApi';
 import type ResponseType from '../types/res';
 import { type SongType, type PlaylistDetailType } from './types/playlist';
 import { Image, Tag } from 'tdesign-react';
+import MusicCard from '../components/MusicCard';
 import '../style/views/Playlist.scss';
 
 interface Props extends PropsType {
@@ -26,6 +27,7 @@ const Playlist: React.FC<Props> = (props): JSX.Element => {
       const resSongs: SongType[] = songRes.songs;
       const resPlaylistDetail: PlaylistDetailType = detailRes.playlist;
       setPlaylistInfo(resPlaylistDetail);
+      console.log(resSongs);
       setSongs(resSongs);
     })();
   }, [id]);
@@ -64,7 +66,7 @@ const Playlist: React.FC<Props> = (props): JSX.Element => {
       </div>
       <div className={'playlist-list-contain'}>
         {songs.map((item, index) => (
-          <div key={index}>{item.name}</div>
+          <MusicCard key={index} music={item} />
         ))}
       </div>
     </div>

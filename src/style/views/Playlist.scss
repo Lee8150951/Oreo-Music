@@ -39,11 +39,14 @@
         -webkit-box-orient: vertical;
       }
       .playlist-tags-panel {
-        margin-top: 20px;
+        margin-top: 15px;
         .t-tag:nth-child(n+2) {
           margin-left: 10px;
         }
       }
     }
+  }
+  .playlist-list-contain {
+    margin-top: 30px;
   }
 }
