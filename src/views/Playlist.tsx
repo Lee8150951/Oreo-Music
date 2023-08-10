@@ -7,6 +7,7 @@ import { type SongType, type PlaylistDetailType } from './types/playlist';
 import { Image, Tag } from 'tdesign-react';
 import MusicCard from '../components/MusicCard';
 import '../style/views/Playlist.scss';
+import utils from '../util/utils';
 
 interface Props extends PropsType {
   children?: React.ReactNode;
@@ -26,8 +27,19 @@ const Playlist: React.FC<Props> = (props): JSX.Element => {
       const detailRes = (await playlistApi.getPlaylistDetail(id as string)) as ResponseType;
       const resSongs: SongType[] = songRes.songs;
       const resPlaylistDetail: PlaylistDetailType = detailRes.playlist;
+
+      const uid = utils.storage.get('om_uid');
+      if (uid !== null) {
+        // Get favorite playlist and save
+        const resFavor = (await playlistApi.getFavorPlaylist(uid)) as ResponseType;
+        const favor: number[] = resFavor.ids;
+        resSongs.map((item) => {
+          item.favor = favor.includes(item.id);
+          return item;
+        });
+      }
       setPlaylistInfo(resPlaylistDetail);
-      console.log(resSongs);
+      console.log(resPlaylistDetail);
       setSongs(resSongs);
     })();
   }, [id]);
@@ -66,7 +78,7 @@ const Playlist: React.FC<Props> = (props): JSX.Element => {
       </div>
       <div className={'playlist-list-contain'}>
         {songs.map((item, index) => (
-          <MusicCard key={index} music={item} />
+          <MusicCard key={item.id} music={item} favor={item.favor} />
         ))}
       </div>
     </div>

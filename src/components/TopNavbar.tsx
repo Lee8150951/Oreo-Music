@@ -59,6 +59,7 @@ const TopNavbar: React.FC<Props> = (props): JSX.Element => {
       setLoginStatus(false);
     } else {
       (async () => {
+        // Save user info
         const userInfo = (await userApi.getUserInfo(uid)) as UserType;
         setUserName(userInfo.profile.nickname);
         setUserAvatar(userInfo.profile.avatarUrl);
