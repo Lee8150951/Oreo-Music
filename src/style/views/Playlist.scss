@@ -10,7 +10,7 @@
       }
     }
     .playlist-info {
-      padding: 10px 40px;
+      padding: 6px 40px;
       .playlist-info-title {
         font-size: 22px;
       }
@@ -29,14 +29,20 @@
         margin-top: 20px;
       }
       .playlist-info-about {
-        margin-top: -10px;
+        margin-top: -15px;
         font-size: 13px;
-        height: 85px;
+        height: 63px;
         overflow: hidden;
-        -webkit-line-clamp: 4;
+        -webkit-line-clamp: 3;
         text-overflow: ellipsis;
         display: -webkit-box;
         -webkit-box-orient: vertical;
+      }
+      .playlist-tags-panel {
+        margin-top: 20px;
+        .t-tag:nth-child(n+2) {
+          margin-left: 10px;
+        }
       }
     }
   }

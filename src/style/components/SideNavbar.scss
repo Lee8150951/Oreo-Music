@@ -12,7 +12,8 @@
     height: 100px;
     top: 10px;
     left: 0;
-    background-color: #F2F1F6;
+    background: rgba(242, 241, 246, 0.90);
+    backdrop-filter: blur(5px);
     .navbar-logo {
       width: 32px;
     }
@@ -47,8 +48,9 @@
   }
   .occupy-mask {
     width: 232px;
-    height: 20px;
-    background-color: #F2F1F6;
+    height: 10px;
+    background: rgba(242, 241, 246, 0.90);
+    backdrop-filter: blur(5px);
     position: fixed;
     top: 0;
     left: 0;

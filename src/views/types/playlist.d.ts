@@ -25,6 +25,7 @@ export interface PlaylistDetailType {
   createTime: number;
   trackCount: number;
   description: string;
+  tags: string[];
 }
 
 export interface CreatorType {

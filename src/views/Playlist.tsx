@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import playlistApi from '../http/apis/playlistApi';
 import type ResponseType from '../types/res';
 import { type SongType, type PlaylistDetailType } from './types/playlist';
-import { Image } from 'tdesign-react';
+import { Image, Tag } from 'tdesign-react';
 import '../style/views/Playlist.scss';
 
 interface Props extends PropsType {
@@ -53,6 +53,13 @@ const Playlist: React.FC<Props> = (props): JSX.Element => {
           ) : (
             <></>
           )}
+          <div className={'playlist-tags-panel'}>
+            {playlistInfo?.tags.map((item, index) => (
+              <Tag key={index} theme="primary" variant="light">
+                {item}
+              </Tag>
+            ))}
+          </div>
         </div>
       </div>
       <div className={'playlist-list-contain'}>
