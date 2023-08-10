@@ -1,13 +1,18 @@
 .music-card-main {
-  padding: 5px 0;
+  padding: 5px 20px 5px 10px;
+  margin-top: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
   .music-card-header {
+    height: 50px;
     display: flex;
     justify-content: left;
     align-items: center;
     .album-cover {
       .album-cover-img {
-        width: 50px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
         border-radius: 8px;
       }
     }
@@ -46,6 +51,7 @@
     .favor-contain {
       cursor: pointer;
       margin-right: 30px;
+      display: none;
       .favor-icon {
         background-color: transparent;
       }
@@ -57,5 +63,11 @@
     .music-dt {
       font-weight: bold;
     }
+  }
+}
+.music-card-main:hover {
+  background-color: #eaeaea;
+  .favor-contain {
+    display: block;
   }
 }
