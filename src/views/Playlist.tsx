@@ -6,8 +6,8 @@ import type ResponseType from '../types/res';
 import { type SongType, type PlaylistDetailType } from './types/playlist';
 import { Image, Tag } from 'tdesign-react';
 import MusicCard from '../components/MusicCard';
-import '../style/views/Playlist.scss';
 import utils from '../util/utils';
+import '../style/views/Playlist.scss';
 
 interface Props extends PropsType {
   children?: React.ReactNode;
@@ -39,7 +39,6 @@ const Playlist: React.FC<Props> = (props): JSX.Element => {
         });
       }
       setPlaylistInfo(resPlaylistDetail);
-      console.log(resPlaylistDetail);
       setSongs(resSongs);
     })();
   }, [id]);

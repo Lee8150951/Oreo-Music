@@ -16,6 +16,7 @@ interface Props extends PropsType {
 
 const Home: React.FC<Props> = (props): JSX.Element => {
   const mask = <div className={'recommend-mask'}></div>;
+
   /** state **/
   const [playlist, setPlaylist] = useState<PlaylistType[]>([]);
   const [singer, setSinger] = useState<SingerType[]>([]);

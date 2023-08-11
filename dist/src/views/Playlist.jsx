@@ -39,7 +39,9 @@ const react_1 = __importStar(require("react"));
 const react_router_dom_1 = require("react-router-dom");
 const playlistApi_1 = __importDefault(require("../http/apis/playlistApi"));
 const tdesign_react_1 = require("tdesign-react");
+const MusicCard_1 = __importDefault(require("../components/MusicCard"));
 require("../style/views/Playlist.scss");
+const utils_1 = __importDefault(require("../util/utils"));
 const Playlist = (props) => {
     const { id } = (0, react_router_dom_1.useParams)();
     /** state **/
@@ -52,7 +54,18 @@ const Playlist = (props) => {
             const detailRes = (yield playlistApi_1.default.getPlaylistDetail(id));
             const resSongs = songRes.songs;
             const resPlaylistDetail = detailRes.playlist;
+            const uid = utils_1.default.storage.get('om_uid');
+            if (uid !== null) {
+                // Get favorite playlist and save
+                const resFavor = (yield playlistApi_1.default.getFavorPlaylist(uid));
+                const favor = resFavor.ids;
+                resSongs.map((item) => {
+                    item.favor = favor.includes(item.id);
+                    return item;
+                });
+            }
             setPlaylistInfo(resPlaylistDetail);
+            console.log(resPlaylistDetail);
             setSongs(resSongs);
         }))();
     }, [id]);
@@ -81,7 +94,7 @@ const Playlist = (props) => {
         </div>
       </div>
       <div className={'playlist-list-contain'}>
-        {songs.map((item, index) => (<div key={index}>{item.name}</div>))}
+        {songs.map((item, index) => (<MusicCard_1.default key={item.id} music={item} favor={item.favor}/>))}
       </div>
     </div>);
 };

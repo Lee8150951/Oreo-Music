@@ -1,0 +1,45 @@
+.favor-main {
+  padding: 20px 35px;
+  .favor-header-contain {
+    display: flex;
+    .favor-cover {
+      .favor-cover-img {
+        width: 230px;
+        height: 230px;
+        border-radius: 12px;
+      }
+    }
+    .favor-info {
+      padding: 6px 40px;
+      .favor-info-title {
+        font-size: 22px;
+      }
+      .favor-info-creator {
+        margin-top: -5px;
+        .created-by {
+          color: #B0B0B2;
+        }
+        .songs-account {
+          color: #5e5e5e;
+        }
+      }
+      .favor-info-about-title {
+        font-size: 17px;
+        margin-top: 20px;
+      }
+      .favor-info-about {
+        margin-top: -15px;
+        font-size: 13px;
+        height: 63px;
+        overflow: hidden;
+        -webkit-line-clamp: 3;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+      }
+    }
+  }
+  .favor-list-contain {
+    margin-top: 30px;
+  }
+}

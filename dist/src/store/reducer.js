@@ -6,9 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const toolkit_1 = require("@reduxjs/toolkit");
 const navbarSlice_1 = __importDefault(require("./slices/navbarSlice"));
 const userSlice_1 = __importDefault(require("./slices/userSlice"));
+const favorSlice_1 = __importDefault(require("./slices/favorSlice"));
 const reducers = {
     navbar: navbarSlice_1.default,
     user: userSlice_1.default,
+    favor: favorSlice_1.default,
 };
 const rootReducer = (0, toolkit_1.combineReducers)(reducers);
 exports.default = rootReducer;

@@ -25,9 +25,19 @@ const getSongFromPlaylist = (sid) => __awaiter(void 0, void 0, void 0, function*
 const getPlaylistDetail = (sid) => __awaiter(void 0, void 0, void 0, function* () {
     return yield http_1.default.get(`/playlist/detail?id=${sid}`);
 });
+// Get user's favorite playlist
+const getFavorPlaylist = (uid) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield http_1.default.get(`/likelist?uid=${uid}`);
+});
+// Like music
+const addFavorMusic = (sid, favor) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield http_1.default.get(`/like?id=${sid}&like=${String(favor)}`);
+});
 exports.default = {
     getUserPlaylist,
     getSongFromPlaylist,
     getPlaylistDetail,
+    getFavorPlaylist,
+    addFavorMusic,
 };
 //# sourceMappingURL=playlistApi.js.map

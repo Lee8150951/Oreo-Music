@@ -96,7 +96,7 @@ const SideNavbar: React.FC<Props> = (props): JSX.Element => {
       {loginStatus ? (
         <div className={'navbar-playlist-panel'}>
           <div className={'navbar-playlist-title'}>我的歌单</div>
-          {userPlaylist?.map((item, index) => (
+          {userPlaylist.slice(1, userPlaylist.length)?.map((item, index) => (
             <PlaylistCard key={index} name={item.name} plid={item.id} />
           ))}
         </div>

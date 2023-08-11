@@ -87,6 +87,7 @@ const TopNavbar = (props) => {
         }
         else {
             (() => __awaiter(void 0, void 0, void 0, function* () {
+                // Save user info
                 const userInfo = (yield userApi_1.default.getUserInfo(uid));
                 setUserName(userInfo.profile.nickname);
                 setUserAvatar(userInfo.profile.avatarUrl);
