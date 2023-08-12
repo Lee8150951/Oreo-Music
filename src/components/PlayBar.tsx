@@ -1,6 +1,5 @@
 import React from 'react';
-import { Row, Col, Slider } from 'tdesign-react';
-import '../style/components/PlayBar.scss';
+import { Row, Col, Slider, Image } from 'tdesign-react';
 import play from '../assets/icon/play.png';
 import previous from '../assets/icon/previous.png';
 import next from '../assets/icon/next.png';
@@ -8,6 +7,9 @@ import random from '../assets/icon/random.png';
 import single from '../assets/icon/single.png';
 import voice from '../assets/icon/voice.png';
 import like from '../assets/icon/like.png';
+import SpreadSVG from '../assets/svg/spread.svg';
+import PubSub from 'pubsub-js';
+import '../style/components/PlayBar.scss';
 
 interface Props {
   children?: React.ReactNode;
@@ -19,6 +21,9 @@ const PlayBar: React.FC<Props> = (props): JSX.Element => {
   /** effect **/
 
   /** methods **/
+  const spreadDrawer = () => {
+    PubSub.publish('drawer', true);
+  };
 
   /** render **/
   return (
@@ -29,7 +34,12 @@ const PlayBar: React.FC<Props> = (props): JSX.Element => {
       </div>
       <Row className={'play-bar-contain'}>
         <Col className={'play-info'} span={5}>
-          <img className={'album-cover'} src="https://tdesign.gtimg.com/demo/demo-image-1.png" alt="album" />
+          <div className={'album-cover-panel'} onClick={spreadDrawer}>
+            <img className={'album-cover'} src="https://tdesign.gtimg.com/demo/demo-image-1.png" alt="album" />
+            <div className={'album-cover-mask'}>
+              <Image className={'spread-icon'} src={SpreadSVG}></Image>
+            </div>
+          </div>
           <div className={'album-title'}>City of Star</div>
           <div className={'album-author'}>
             <span>Ryan Gosling</span>

@@ -2,7 +2,7 @@
   padding: 5px 20px 5px 10px;
   border-radius: 10px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.5s;
   .music-card-header {
     height: 50px;
     display: flex;
@@ -50,7 +50,7 @@
     .favor-contain {
       cursor: pointer;
       margin-right: 30px;
-      display: none;
+      opacity: 0;
       .favor-icon {
         background-color: transparent;
       }
@@ -67,6 +67,7 @@
 .music-card-main:hover {
   background-color: #eaeaea;
   .favor-contain {
-    display: block;
+    transition: 0.5s;
+    opacity: 1;
   }
 }

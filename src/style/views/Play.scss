@@ -1,0 +1,12 @@
+.play-main {
+  .function-panel {
+    display: flex;
+    justify-content: right;
+    padding-top: 20px;
+    padding-right: 20px;
+    font-size: 25px;
+    span {
+      cursor: pointer;
+    }
+  }
+}

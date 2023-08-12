@@ -20,6 +20,39 @@
         position: absolute;
         width: 57px;
         height: 57px;
+        cursor: pointer;
+      }
+      .album-cover-panel {
+        cursor: pointer;
+      }
+      .album-cover-mask {
+        width: 57px;
+        height: 57px;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        transition: 0.15s;
+        background: rgba(0, 0, 0, 0);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .spread-icon {
+          transition: 0.15s;
+          background-color: transparent;
+          opacity: 0;
+          width: 25px;
+          height: 25px;
+        }
+      }
+      .album-cover-panel:hover {
+        .album-cover-mask {
+          background: rgba(0, 0, 0, 0.2);
+          backdrop-filter: blur(3px);
+          .spread-icon {
+            transition: 0.15s;
+            opacity: 1;
+          }
+        }
       }
       .album-title {
         padding-left: 70px;
