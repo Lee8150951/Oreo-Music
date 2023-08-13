@@ -40,8 +40,8 @@ const react_router_dom_1 = require("react-router-dom");
 const playlistApi_1 = __importDefault(require("../http/apis/playlistApi"));
 const tdesign_react_1 = require("tdesign-react");
 const MusicCard_1 = __importDefault(require("../components/MusicCard"));
-require("../style/views/Playlist.scss");
 const utils_1 = __importDefault(require("../util/utils"));
+require("../style/views/Playlist.scss");
 const Playlist = (props) => {
     const { id } = (0, react_router_dom_1.useParams)();
     /** state **/
@@ -65,7 +65,6 @@ const Playlist = (props) => {
                 });
             }
             setPlaylistInfo(resPlaylistDetail);
-            console.log(resPlaylistDetail);
             setSongs(resSongs);
         }))();
     }, [id]);

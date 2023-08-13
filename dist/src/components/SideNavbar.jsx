@@ -44,6 +44,7 @@ const PlaylistCard_1 = __importDefault(require("./PlaylistCard"));
 const tdesign_icons_react_1 = require("tdesign-icons-react");
 require("../style/components/SideNavbar.scss");
 const SideNavbar = (props) => {
+    var _a;
     const navbar = (0, hooks_1.useAppSelector)((state) => state.navbar);
     const userInfo = (0, hooks_1.useAppSelector)((state) => state.user);
     /** state **/
@@ -114,7 +115,7 @@ const SideNavbar = (props) => {
       </div>
       {loginStatus ? (<div className={'navbar-playlist-panel'}>
           <div className={'navbar-playlist-title'}>我的歌单</div>
-          {userPlaylist === null || userPlaylist === void 0 ? void 0 : userPlaylist.map((item, index) => (<PlaylistCard_1.default key={index} name={item.name} plid={item.id}/>))}
+          {(_a = userPlaylist.slice(1, userPlaylist.length)) === null || _a === void 0 ? void 0 : _a.map((item, index) => (<PlaylistCard_1.default key={index} name={item.name} plid={item.id}/>))}
         </div>) : (<></>)}
       {loginStatus ? (<div className={'navbar-playlist-panel'}>
           <div className={'navbar-playlist-title'}>

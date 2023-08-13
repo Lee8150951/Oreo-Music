@@ -1,0 +1,14 @@
+.lyrics-overlay {
+  filter: blur(50px); /* 高斯模糊效果 */
+  transform: scale(1.5);
+  position: absolute;
+  top: -20%;
+  left: -20%;
+  z-index: -20;
+  .lyrics-canvas {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}

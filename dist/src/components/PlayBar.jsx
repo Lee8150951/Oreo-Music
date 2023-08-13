@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importDefault(require("react"));
 const tdesign_react_1 = require("tdesign-react");
-require("../style/components/PlayBar.scss");
 const play_png_1 = __importDefault(require("../assets/icon/play.png"));
 const previous_png_1 = __importDefault(require("../assets/icon/previous.png"));
 const next_png_1 = __importDefault(require("../assets/icon/next.png"));
@@ -13,10 +12,16 @@ const random_png_1 = __importDefault(require("../assets/icon/random.png"));
 const single_png_1 = __importDefault(require("../assets/icon/single.png"));
 const voice_png_1 = __importDefault(require("../assets/icon/voice.png"));
 const like_png_1 = __importDefault(require("../assets/icon/like.png"));
+const spread_svg_1 = __importDefault(require("../assets/svg/spread.svg"));
+const pubsub_js_1 = __importDefault(require("pubsub-js"));
+require("../style/components/PlayBar.scss");
 const PlayBar = (props) => {
     /** state **/
     /** effect **/
     /** methods **/
+    const spreadDrawer = () => {
+        pubsub_js_1.default.publish('drawer', true);
+    };
     /** render **/
     return (<div className={'play-bar-main'}>
       <div className={'progress-bar-panel'}>
@@ -25,7 +30,12 @@ const PlayBar = (props) => {
       </div>
       <tdesign_react_1.Row className={'play-bar-contain'}>
         <tdesign_react_1.Col className={'play-info'} span={5}>
-          <img className={'album-cover'} src="https://tdesign.gtimg.com/demo/demo-image-1.png" alt="album"/>
+          <div className={'album-cover-panel'} onClick={spreadDrawer}>
+            <img className={'album-cover'} src="https://tdesign.gtimg.com/demo/demo-image-1.png" alt="album"/>
+            <div className={'album-cover-mask'}>
+              <tdesign_react_1.Image className={'spread-icon'} src={spread_svg_1.default}></tdesign_react_1.Image>
+            </div>
+          </div>
           <div className={'album-title'}>City of Star</div>
           <div className={'album-author'}>
             <span>Ryan Gosling</span>
