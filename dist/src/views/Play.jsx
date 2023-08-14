@@ -22,6 +22,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -33,17 +42,25 @@ const LyricsBackground_1 = __importDefault(require("../components/LyricsBackgrou
 require("../style/views/Play.scss");
 const Play = (props) => {
     /** state **/
+    const [colorList, setColorList] = (0, react_1.useState)([]);
+    const [isLoad, setIsLoad] = (0, react_1.useState)(false);
     /** effect **/
     (0, react_1.useEffect)(() => {
-        console.log(window.environmentChannel.node());
+        (() => __awaiter(void 0, void 0, void 0, function* () {
+            const res = yield window.ipcChannel.getMainColor('https://oreo-image-bed-1310232028.cos.ap-shanghai.myqcloud.com/image/202306132203486.png');
+            setColorList(res);
+            setIsLoad(true);
+        }))();
     }, []);
     /** methods **/
     const unfoldHandle = () => {
         pubsub_js_1.default.publish('drawer', false);
     };
     /** render **/
+    if (!isLoad)
+        return <div></div>;
     return (<div className={'play-main'}>
-      <LyricsBackground_1.default colors={['red', 'green', 'blue', 'orange']}/>
+      <LyricsBackground_1.default colors={colorList}/>
       <div>1</div>
       <div className={'function-panel'}>
         <span onClick={unfoldHandle}>

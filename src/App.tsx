@@ -19,10 +19,6 @@ function App() {
     window.logChannel.info(`NODE: v${String(node)}`);
     window.logChannel.info(`PLATFORM: ${String(platform)}`);
     window.logChannel.info(`Chromium: v${String(electron)}`);
-    (async () => {
-      const res = await window.ipcChannel.getMainColor('www.baidu.com');
-      console.log(res);
-    })();
   }, []);
 
   return (

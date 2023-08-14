@@ -53,11 +53,12 @@ const createWindow = () => __awaiter(void 0, void 0, void 0, function* () {
         },
     });
     yield win.loadURL('http://localhost:3000/');
-    win.webContents.openDevTools();
 });
 electron_1.app.whenReady().then(() => __awaiter(void 0, void 0, void 0, function* () {
     // Log configure
     electron_log_1.default.transports.console.format = '[{y}-{m}-{d} {h}:{i}:{s}] [{level}]{scope} {text}';
+    electron_log_1.default.transports.file.format = '[{y}-{m}-{d} {h}:{i}:{s}] [{level}]{scope} {text}';
+    // Register the ipc channel
     yield (0, colorChannel_1.processColorMain)();
     try {
         yield createWindow();

@@ -16,6 +16,6 @@ declare interface Window {
     error: (x: string) => void;
   };
   ipcChannel: {
-    getMainColor: (url: string) => Promise<string>;
+    getMainColor: (url: string) => Promise<string[]>;
   };
 }
