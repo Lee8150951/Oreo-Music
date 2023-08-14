@@ -39,14 +39,33 @@ const Frame = (props) => {
     const { Content, Aside } = tdesign_react_1.Layout;
     /** state **/
     const [isSpread, setIsSpread] = (0, react_1.useState)(false);
+    const [marginTop, setMarginTop] = (0, react_1.useState)(window.innerHeight * 1.5);
     /** effect **/
     // Subscribe to the global drawer event
     (0, react_1.useEffect)(() => {
         const drawer = pubsub_js_1.default.subscribe('drawer', (_, data) => {
             setIsSpread(data);
+            if (data) {
+                setMarginTop(0);
+            }
+            else {
+                setMarginTop(window.innerHeight * 1.5);
+            }
         });
         return () => {
             pubsub_js_1.default.unsubscribe(drawer);
+        };
+    }, []);
+    // Process window resize action
+    (0, react_1.useEffect)(() => {
+        const handleResize = () => {
+            if (!isSpread) {
+                setMarginTop(window.innerHeight * 1.5);
+            }
+        };
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
         };
     }, []);
     /** methods **/
@@ -67,7 +86,7 @@ const Frame = (props) => {
       </tdesign_react_1.Layout>
       <div className={'footer'}>
         <PlayBar_1.default />
-        <div className={`drawer ${isSpread ? 'drawer-active' : ''}`}>
+        <div className={'drawer'} style={{ top: marginTop }}>
           <Play_1.default />
         </div>
       </div>

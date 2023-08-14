@@ -17,16 +17,34 @@ const Frame: React.FC<Props> = (props): JSX.Element => {
 
   /** state **/
   const [isSpread, setIsSpread] = useState<boolean>(false);
+  const [marginTop, setMarginTop] = useState<number>(window.innerHeight * 1.5);
 
   /** effect **/
-
   // Subscribe to the global drawer event
   useEffect(() => {
-    const drawer = PubSub.subscribe('drawer', (_, data) => {
+    const drawer = PubSub.subscribe('drawer', (_, data: boolean) => {
       setIsSpread(data);
+      if (data) {
+        setMarginTop(0);
+      } else {
+        setMarginTop(window.innerHeight * 1.5);
+      }
     });
     return () => {
       PubSub.unsubscribe(drawer);
+    };
+  }, []);
+
+  // Process window resize action
+  useEffect(() => {
+    const handleResize = () => {
+      if (!isSpread) {
+        setMarginTop(window.innerHeight * 1.5);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
@@ -50,7 +68,7 @@ const Frame: React.FC<Props> = (props): JSX.Element => {
       </Layout>
       <div className={'footer'}>
         <PlayBar />
-        <div className={`drawer ${isSpread ? 'drawer-active' : ''}`}>
+        <div className={'drawer'} style={{ top: marginTop }}>
           <Play />
         </div>
       </div>

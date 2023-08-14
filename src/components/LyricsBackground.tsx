@@ -9,6 +9,7 @@ interface Props {
 
 const LyricsBackground: React.FC<Props> = (props): JSX.Element => {
   const { colors } = props;
+
   /** state **/
 
   /** effect **/

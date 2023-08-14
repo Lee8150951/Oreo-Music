@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ChevronDownIcon } from 'tdesign-icons-react';
 import PubSub from 'pubsub-js';
 import LyricsBackground from '../components/LyricsBackground';
@@ -12,6 +12,9 @@ const Play: React.FC<Props> = (props): JSX.Element => {
   /** state **/
 
   /** effect **/
+  useEffect(() => {
+    console.log(window.environmentChannel.node());
+  }, []);
 
   /** methods **/
   const unfoldHandle = () => {
@@ -22,6 +25,7 @@ const Play: React.FC<Props> = (props): JSX.Element => {
   return (
     <div className={'play-main'}>
       <LyricsBackground colors={['red', 'green', 'blue', 'orange']} />
+      <div>1</div>
       <div className={'function-panel'}>
         <span onClick={unfoldHandle}>
           <ChevronDownIcon />
