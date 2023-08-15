@@ -9,6 +9,7 @@ import voice from '../assets/icon/voice.png';
 import like from '../assets/icon/like.png';
 import SpreadSVG from '../assets/svg/spread.svg';
 import PubSub from 'pubsub-js';
+import { DRAWER } from '../event-types';
 import '../style/components/PlayBar.scss';
 
 interface Props {
@@ -22,7 +23,7 @@ const PlayBar: React.FC<Props> = (props): JSX.Element => {
 
   /** methods **/
   const spreadDrawer = () => {
-    PubSub.publish('drawer', true);
+    PubSub.publish(DRAWER, true);
   };
 
   /** render **/

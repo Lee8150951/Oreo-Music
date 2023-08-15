@@ -39,26 +39,45 @@ const react_1 = __importStar(require("react"));
 const tdesign_icons_react_1 = require("tdesign-icons-react");
 const pubsub_js_1 = __importDefault(require("pubsub-js"));
 const LyricsBackground_1 = __importDefault(require("../components/LyricsBackground"));
+const event_types_1 = require("../event-types");
+const hooks_1 = require("../store/hooks");
 require("../style/views/Play.scss");
 const Play = (props) => {
+    const play = (0, hooks_1.useAppSelector)((state) => state.play);
     /** state **/
     const [colorList, setColorList] = (0, react_1.useState)([]);
     const [isLoad, setIsLoad] = (0, react_1.useState)(false);
+    const [playCover, setPlayCover] = (0, react_1.useState)('');
     /** effect **/
     (0, react_1.useEffect)(() => {
+        const playEvent = pubsub_js_1.default.subscribe(event_types_1.PLAY, (_, data) => {
+            setPlayCover(play.coverImgUrl);
+            (() => __awaiter(void 0, void 0, void 0, function* () {
+                const res = yield window.ipcChannel.getMainColor(play.coverImgUrl);
+                console.log(res);
+                setColorList(res);
+                setIsLoad(true);
+            }))();
+        });
+        return () => {
+            pubsub_js_1.default.unsubscribe(playEvent);
+        };
+    }, [play]);
+    (0, react_1.useEffect)(() => {
         (() => __awaiter(void 0, void 0, void 0, function* () {
-            const res = yield window.ipcChannel.getMainColor('https://oreo-image-bed-1310232028.cos.ap-shanghai.myqcloud.com/image/202306132203486.png');
+            const res = yield window.ipcChannel.getMainColor(play.coverImgUrl);
             setColorList(res);
             setIsLoad(true);
         }))();
-    }, []);
+    }, [playCover]);
     /** methods **/
     const unfoldHandle = () => {
-        pubsub_js_1.default.publish('drawer', false);
+        pubsub_js_1.default.publish(event_types_1.DRAWER, false);
     };
     /** render **/
-    if (!isLoad)
+    if (!isLoad) {
         return <div></div>;
+    }
     return (<div className={'play-main'}>
       <LyricsBackground_1.default colors={colorList}/>
       <div>1</div>

@@ -24,5 +24,5 @@ export const favorSlice = createSlice({
 });
 
 export const { saveFavor, addFavor, reduceFavor } = favorSlice.actions;
-export const navbar = (state: RootState) => state.navbar;
+export const favor = (state: RootState) => state.favor;
 export default favorSlice.reducer;

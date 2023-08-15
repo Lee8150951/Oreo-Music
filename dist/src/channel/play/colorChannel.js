@@ -50,6 +50,7 @@ const processColorMain = () => __awaiter(void 0, void 0, void 0, function* () {
         catch (error) {
             console.error(error);
         }
+        console.log(colors);
         return colors;
     }));
 });

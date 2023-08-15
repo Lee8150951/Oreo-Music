@@ -14,13 +14,14 @@ const voice_png_1 = __importDefault(require("../assets/icon/voice.png"));
 const like_png_1 = __importDefault(require("../assets/icon/like.png"));
 const spread_svg_1 = __importDefault(require("../assets/svg/spread.svg"));
 const pubsub_js_1 = __importDefault(require("pubsub-js"));
+const event_types_1 = require("../event-types");
 require("../style/components/PlayBar.scss");
 const PlayBar = (props) => {
     /** state **/
     /** effect **/
     /** methods **/
     const spreadDrawer = () => {
-        pubsub_js_1.default.publish('drawer', true);
+        pubsub_js_1.default.publish(event_types_1.DRAWER, true);
     };
     /** render **/
     return (<div className={'play-bar-main'}>

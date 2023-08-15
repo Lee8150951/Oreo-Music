@@ -5,6 +5,11 @@ import utils from '../util/utils';
 import UnfavorSVG from '../assets/svg/unfavor.svg';
 import FavorSVG from '../assets/svg/favor.svg';
 import playlistApi from '../http/apis/playlistApi';
+import PubSub from 'pubsub-js';
+import { PLAY } from '../event-types';
+import { useAppDispatch } from '../store/hooks';
+import { changePlay } from '../store/slices/playSlice';
+import { type PlaySongType } from '../store/types/play';
 import '../style/components/MusicCard.scss';
 
 interface Props {
@@ -15,6 +20,7 @@ interface Props {
 
 const MusicCard: React.FC<Props> = (props): JSX.Element => {
   const { music, favor } = props;
+  const dispatch = useAppDispatch();
 
   /** state **/
   const [isFavor, setIsFavor] = useState<boolean>(favor);
@@ -23,7 +29,18 @@ const MusicCard: React.FC<Props> = (props): JSX.Element => {
 
   /** methods **/
   const clickHandle = () => {
-    // TODO: play music
+    // Public event
+    PubSub.publish(PLAY, music.id);
+    // Save music info
+    const currentSong: PlaySongType = {
+      id: music.id,
+      name: music.name,
+      coverImgUrl: music.al.picUrl,
+      artists: music.ar,
+      album: music.al,
+    };
+    dispatch(changePlay(currentSong));
+    // TODO: Play music
   };
 
   const favorClick = () => {

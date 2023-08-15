@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.navbar = exports.reduceFavor = exports.addFavor = exports.saveFavor = exports.favorSlice = void 0;
+exports.favor = exports.reduceFavor = exports.addFavor = exports.saveFavor = exports.favorSlice = void 0;
 const toolkit_1 = require("@reduxjs/toolkit");
 const utils_1 = __importDefault(require("../../util/utils"));
 const initial = [];
@@ -27,7 +27,7 @@ exports.favorSlice = (0, toolkit_1.createSlice)({
     },
 });
 _a = exports.favorSlice.actions, exports.saveFavor = _a.saveFavor, exports.addFavor = _a.addFavor, exports.reduceFavor = _a.reduceFavor;
-const navbar = (state) => state.navbar;
-exports.navbar = navbar;
+const favor = (state) => state.favor;
+exports.favor = favor;
 exports.default = exports.favorSlice.reducer;
 //# sourceMappingURL=favorSlice.js.map

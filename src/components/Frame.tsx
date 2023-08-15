@@ -5,6 +5,7 @@ import SideNavbar from './SideNavbar';
 import PlayBar from './PlayBar';
 import PubSub from 'pubsub-js';
 import Play from '../views/Play';
+import { DRAWER } from '../event-types';
 import '../style/components/Frame.scss';
 
 interface Props {
@@ -22,7 +23,7 @@ const Frame: React.FC<Props> = (props): JSX.Element => {
   /** effect **/
   // Subscribe to the global drawer event
   useEffect(() => {
-    const drawer = PubSub.subscribe('drawer', (_, data: boolean) => {
+    const drawer = PubSub.subscribe(DRAWER, (_, data: boolean) => {
       setIsSpread(data);
       if (data) {
         setMarginTop(0);

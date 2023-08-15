@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "electron:serve": "tsc && electron ./dist/electron/main.js",
+    "electron:start": "concurrently \"BROWSER=none react-scripts start\" \"tsc && electron ./dist/electron/main.js\"",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -32,6 +33,7 @@
     "@reduxjs/toolkit": "^1.9.5",
     "@types/react-router-dom": "^5.3.3",
     "axios": "^1.4.0",
+    "concurrently": "^8.2.0",
     "electron": "^25.1.1",
     "electron-log": "^4.4.8",
     "node-vibrant": "^3.2.1-alpha.1",

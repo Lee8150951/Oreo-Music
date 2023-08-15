@@ -33,6 +33,7 @@ const SideNavbar_1 = __importDefault(require("./SideNavbar"));
 const PlayBar_1 = __importDefault(require("./PlayBar"));
 const pubsub_js_1 = __importDefault(require("pubsub-js"));
 const Play_1 = __importDefault(require("../views/Play"));
+const event_types_1 = require("../event-types");
 require("../style/components/Frame.scss");
 const Frame = (props) => {
     const { children } = props;
@@ -43,7 +44,7 @@ const Frame = (props) => {
     /** effect **/
     // Subscribe to the global drawer event
     (0, react_1.useEffect)(() => {
-        const drawer = pubsub_js_1.default.subscribe('drawer', (_, data) => {
+        const drawer = pubsub_js_1.default.subscribe(event_types_1.DRAWER, (_, data) => {
             setIsSpread(data);
             if (data) {
                 setMarginTop(0);
