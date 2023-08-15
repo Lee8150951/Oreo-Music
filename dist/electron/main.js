@@ -52,7 +52,6 @@ const createWindow = () => __awaiter(void 0, void 0, void 0, function* () {
             preload: path.join(__dirname, '../src/channel/index.js'),
         },
     });
-    win.webContents.openDevTools();
     yield win.loadURL('http://localhost:3000/');
 });
 electron_1.app.whenReady().then(() => __awaiter(void 0, void 0, void 0, function* () {

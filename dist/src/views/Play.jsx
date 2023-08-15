@@ -50,6 +50,7 @@ const Play = (props) => {
     const [playCover, setPlayCover] = (0, react_1.useState)('');
     /** effect **/
     (0, react_1.useEffect)(() => {
+        setIsLoad(false);
         const playEvent = pubsub_js_1.default.subscribe(event_types_1.PLAY, (_, data) => {
             setPlayCover(play.coverImgUrl);
             (() => __awaiter(void 0, void 0, void 0, function* () {
@@ -64,6 +65,7 @@ const Play = (props) => {
         };
     }, [play]);
     (0, react_1.useEffect)(() => {
+        setIsLoad(false);
         (() => __awaiter(void 0, void 0, void 0, function* () {
             const res = yield window.ipcChannel.getMainColor(play.coverImgUrl);
             setColorList(res);

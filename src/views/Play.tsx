@@ -57,7 +57,6 @@ const Play: React.FC<Props> = (props): JSX.Element => {
   return (
     <div className={'play-main'}>
       <LyricsBackground colors={colorList} />
-      <div>1</div>
       <div className={'function-panel'}>
         <span onClick={unfoldHandle}>
           <ChevronDownIcon />
