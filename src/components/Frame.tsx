@@ -6,6 +6,8 @@ import PlayBar from './PlayBar';
 import PubSub from 'pubsub-js';
 import Play from '../views/Play';
 import { DRAWER } from '../event-types';
+import { useAppSelector } from '../store/hooks';
+import { type PlaySongType } from '../store/types/play';
 import '../style/components/Frame.scss';
 
 interface Props {
@@ -15,10 +17,12 @@ interface Props {
 const Frame: React.FC<Props> = (props): JSX.Element => {
   const { children } = props;
   const { Content, Aside } = Layout;
+  const play = useAppSelector((state) => state.play);
 
   /** state **/
   const [isSpread, setIsSpread] = useState<boolean>(false);
   const [marginTop, setMarginTop] = useState<number>(window.innerHeight * 1.5);
+  const [playSong, setPlaySong] = useState<PlaySongType>();
 
   /** effect **/
   // Subscribe to the global drawer event
@@ -49,6 +53,10 @@ const Frame: React.FC<Props> = (props): JSX.Element => {
     };
   }, []);
 
+  useEffect(() => {
+    setPlaySong(play);
+  }, [play]);
+
   /** methods **/
 
   /** render **/
@@ -67,12 +75,16 @@ const Frame: React.FC<Props> = (props): JSX.Element => {
           </Content>
         </Layout>
       </Layout>
-      <div className={'footer'}>
-        <PlayBar />
-        <div className={'drawer'} style={{ top: marginTop }}>
-          <Play />
+      {playSong?.id === -1 ? (
+        <></>
+      ) : (
+        <div className={'footer'}>
+          <PlayBar />
+          <div className={'drawer'} style={{ top: marginTop }}>
+            <Play />
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

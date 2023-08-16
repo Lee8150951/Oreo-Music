@@ -4,6 +4,8 @@ import PubSub from 'pubsub-js';
 import LyricsBackground from '../components/LyricsBackground';
 import { DRAWER, PLAY } from '../event-types';
 import { useAppSelector } from '../store/hooks';
+import { Row, Col, Image } from 'tdesign-react';
+import { type PlaySongType } from '../store/types/play';
 import '../style/views/Play.scss';
 
 interface Props {
@@ -17,16 +19,18 @@ const Play: React.FC<Props> = (props): JSX.Element => {
   const [colorList, setColorList] = useState<string[]>([]);
   const [isLoad, setIsLoad] = useState<boolean>(false);
   const [playCover, setPlayCover] = useState<string>('');
+  const [playSong, setPlaySong] = useState<PlaySongType>();
 
   /** effect **/
   useEffect(() => {
     setIsLoad(false);
     const playEvent = PubSub.subscribe(PLAY, (_, data) => {
       setPlayCover(play.coverImgUrl);
+      setPlaySong(play);
       (async () => {
         const res = await window.ipcChannel.getMainColor(play.coverImgUrl);
-        console.log(res);
         setColorList(res);
+        window.logChannel.info(String(res));
         setIsLoad(true);
       })();
     });
@@ -62,6 +66,14 @@ const Play: React.FC<Props> = (props): JSX.Element => {
           <ChevronDownIcon />
         </span>
       </div>
+      <Row className={'play-contain'}>
+        <Col span={6} className={'play-cover-contain'}>
+          <Image src={playCover} className={'play-cover'} fit={'cover'} />
+          <div className={'play-song-name'}>{playSong?.name}</div>
+          <div className={'play-artist-name'}>{playSong?.artists[0].name}</div>
+        </Col>
+        <Col span={6} className={'play-lyrics-contain'}></Col>
+      </Row>
     </div>
   );
 };

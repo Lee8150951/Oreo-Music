@@ -6,8 +6,12 @@ const initial: PlaySongType = {
   id: -1,
   name: '',
   coverImgUrl: '',
-  artists: '',
-  album: '',
+  artists: [],
+  album: {
+    id: -1,
+    name: '',
+    picUrl: '',
+  },
 };
 
 export const playSlice = createSlice({

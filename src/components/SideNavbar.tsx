@@ -72,7 +72,7 @@ const SideNavbar: React.FC<Props> = (props): JSX.Element => {
 
   /** render **/
   return (
-    <div className={'navbar-contain'} style={{ height: `${windowHeight - 60}px` }}>
+    <div className={'navbar-contain'} style={{ height: `${windowHeight}px` }}>
       <div className={'navbar-logo-panel'}>
         <img className={'navbar-logo'} src={logo} alt="logo" />
         <div className={'logo-title'}>

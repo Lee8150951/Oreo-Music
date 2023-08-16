@@ -35,7 +35,6 @@ export const processColorMain = async () => {
     } catch (error) {
       console.error(error);
     }
-    console.log(colors);
     return colors;
   });
 };

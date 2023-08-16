@@ -41,6 +41,7 @@ const pubsub_js_1 = __importDefault(require("pubsub-js"));
 const LyricsBackground_1 = __importDefault(require("../components/LyricsBackground"));
 const event_types_1 = require("../event-types");
 const hooks_1 = require("../store/hooks");
+const tdesign_react_1 = require("tdesign-react");
 require("../style/views/Play.scss");
 const Play = (props) => {
     const play = (0, hooks_1.useAppSelector)((state) => state.play);
@@ -55,8 +56,8 @@ const Play = (props) => {
             setPlayCover(play.coverImgUrl);
             (() => __awaiter(void 0, void 0, void 0, function* () {
                 const res = yield window.ipcChannel.getMainColor(play.coverImgUrl);
-                console.log(res);
                 setColorList(res);
+                window.logChannel.info(String(res));
                 setIsLoad(true);
             }))();
         });
@@ -82,11 +83,16 @@ const Play = (props) => {
     }
     return (<div className={'play-main'}>
       <LyricsBackground_1.default colors={colorList}/>
-      <div>1</div>
       <div className={'function-panel'}>
         <span onClick={unfoldHandle}>
           <tdesign_icons_react_1.ChevronDownIcon />
         </span>
+      </div>
+      <div className={'play-contain'}>
+        <div className={'play-cover-contain'}>
+          <tdesign_react_1.Image src={playCover} className={'play-cover'}/>
+        </div>
+        <div className={'play-lyrics-contain'}></div>
       </div>
     </div>);
 };

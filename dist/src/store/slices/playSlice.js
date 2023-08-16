@@ -6,8 +6,12 @@ const initial = {
     id: -1,
     name: '',
     coverImgUrl: '',
-    artists: '',
-    album: '',
+    artists: [],
+    album: {
+        id: -1,
+        name: '',
+        picUrl: '',
+    },
 };
 exports.playSlice = (0, toolkit_1.createSlice)({
     name: 'play',

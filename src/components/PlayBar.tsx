@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Row, Col, Slider, Image } from 'tdesign-react';
 import play from '../assets/icon/play.png';
 import previous from '../assets/icon/previous.png';
@@ -10,6 +10,8 @@ import like from '../assets/icon/like.png';
 import SpreadSVG from '../assets/svg/spread.svg';
 import PubSub from 'pubsub-js';
 import { DRAWER } from '../event-types';
+import { useAppSelector } from '../store/hooks';
+import { type PlaySongType } from '../store/types/play';
 import '../style/components/PlayBar.scss';
 
 interface Props {
@@ -17,9 +19,15 @@ interface Props {
 }
 
 const PlayBar: React.FC<Props> = (props): JSX.Element => {
+  const _playSong = useAppSelector((state) => state.play);
+
   /** state **/
+  const [playSong, setPlaySong] = useState<PlaySongType>();
 
   /** effect **/
+  useEffect(() => {
+    setPlaySong(_playSong);
+  }, [_playSong]);
 
   /** methods **/
   const spreadDrawer = () => {
@@ -36,14 +44,14 @@ const PlayBar: React.FC<Props> = (props): JSX.Element => {
       <Row className={'play-bar-contain'}>
         <Col className={'play-info'} span={5}>
           <div className={'album-cover-panel'} onClick={spreadDrawer}>
-            <img className={'album-cover'} src="https://tdesign.gtimg.com/demo/demo-image-1.png" alt="album" />
+            <img className={'album-cover'} src={playSong?.coverImgUrl} alt="album" />
             <div className={'album-cover-mask'}>
               <Image className={'spread-icon'} src={SpreadSVG}></Image>
             </div>
           </div>
-          <div className={'album-title'}>City of Star</div>
+          <div className={'album-title'}>{playSong?.name}</div>
           <div className={'album-author'}>
-            <span>Ryan Gosling</span>
+            <span>{playSong?.artists[0].name}</span>
           </div>
         </Col>
         <Col className={'control-btn'} span={2}>

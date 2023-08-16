@@ -4,6 +4,6 @@ export interface PlaySongType {
   id: number;
   name: string;
   coverImgUrl: string;
-  artists: ArtistType[] | string;
-  album: AlbumType | string;
+  artists: ArtistType[];
+  album: AlbumType;
 }

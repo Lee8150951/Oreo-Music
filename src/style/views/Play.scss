@@ -9,4 +9,43 @@
       cursor: pointer;
     }
   }
+  .play-contain {
+    .play-cover-contain {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding-top: 100px;
+      .play-cover {
+        width: 360px;
+        height: 360px;
+        border-radius: 15px;
+      }
+      .play-song-name {
+        width: 360px;
+        margin-top: 20px;
+        height: 23px;
+        font-size: 23px;
+        font-weight: bold;
+        color: rgba(249, 249, 249, 0.75);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .play-artist-name {
+        width: 360px;
+        margin-top: 5px;
+        height: 20px;
+        font-size: 15px;
+        font-weight: bold;
+        color: rgba(222, 222, 222, 0.65);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+    .play-lyrics-contain {
+
+    }
+  }
 }
