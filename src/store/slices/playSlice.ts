@@ -5,6 +5,10 @@ import { type PlaySongType } from '../types/play';
 const initial: PlaySongType = {
   id: -1,
   name: '',
+  url: '',
+  type: '',
+  time: -1,
+  size: -1,
   coverImgUrl: '',
   artists: [],
   album: {

@@ -5,11 +5,13 @@ import utils from '../util/utils';
 import UnfavorSVG from '../assets/svg/unfavor.svg';
 import FavorSVG from '../assets/svg/favor.svg';
 import playlistApi from '../http/apis/playlistApi';
+import playApi from '../http/apis/playApi';
 import PubSub from 'pubsub-js';
 import { PLAY } from '../event-types';
 import { useAppDispatch } from '../store/hooks';
 import { changePlay } from '../store/slices/playSlice';
 import { type PlaySongType } from '../store/types/play';
+import type ResponseType from '../types/res';
 import '../style/components/MusicCard.scss';
 
 interface Props {
@@ -29,18 +31,27 @@ const MusicCard: React.FC<Props> = (props): JSX.Element => {
 
   /** methods **/
   const clickHandle = () => {
-    // Public event
-    PubSub.publish(PLAY, music.id);
-    // Save music info
-    const currentSong: PlaySongType = {
-      id: music.id,
-      name: music.name,
-      coverImgUrl: music.al.picUrl,
-      artists: music.ar,
-      album: music.al,
-    };
-    dispatch(changePlay(currentSong));
-    // TODO: Play music
+    (async () => {
+      const res = (await playApi.getSongUrl(String(music.id), 'exhigh')) as ResponseType;
+      const { url, type, time, size } = res.data[0];
+      // Public event
+      PubSub.publish(PLAY, music.id);
+      // Save music info
+      const currentSong: PlaySongType = {
+        id: music.id,
+        name: music.name,
+        url,
+        type,
+        time,
+        size,
+        coverImgUrl: music.al.picUrl,
+        artists: music.ar,
+        album: music.al,
+      };
+      console.log(currentSong);
+      dispatch(changePlay(currentSong));
+      // TODO: Play music
+    })();
   };
 
   const favorClick = () => {
