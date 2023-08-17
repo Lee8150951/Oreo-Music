@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Slider, Image } from 'tdesign-react';
-import play from '../assets/icon/play.png';
-import previous from '../assets/icon/previous.png';
-import next from '../assets/icon/next.png';
-import random from '../assets/icon/random.png';
-import single from '../assets/icon/single.png';
 import voice from '../assets/icon/voice.png';
 import like from '../assets/icon/like.png';
 import SpreadSVG from '../assets/svg/spread.svg';
+import PreviousSVG from '../assets/svg/previous.svg';
+import NextSVG from '../assets/svg/next.svg';
+import CircleSVG from '../assets/svg/circle.svg';
+import RandomSVG from '../assets/svg/random.svg';
+import PlaySVG from '../assets/svg/play.svg';
 import PubSub from 'pubsub-js';
 import { DRAWER } from '../event-types';
 import { useAppSelector } from '../store/hooks';
@@ -46,7 +46,7 @@ const PlayBar: React.FC<Props> = (props): JSX.Element => {
           <div className={'album-cover-panel'} onClick={spreadDrawer}>
             <img className={'album-cover'} src={playSong?.coverImgUrl} alt="album" />
             <div className={'album-cover-mask'}>
-              <Image className={'spread-icon'} src={SpreadSVG}></Image>
+              <Image className={'spread-icon'} src={SpreadSVG} overlayContent={<></>} />
             </div>
           </div>
           <div className={'album-title'}>{playSong?.name}</div>
@@ -56,19 +56,19 @@ const PlayBar: React.FC<Props> = (props): JSX.Element => {
         </Col>
         <Col className={'control-btn'} span={2}>
           <div className={'random-icon-panel'}>
-            <img className={'func-icon'} src={random} alt="previous" />
+            <Image src={RandomSVG} className={'func-icon'} overlayContent={<></>} />
           </div>
           <div className={'previous-icon-panel'}>
-            <img className={'func-icon'} src={previous} alt="previous" />
+            <Image src={PreviousSVG} className={'func-icon'} overlayContent={<></>} />
           </div>
           <div className={'play-icon-panel'}>
-            <img className={'play-icon'} src={play} alt="play" />
+            <Image src={PlaySVG} className={'play-icon'} overlayContent={<></>} />
           </div>
           <div className={'next-icon-panel'}>
-            <img className={'func-icon'} src={next} alt="next" />
+            <Image src={NextSVG} className={'func-icon'} overlayContent={<></>} />
           </div>
           <div className={'single-icon-panel'}>
-            <img className={'func-icon'} src={single} alt="next" />
+            <Image src={CircleSVG} className={'func-icon'} overlayContent={<></>} />
           </div>
         </Col>
         <Col className={'other-btn'} span={5}>

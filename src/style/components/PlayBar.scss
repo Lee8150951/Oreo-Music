@@ -77,27 +77,29 @@
       .play-icon-panel {
         cursor: pointer;
         background-color: #348EF2;
-        padding: 12px;
-        height: 15px;
+        padding: 10px;
         border-radius: 50%;
         box-sizing: content-box;
         .play-icon {
+          height: 20px;
+          width: 20px;
           padding-left: 1px;
-          height: 15px;
-          width: 15px;
+          background-color: #348EF2;
         }
       }
       .func-icon {
         width: 20px;
         cursor: pointer;
+        background-color: #fff;
       }
       .previous-icon-panel {
+        background-color: #fff;
         padding-top: 7px;
-        padding-right: 10px;
+        padding-right: 15px;
       }
       .next-icon-panel {
         padding-top: 7px;
-        padding-left: 10px;
+        padding-left: 15px;
       }
       .random-icon-panel {
         padding-top: 7px;

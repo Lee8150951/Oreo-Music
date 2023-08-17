@@ -101,7 +101,7 @@ const SideNavbar = (props) => {
         }
     };
     /** render **/
-    return (<div className={'navbar-contain'} style={{ height: `${windowHeight - 60}px` }}>
+    return (<div className={'navbar-contain'} style={{ height: `${windowHeight}px` }}>
       <div className={'navbar-logo-panel'}>
         <img className={'navbar-logo'} src={logo_png_1.default} alt="logo"/>
         <div className={'logo-title'}>

@@ -34,13 +34,16 @@ const PlayBar_1 = __importDefault(require("./PlayBar"));
 const pubsub_js_1 = __importDefault(require("pubsub-js"));
 const Play_1 = __importDefault(require("../views/Play"));
 const event_types_1 = require("../event-types");
+const hooks_1 = require("../store/hooks");
 require("../style/components/Frame.scss");
 const Frame = (props) => {
     const { children } = props;
     const { Content, Aside } = tdesign_react_1.Layout;
+    const play = (0, hooks_1.useAppSelector)((state) => state.play);
     /** state **/
     const [isSpread, setIsSpread] = (0, react_1.useState)(false);
     const [marginTop, setMarginTop] = (0, react_1.useState)(window.innerHeight * 1.5);
+    const [playSong, setPlaySong] = (0, react_1.useState)();
     /** effect **/
     // Subscribe to the global drawer event
     (0, react_1.useEffect)(() => {
@@ -69,6 +72,9 @@ const Frame = (props) => {
             window.removeEventListener('resize', handleResize);
         };
     }, []);
+    (0, react_1.useEffect)(() => {
+        setPlaySong(play);
+    }, [play]);
     /** methods **/
     /** render **/
     return (<div className={'frame'}>
@@ -85,12 +91,12 @@ const Frame = (props) => {
           </Content>
         </tdesign_react_1.Layout>
       </tdesign_react_1.Layout>
-      <div className={'footer'}>
-        <PlayBar_1.default />
-        <div className={'drawer'} style={{ top: marginTop }}>
-          <Play_1.default />
-        </div>
-      </div>
+      {(playSong === null || playSong === void 0 ? void 0 : playSong.id) === -1 ? (<></>) : (<div className={'footer'}>
+          <PlayBar_1.default />
+          <div className={'drawer'} style={{ top: marginTop }}>
+            <Play_1.default />
+          </div>
+        </div>)}
     </div>);
 };
 exports.default = Frame;

@@ -1,7 +1,46 @@
+/* Font setting */
+@font-face {
+  font-family: 'OpenSans';
+  font-weight: 200;
+  src: url('../assets/fonts/OpenSans-Light.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'OpenSans';
+  font-weight: 400;
+  src: url('../assets/fonts/OpenSans-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'OpenSans';
+  font-weight: 600;
+  src: url('../assets/fonts/OpenSans-Semibold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'OpenSans';
+  font-weight: bold;
+  src: url('../assets/fonts/OpenSans-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'OpenSans';
+  font-weight: 800;
+  src: url('../assets/fonts/OpenSans-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'OpenSans';
+  font-weight: 900;
+  src: url('../assets/fonts/OpenSans-ExtraBold.ttf') format('truetype');
+}
+
+/* General style */
 body {
-  background-color: #F9F9F9;
+  background-color: #FFFFFF;
   user-select: none;
 }
 ::-webkit-scrollbar {
   display: none;
+}
+#root, div {
+  font-family: 'OpenSans', ui-sans-serif, system-ui, -apple-system,
+  BlinkMacSystemFont, Helvetica Neue, PingFang SC, Microsoft YaHei,
+  Source Han Sans SC, Noto Sans CJK SC, WenQuanYi Micro Hei, sans-serif,
+  microsoft uighur;
 }

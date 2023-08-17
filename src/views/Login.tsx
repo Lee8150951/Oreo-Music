@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../store/hooks';
 import { saveUser } from '../store/slices/userSlice';
 import { type UserType } from '../store/types/user';
-import LoginBG from '../assets/background/login-bg.png';
+import LoginBG from '../assets/image/background/login-bg.png';
 import logo from '../assets/logo.png';
 import '../style/views/Login.scss';
 

@@ -48,8 +48,8 @@ class Particle {
         this.color = color;
         this.x = Math.random() * canvasWidth;
         this.y = Math.random() * canvasHeight;
-        this.speedX = (Math.random() - 0.5) * 2;
-        this.speedY = (Math.random() - 0.5) * 2;
+        this.speedX = (Math.random() - 0.5) * 3;
+        this.speedY = (Math.random() - 0.5) * 3;
         this.virtualBoundary = {
             left: -600,
             right: canvasWidth + 600,

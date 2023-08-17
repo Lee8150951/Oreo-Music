@@ -49,11 +49,13 @@ const Play = (props) => {
     const [colorList, setColorList] = (0, react_1.useState)([]);
     const [isLoad, setIsLoad] = (0, react_1.useState)(false);
     const [playCover, setPlayCover] = (0, react_1.useState)('');
+    const [playSong, setPlaySong] = (0, react_1.useState)();
     /** effect **/
     (0, react_1.useEffect)(() => {
         setIsLoad(false);
         const playEvent = pubsub_js_1.default.subscribe(event_types_1.PLAY, (_, data) => {
             setPlayCover(play.coverImgUrl);
+            setPlaySong(play);
             (() => __awaiter(void 0, void 0, void 0, function* () {
                 const res = yield window.ipcChannel.getMainColor(play.coverImgUrl);
                 setColorList(res);
@@ -88,12 +90,14 @@ const Play = (props) => {
           <tdesign_icons_react_1.ChevronDownIcon />
         </span>
       </div>
-      <div className={'play-contain'}>
-        <div className={'play-cover-contain'}>
-          <tdesign_react_1.Image src={playCover} className={'play-cover'}/>
-        </div>
-        <div className={'play-lyrics-contain'}></div>
-      </div>
+      <tdesign_react_1.Row className={'play-contain'}>
+        <tdesign_react_1.Col span={6} className={'play-cover-contain'}>
+          <tdesign_react_1.Image src={playCover} className={'play-cover'} fit={'cover'}/>
+          <div className={'play-song-name'}>{playSong === null || playSong === void 0 ? void 0 : playSong.name}</div>
+          <div className={'play-artist-name'}>{playSong === null || playSong === void 0 ? void 0 : playSong.artists[0].name}</div>
+        </tdesign_react_1.Col>
+        <tdesign_react_1.Col span={6} className={'play-lyrics-contain'}></tdesign_react_1.Col>
+      </tdesign_react_1.Row>
     </div>);
 };
 exports.default = Play;
