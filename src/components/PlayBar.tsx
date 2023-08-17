@@ -56,7 +56,7 @@ const PlayBar: React.FC<Props> = (props): JSX.Element => {
         </Col>
         <Col className={'control-btn'} span={2}>
           <div className={'random-icon-panel'}>
-            <Image src={RandomSVG} className={'func-icon'} overlayContent={<></>} />
+            <Image src={RandomSVG} className={'other-icon'} overlayContent={<></>} />
           </div>
           <div className={'previous-icon-panel'}>
             <Image src={PreviousSVG} className={'func-icon'} overlayContent={<></>} />
@@ -68,7 +68,7 @@ const PlayBar: React.FC<Props> = (props): JSX.Element => {
             <Image src={NextSVG} className={'func-icon'} overlayContent={<></>} />
           </div>
           <div className={'single-icon-panel'}>
-            <Image src={CircleSVG} className={'func-icon'} overlayContent={<></>} />
+            <Image src={CircleSVG} className={'other-icon'} overlayContent={<></>} />
           </div>
         </Col>
         <Col className={'other-btn'} span={5}>

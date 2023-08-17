@@ -43,6 +43,31 @@
         overflow: hidden;
         text-overflow: ellipsis;
       }
+      .play-progress-bar {
+        margin-top: 20px;
+        height: 4px;
+        width: 360px;
+        border-radius: 2px;
+        background-color: rgba(249, 249, 249, 0.75);
+      }
+      .play-function-panel {
+        margin-top: 15px;
+        width: 360px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .previous-panel {
+          margin-right: 15px;
+        }
+        .next-panel {
+          margin-left: 15px;
+        }
+        .func-icon {
+          width: 25px;
+          background-color: transparent;
+          cursor: pointer;
+        }
+      }
     }
     .play-lyrics-contain {
 

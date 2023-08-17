@@ -6,6 +6,9 @@ import { DRAWER, PLAY } from '../event-types';
 import { useAppSelector } from '../store/hooks';
 import { Row, Col, Image } from 'tdesign-react';
 import { type PlaySongType } from '../store/types/play';
+import PreviousSVG from '../assets/svg/previous-playView.svg';
+import PlaySVG from '../assets/svg/play-playView.svg';
+import NextSVG from '../assets/svg/next-playView.svg';
 import '../style/views/Play.scss';
 
 interface Props {
@@ -71,6 +74,18 @@ const Play: React.FC<Props> = (props): JSX.Element => {
           <Image src={playCover} className={'play-cover'} fit={'cover'} />
           <div className={'play-song-name'}>{playSong?.name}</div>
           <div className={'play-artist-name'}>{playSong?.artists[0].name}</div>
+          <div className={'play-progress-bar'}></div>
+          <div className={'play-function-panel'}>
+            <div className={'previous-panel'}>
+              <Image src={PreviousSVG} className={'func-icon'} overlayContent={<></>} />
+            </div>
+            <div className={'play-panel'}>
+              <Image src={PlaySVG} className={'func-icon'} overlayContent={<></>} />
+            </div>
+            <div className={'next-panel'}>
+              <Image src={NextSVG} className={'func-icon'} overlayContent={<></>} />
+            </div>
+          </div>
         </Col>
         <Col span={6} className={'play-lyrics-contain'}></Col>
       </Row>
