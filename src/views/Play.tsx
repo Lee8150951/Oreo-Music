@@ -9,9 +9,10 @@ import { type PlaySongType } from '../store/types/play';
 import PreviousSVG from '../assets/svg/previous-playView.svg';
 import PlaySVG from '../assets/svg/play-playView.svg';
 import NextSVG from '../assets/svg/next-playView.svg';
+import { type PropsType } from '../types/props';
 import '../style/views/Play.scss';
 
-interface Props {
+interface Props extends PropsType {
   children?: React.ReactNode;
 }
 

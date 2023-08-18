@@ -7,4 +7,9 @@ export interface PropsType {
   location?: Location;
   param?: any;
   usp?: any;
+  currentTime?: number;
+  volume?: number;
+  playAudio?: () => void;
+  pauseAudio?: () => void;
+  handleVolumeChange?: (volume: number) => void;
 }

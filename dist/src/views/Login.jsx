@@ -44,7 +44,7 @@ const utils_1 = __importDefault(require("../util/utils"));
 const react_router_dom_1 = require("react-router-dom");
 const hooks_1 = require("../store/hooks");
 const userSlice_1 = require("../store/slices/userSlice");
-const login_bg_png_1 = __importDefault(require("../assets/background/login-bg.png"));
+const login_bg_png_1 = __importDefault(require("../assets/image/background/login-bg.png"));
 const logo_png_1 = __importDefault(require("../assets/logo.png"));
 require("../style/views/Login.scss");
 const Login = (props) => {

@@ -32,7 +32,7 @@ const Frame_1 = __importDefault(require("../components/Frame"));
 const Mask_1 = __importDefault(require("../components/Mask"));
 const routes_1 = __importDefault(require("./routes"));
 const Element = (props) => {
-    const { component: Component } = props;
+    const { component: Component, currentTime, handleVolumeChange, volume, playAudio, pauseAudio } = props;
     const navigate = (0, react_router_dom_1.useNavigate)();
     const location = (0, react_router_dom_1.useLocation)();
     const params = (0, react_router_dom_1.useParams)();
@@ -51,17 +51,18 @@ const Element = (props) => {
     /** methods **/
     /** render **/
     return (<>
-      {meta.extra ? (<Component navigate={navigate} location={location} param={params} usp={usp}></Component>) : (<Frame_1.default>
-          <Component navigate={navigate} location={location} param={params} usp={usp}></Component>
+      {meta.extra ? (<Component navigate={navigate} location={location} param={params} usp={usp}/>) : (<Frame_1.default>
+          <Component currentTime={currentTime} volume={volume} playAudio={playAudio} pauseAudio={pauseAudio} handleVolumeChange={handleVolumeChange} navigate={navigate} location={location} param={params} usp={usp}/>
         </Frame_1.default>)}
     </>);
 };
-function RouterView() {
+function RouterView(props) {
+    /** render **/
     return (<react_1.Suspense fallback={<Mask_1.default />}>
       <react_router_dom_1.Routes>
         {routes_1.default.map((item) => {
             const { name, path } = item;
-            return <react_router_dom_1.Route key={name} path={path} element={<Element {...item}/>}></react_router_dom_1.Route>;
+            return <react_router_dom_1.Route key={name} path={path} element={<Element {...props} {...item}/>}></react_router_dom_1.Route>;
         })}
       </react_router_dom_1.Routes>
     </react_1.Suspense>);

@@ -30,12 +30,17 @@ const react_1 = __importStar(require("react"));
 const DragBar_1 = __importDefault(require("../src/components/DragBar"));
 const react_router_dom_1 = require("react-router-dom");
 const router_1 = __importDefault(require("./router"));
-// reset css
 require("tdesign-react/dist/reset.css");
-// tdesign theme
 require("../src/style/theme.css");
 require("./style/global.scss");
 function App() {
+    // Music element ref
+    const audioRef = (0, react_1.useRef)(null);
+    /** state **/
+    // Music Control
+    const [currentTime, setCurrentTime] = (0, react_1.useState)(0); // Current timestamp
+    const [volume, setVolume] = (0, react_1.useState)(1); // Volume
+    /** effect **/
     (0, react_1.useEffect)(() => {
         const node = window.environmentChannel.node();
         const platform = window.environmentChannel.platform();
@@ -44,11 +49,43 @@ function App() {
         window.logChannel.info(`PLATFORM: ${String(platform)}`);
         window.logChannel.info(`Chromium: v${String(electron)}`);
     }, []);
+    /** methods **/
+    // Play music
+    const playAudio = () => {
+        if (audioRef.current !== null) {
+            audioRef.current.play();
+        }
+    };
+    // Pause music
+    const pauseAudio = () => {
+        if (audioRef.current !== null) {
+            audioRef.current.pause();
+        }
+    };
+    // Get music timestamp
+    const handleTimeUpdate = () => {
+        if (audioRef.current !== null) {
+            setCurrentTime(audioRef.current.currentTime);
+        }
+    };
+    // Control volume
+    const handleVolumeChange = (volume) => {
+        if (audioRef.current !== null) {
+            audioRef.current.volume = volume;
+            setVolume(volume);
+        }
+    };
+    /** render **/
     return (<>
       <DragBar_1.default />
       <react_router_dom_1.HashRouter>
-        <router_1.default />
+        <router_1.default currentTime={currentTime} volume={volume} playAudio={playAudio} pauseAudio={pauseAudio} handleVolumeChange={handleVolumeChange}/>
       </react_router_dom_1.HashRouter>
+      <div style={{ visibility: 'hidden', position: 'absolute' }}>
+        <audio ref={audioRef} onTimeUpdate={handleTimeUpdate} preload={'metadata'}>
+          <source src={''} type={''}/>
+        </audio>
+      </div>
     </>);
 }
 exports.default = App;

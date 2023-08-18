@@ -41,6 +41,7 @@ const utils_1 = __importDefault(require("../util/utils"));
 const unfavor_svg_1 = __importDefault(require("../assets/svg/unfavor.svg"));
 const favor_svg_1 = __importDefault(require("../assets/svg/favor.svg"));
 const playlistApi_1 = __importDefault(require("../http/apis/playlistApi"));
+const playApi_1 = __importDefault(require("../http/apis/playApi"));
 const pubsub_js_1 = __importDefault(require("pubsub-js"));
 const event_types_1 = require("../event-types");
 const hooks_1 = require("../store/hooks");
@@ -54,18 +55,27 @@ const MusicCard = (props) => {
     /** effect **/
     /** methods **/
     const clickHandle = () => {
-        // Public event
-        pubsub_js_1.default.publish(event_types_1.PLAY, music.id);
-        // Save music info
-        const currentSong = {
-            id: music.id,
-            name: music.name,
-            coverImgUrl: music.al.picUrl,
-            artists: music.ar,
-            album: music.al,
-        };
-        dispatch((0, playSlice_1.changePlay)(currentSong));
-        // TODO: Play music
+        (() => __awaiter(void 0, void 0, void 0, function* () {
+            const res = (yield playApi_1.default.getSongUrl(String(music.id), 'exhigh'));
+            const { url, type, time, size } = res.data[0];
+            // Public event
+            pubsub_js_1.default.publish(event_types_1.PLAY, music.id);
+            // Save music info
+            const currentSong = {
+                id: music.id,
+                name: music.name,
+                url,
+                type,
+                time,
+                size,
+                coverImgUrl: music.al.picUrl,
+                artists: music.ar,
+                album: music.al,
+            };
+            console.log(currentSong);
+            dispatch((0, playSlice_1.changePlay)(currentSong));
+            // TODO: Play music
+        }))();
     };
     const favorClick = () => {
         try {

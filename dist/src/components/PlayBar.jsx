@@ -28,14 +28,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
 const tdesign_react_1 = require("tdesign-react");
-const play_png_1 = __importDefault(require("../assets/icon/play.png"));
-const previous_png_1 = __importDefault(require("../assets/icon/previous.png"));
-const next_png_1 = __importDefault(require("../assets/icon/next.png"));
-const random_png_1 = __importDefault(require("../assets/icon/random.png"));
-const single_png_1 = __importDefault(require("../assets/icon/single.png"));
 const voice_png_1 = __importDefault(require("../assets/icon/voice.png"));
 const like_png_1 = __importDefault(require("../assets/icon/like.png"));
 const spread_svg_1 = __importDefault(require("../assets/svg/spread.svg"));
+const previous_svg_1 = __importDefault(require("../assets/svg/previous.svg"));
+const next_svg_1 = __importDefault(require("../assets/svg/next.svg"));
+const circle_svg_1 = __importDefault(require("../assets/svg/circle.svg"));
+const random_svg_1 = __importDefault(require("../assets/svg/random.svg"));
+const play_svg_1 = __importDefault(require("../assets/svg/play.svg"));
 const pubsub_js_1 = __importDefault(require("pubsub-js"));
 const event_types_1 = require("../event-types");
 const hooks_1 = require("../store/hooks");
@@ -63,7 +63,7 @@ const PlayBar = (props) => {
           <div className={'album-cover-panel'} onClick={spreadDrawer}>
             <img className={'album-cover'} src={playSong === null || playSong === void 0 ? void 0 : playSong.coverImgUrl} alt="album"/>
             <div className={'album-cover-mask'}>
-              <tdesign_react_1.Image className={'spread-icon'} src={spread_svg_1.default}></tdesign_react_1.Image>
+              <tdesign_react_1.Image className={'spread-icon'} src={spread_svg_1.default} overlayContent={<></>}/>
             </div>
           </div>
           <div className={'album-title'}>{playSong === null || playSong === void 0 ? void 0 : playSong.name}</div>
@@ -73,19 +73,19 @@ const PlayBar = (props) => {
         </tdesign_react_1.Col>
         <tdesign_react_1.Col className={'control-btn'} span={2}>
           <div className={'random-icon-panel'}>
-            <img className={'func-icon'} src={random_png_1.default} alt="previous"/>
+            <tdesign_react_1.Image src={random_svg_1.default} className={'other-icon'} overlayContent={<></>}/>
           </div>
           <div className={'previous-icon-panel'}>
-            <img className={'func-icon'} src={previous_png_1.default} alt="previous"/>
+            <tdesign_react_1.Image src={previous_svg_1.default} className={'func-icon'} overlayContent={<></>}/>
           </div>
           <div className={'play-icon-panel'}>
-            <img className={'play-icon'} src={play_png_1.default} alt="play"/>
+            <tdesign_react_1.Image src={play_svg_1.default} className={'play-icon'} overlayContent={<></>}/>
           </div>
           <div className={'next-icon-panel'}>
-            <img className={'func-icon'} src={next_png_1.default} alt="next"/>
+            <tdesign_react_1.Image src={next_svg_1.default} className={'func-icon'} overlayContent={<></>}/>
           </div>
           <div className={'single-icon-panel'}>
-            <img className={'func-icon'} src={single_png_1.default} alt="next"/>
+            <tdesign_react_1.Image src={circle_svg_1.default} className={'other-icon'} overlayContent={<></>}/>
           </div>
         </tdesign_react_1.Col>
         <tdesign_react_1.Col className={'other-btn'} span={5}>

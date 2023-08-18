@@ -5,6 +5,10 @@ const toolkit_1 = require("@reduxjs/toolkit");
 const initial = {
     id: -1,
     name: '',
+    url: '',
+    type: '',
+    time: -1,
+    size: -1,
     coverImgUrl: '',
     artists: [],
     album: {

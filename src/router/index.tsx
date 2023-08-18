@@ -10,13 +10,18 @@ interface Props {
   path: string;
   name: string;
   component: React.FC<PropsType>;
+  currentTime: number;
+  volume: number;
+  playAudio: () => void;
+  pauseAudio: () => void;
+  handleVolumeChange: (volume: number) => void;
   meta?: {
     extra: boolean;
   };
 }
 
 const Element: React.FC<Props> = (props): JSX.Element => {
-  const { component: Component } = props;
+  const { component: Component, currentTime, handleVolumeChange, volume, playAudio, pauseAudio } = props;
   const navigate = useNavigate();
   const location = useLocation();
   const params = useParams();
@@ -40,23 +45,43 @@ const Element: React.FC<Props> = (props): JSX.Element => {
   return (
     <>
       {meta.extra ? (
-        <Component navigate={navigate} location={location} param={params} usp={usp}></Component>
+        <Component navigate={navigate} location={location} param={params} usp={usp} />
       ) : (
         <Frame>
-          <Component navigate={navigate} location={location} param={params} usp={usp}></Component>
+          <Component
+            currentTime={currentTime}
+            volume={volume}
+            playAudio={playAudio}
+            pauseAudio={pauseAudio}
+            handleVolumeChange={handleVolumeChange}
+            navigate={navigate}
+            location={location}
+            param={params}
+            usp={usp}
+          />
         </Frame>
       )}
     </>
   );
 };
 
-export default function RouterView() {
+interface RouterViewProps {
+  children?: React.ReactNode;
+  currentTime: number;
+  volume: number;
+  playAudio: () => void;
+  pauseAudio: () => void;
+  handleVolumeChange: (volume: number) => void;
+}
+
+export default function RouterView(props: RouterViewProps) {
+  /** render **/
   return (
     <Suspense fallback={<Mask />}>
       <Routes>
         {routes.map((item) => {
           const { name, path } = item;
-          return <Route key={name} path={path} element={<Element {...item} />}></Route>;
+          return <Route key={name} path={path} element={<Element {...props} {...item} />}></Route>;
         })}
       </Routes>
     </Suspense>

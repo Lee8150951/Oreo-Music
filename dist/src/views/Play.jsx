@@ -42,6 +42,9 @@ const LyricsBackground_1 = __importDefault(require("../components/LyricsBackgrou
 const event_types_1 = require("../event-types");
 const hooks_1 = require("../store/hooks");
 const tdesign_react_1 = require("tdesign-react");
+const previous_playView_svg_1 = __importDefault(require("../assets/svg/previous-playView.svg"));
+const play_playView_svg_1 = __importDefault(require("../assets/svg/play-playView.svg"));
+const next_playView_svg_1 = __importDefault(require("../assets/svg/next-playView.svg"));
 require("../style/views/Play.scss");
 const Play = (props) => {
     const play = (0, hooks_1.useAppSelector)((state) => state.play);
@@ -95,6 +98,18 @@ const Play = (props) => {
           <tdesign_react_1.Image src={playCover} className={'play-cover'} fit={'cover'}/>
           <div className={'play-song-name'}>{playSong === null || playSong === void 0 ? void 0 : playSong.name}</div>
           <div className={'play-artist-name'}>{playSong === null || playSong === void 0 ? void 0 : playSong.artists[0].name}</div>
+          <div className={'play-progress-bar'}></div>
+          <div className={'play-function-panel'}>
+            <div className={'previous-panel'}>
+              <tdesign_react_1.Image src={previous_playView_svg_1.default} className={'func-icon'} overlayContent={<></>}/>
+            </div>
+            <div className={'play-panel'}>
+              <tdesign_react_1.Image src={play_playView_svg_1.default} className={'func-icon'} overlayContent={<></>}/>
+            </div>
+            <div className={'next-panel'}>
+              <tdesign_react_1.Image src={next_playView_svg_1.default} className={'func-icon'} overlayContent={<></>}/>
+            </div>
+          </div>
         </tdesign_react_1.Col>
         <tdesign_react_1.Col span={6} className={'play-lyrics-contain'}></tdesign_react_1.Col>
       </tdesign_react_1.Row>
