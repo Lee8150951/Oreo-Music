@@ -44,7 +44,6 @@ const tdesign_react_1 = require("tdesign-react");
 const tdesign_icons_react_1 = require("tdesign-icons-react");
 require("../style/views/Home.scss");
 const Home = (props) => {
-    console.log(props);
     const mask = <div className={'recommend-mask'}></div>;
     /** state **/
     const [playlist, setPlaylist] = (0, react_1.useState)([]);

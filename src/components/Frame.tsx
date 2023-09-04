@@ -9,13 +9,14 @@ import { DRAWER } from '../event-types';
 import { useAppSelector } from '../store/hooks';
 import { type PlaySongType } from '../store/types/play';
 import '../style/components/Frame.scss';
+import { type PropsType } from '../types/props';
 
-interface Props {
+interface Props extends PropsType {
   children?: React.ReactNode;
 }
 
 const Frame: React.FC<Props> = (props): JSX.Element => {
-  const { children } = props;
+  const { children, currentTime, playAudio, pauseAudio, handleVolumeChange, volume } = props;
   const { Content, Aside } = Layout;
   const play = useAppSelector((state) => state.play);
 
@@ -79,9 +80,21 @@ const Frame: React.FC<Props> = (props): JSX.Element => {
         <></>
       ) : (
         <div className={'footer'}>
-          <PlayBar />
+          <PlayBar
+            currentTime={currentTime}
+            volume={volume}
+            playAudio={playAudio}
+            pauseAudio={pauseAudio}
+            handleVolumeChange={handleVolumeChange}
+          />
           <div className={'drawer'} style={{ top: marginTop }}>
-            <Play />
+            <Play
+              currentTime={currentTime}
+              volume={volume}
+              playAudio={playAudio}
+              pauseAudio={pauseAudio}
+              handleVolumeChange={handleVolumeChange}
+            />
           </div>
         </div>
       )}

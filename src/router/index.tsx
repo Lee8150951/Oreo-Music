@@ -47,18 +47,14 @@ const Element: React.FC<Props> = (props): JSX.Element => {
       {meta.extra ? (
         <Component navigate={navigate} location={location} param={params} usp={usp} />
       ) : (
-        <Frame>
-          <Component
-            currentTime={currentTime}
-            volume={volume}
-            playAudio={playAudio}
-            pauseAudio={pauseAudio}
-            handleVolumeChange={handleVolumeChange}
-            navigate={navigate}
-            location={location}
-            param={params}
-            usp={usp}
-          />
+        <Frame
+          currentTime={currentTime}
+          volume={volume}
+          playAudio={playAudio}
+          pauseAudio={pauseAudio}
+          handleVolumeChange={handleVolumeChange}
+        >
+          <Component navigate={navigate} location={location} param={params} usp={usp} />
         </Frame>
       )}
     </>

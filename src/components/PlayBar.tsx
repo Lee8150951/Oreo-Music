@@ -13,8 +13,9 @@ import { DRAWER } from '../event-types';
 import { useAppSelector } from '../store/hooks';
 import { type PlaySongType } from '../store/types/play';
 import '../style/components/PlayBar.scss';
+import { type PropsType } from '../types/props';
 
-interface Props {
+interface Props extends PropsType {
   children?: React.ReactNode;
 }
 
