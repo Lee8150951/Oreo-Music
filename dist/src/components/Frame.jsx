@@ -37,7 +37,7 @@ const event_types_1 = require("../event-types");
 const hooks_1 = require("../store/hooks");
 require("../style/components/Frame.scss");
 const Frame = (props) => {
-    const { children } = props;
+    const { children, currentTime, playAudio, pauseAudio, handleVolumeChange, volume } = props;
     const { Content, Aside } = tdesign_react_1.Layout;
     const play = (0, hooks_1.useAppSelector)((state) => state.play);
     /** state **/
@@ -92,9 +92,9 @@ const Frame = (props) => {
         </tdesign_react_1.Layout>
       </tdesign_react_1.Layout>
       {(playSong === null || playSong === void 0 ? void 0 : playSong.id) === -1 ? (<></>) : (<div className={'footer'}>
-          <PlayBar_1.default />
+          <PlayBar_1.default currentTime={currentTime} volume={volume} playAudio={playAudio} pauseAudio={pauseAudio} handleVolumeChange={handleVolumeChange}/>
           <div className={'drawer'} style={{ top: marginTop }}>
-            <Play_1.default />
+            <Play_1.default currentTime={currentTime} volume={volume} playAudio={playAudio} pauseAudio={pauseAudio} handleVolumeChange={handleVolumeChange}/>
           </div>
         </div>)}
     </div>);

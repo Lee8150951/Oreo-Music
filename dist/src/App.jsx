@@ -40,6 +40,7 @@ function App() {
     // Music Control
     const [currentTime, setCurrentTime] = (0, react_1.useState)(0); // Current timestamp
     const [volume, setVolume] = (0, react_1.useState)(1); // Volume
+    const [src, setSrc] = (0, react_1.useState)('');
     /** effect **/
     (0, react_1.useEffect)(() => {
         const node = window.environmentChannel.node();
@@ -49,11 +50,25 @@ function App() {
         window.logChannel.info(`PLATFORM: ${String(platform)}`);
         window.logChannel.info(`Chromium: v${String(electron)}`);
     }, []);
+    // Reload audio elements
+    (0, react_1.useEffect)(() => {
+        if (audioRef.current !== null) {
+            audioRef.current.load();
+        }
+    }, [src]);
     /** methods **/
     // Play music
     const playAudio = () => {
         if (audioRef.current !== null) {
-            audioRef.current.play();
+            console.log('play music');
+            try {
+                audioRef.current.play().catch((error) => {
+                    console.log('Error with playing:', error);
+                });
+            }
+            catch (error) {
+                console.log('Failed to play:', error);
+            }
         }
     };
     // Pause music
@@ -75,15 +90,19 @@ function App() {
             setVolume(volume);
         }
     };
+    // Set music source
+    const setMusicSource = (url) => {
+        setSrc(url);
+    };
     /** render **/
     return (<>
       <DragBar_1.default />
       <react_router_dom_1.HashRouter>
-        <router_1.default currentTime={currentTime} volume={volume} playAudio={playAudio} pauseAudio={pauseAudio} handleVolumeChange={handleVolumeChange}/>
+        <router_1.default currentTime={currentTime} volume={volume} playAudio={playAudio} pauseAudio={pauseAudio} handleVolumeChange={handleVolumeChange} setMusicSource={setMusicSource}/>
       </react_router_dom_1.HashRouter>
       <div style={{ visibility: 'hidden', position: 'absolute' }}>
         <audio ref={audioRef} onTimeUpdate={handleTimeUpdate} preload={'metadata'}>
-          <source src={''} type={''}/>
+          <source src={src}/>
         </audio>
       </div>
     </>);

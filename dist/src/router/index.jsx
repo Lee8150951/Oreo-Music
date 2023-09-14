@@ -32,7 +32,7 @@ const Frame_1 = __importDefault(require("../components/Frame"));
 const Mask_1 = __importDefault(require("../components/Mask"));
 const routes_1 = __importDefault(require("./routes"));
 const Element = (props) => {
-    const { component: Component, currentTime, handleVolumeChange, volume, playAudio, pauseAudio } = props;
+    const { component: Component, currentTime, handleVolumeChange, volume, playAudio, pauseAudio, setMusicSource, } = props;
     const navigate = (0, react_router_dom_1.useNavigate)();
     const location = (0, react_router_dom_1.useLocation)();
     const params = (0, react_router_dom_1.useParams)();
@@ -51,8 +51,8 @@ const Element = (props) => {
     /** methods **/
     /** render **/
     return (<>
-      {meta.extra ? (<Component navigate={navigate} location={location} param={params} usp={usp}/>) : (<Frame_1.default>
-          <Component currentTime={currentTime} volume={volume} playAudio={playAudio} pauseAudio={pauseAudio} handleVolumeChange={handleVolumeChange} navigate={navigate} location={location} param={params} usp={usp}/>
+      {meta.extra ? (<Component navigate={navigate} location={location} param={params} usp={usp}/>) : (<Frame_1.default currentTime={currentTime} volume={volume} playAudio={playAudio} pauseAudio={pauseAudio} handleVolumeChange={handleVolumeChange} setMusicSource={setMusicSource}>
+          <Component currentTime={currentTime} volume={volume} playAudio={playAudio} pauseAudio={pauseAudio} handleVolumeChange={handleVolumeChange} setMusicSource={setMusicSource} navigate={navigate} location={location} param={params} usp={usp}/>
         </Frame_1.default>)}
     </>);
 };

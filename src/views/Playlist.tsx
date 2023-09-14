@@ -15,6 +15,7 @@ interface Props extends PropsType {
 
 const Playlist: React.FC<Props> = (props): JSX.Element => {
   const { id } = useParams();
+  const { setMusicSource } = props;
 
   /** state **/
   const [songs, setSongs] = useState<SongType[]>([]);
@@ -77,7 +78,7 @@ const Playlist: React.FC<Props> = (props): JSX.Element => {
       </div>
       <div className={'playlist-list-contain'}>
         {songs.map((item, index) => (
-          <MusicCard key={item.id} music={item} favor={item.favor} />
+          <MusicCard key={item.id} music={item} favor={item.favor} setMusicSource={setMusicSource} />
         ))}
       </div>
     </div>

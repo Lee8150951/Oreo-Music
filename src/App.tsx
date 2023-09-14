@@ -14,6 +14,7 @@ function App() {
   // Music Control
   const [currentTime, setCurrentTime] = useState(0); // Current timestamp
   const [volume, setVolume] = useState(1); // Volume
+  const [src, setSrc] = useState('');
 
   /** effect **/
   useEffect(() => {
@@ -24,6 +25,23 @@ function App() {
     window.logChannel.info(`PLATFORM: ${String(platform)}`);
     window.logChannel.info(`Chromium: v${String(electron)}`);
   }, []);
+
+  // Reload audio elements
+  useEffect(() => {
+    if (audioRef.current !== null) {
+      (audioRef.current as HTMLAudioElement).oncanplaythrough = () => {
+        if (audioRef.current !== null) {
+          (audioRef.current as HTMLAudioElement).play();
+        }
+      };
+      (audioRef.current as HTMLAudioElement).load();
+    }
+    return () => {
+      if (audioRef.current !== null) {
+        (audioRef.current as HTMLAudioElement).oncanplaythrough = null;
+      }
+    };
+  }, [src]);
 
   /** methods **/
   // Play music
@@ -55,6 +73,11 @@ function App() {
     }
   };
 
+  // Set music source
+  const setMusicSource = (url: string) => {
+    setSrc(url);
+  };
+
   /** render **/
   return (
     <>
@@ -66,11 +89,12 @@ function App() {
           playAudio={playAudio}
           pauseAudio={pauseAudio}
           handleVolumeChange={handleVolumeChange}
+          setMusicSource={setMusicSource}
         />
       </HashRouter>
       <div style={{ visibility: 'hidden', position: 'absolute' }}>
         <audio ref={audioRef} onTimeUpdate={handleTimeUpdate} preload={'metadata'}>
-          <source src={''} type={''} />
+          <source src={src} />
         </audio>
       </div>
     </>

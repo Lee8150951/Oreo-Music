@@ -17,7 +17,6 @@ interface Props extends PropsType {
 }
 
 const Play: React.FC<Props> = (props): JSX.Element => {
-  console.log(props);
   const play = useAppSelector((state) => state.play);
 
   /** state **/

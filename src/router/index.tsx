@@ -15,13 +15,22 @@ interface Props {
   playAudio: () => void;
   pauseAudio: () => void;
   handleVolumeChange: (volume: number) => void;
+  setMusicSource: (url: string) => void;
   meta?: {
     extra: boolean;
   };
 }
 
 const Element: React.FC<Props> = (props): JSX.Element => {
-  const { component: Component, currentTime, handleVolumeChange, volume, playAudio, pauseAudio } = props;
+  const {
+    component: Component,
+    currentTime,
+    handleVolumeChange,
+    volume,
+    playAudio,
+    pauseAudio,
+    setMusicSource,
+  } = props;
   const navigate = useNavigate();
   const location = useLocation();
   const params = useParams();
@@ -53,8 +62,20 @@ const Element: React.FC<Props> = (props): JSX.Element => {
           playAudio={playAudio}
           pauseAudio={pauseAudio}
           handleVolumeChange={handleVolumeChange}
+          setMusicSource={setMusicSource}
         >
-          <Component navigate={navigate} location={location} param={params} usp={usp} />
+          <Component
+            currentTime={currentTime}
+            volume={volume}
+            playAudio={playAudio}
+            pauseAudio={pauseAudio}
+            handleVolumeChange={handleVolumeChange}
+            setMusicSource={setMusicSource}
+            navigate={navigate}
+            location={location}
+            param={params}
+            usp={usp}
+          />
         </Frame>
       )}
     </>
@@ -68,6 +89,7 @@ interface RouterViewProps {
   playAudio: () => void;
   pauseAudio: () => void;
   handleVolumeChange: (volume: number) => void;
+  setMusicSource: (url: string) => void;
 }
 
 export default function RouterView(props: RouterViewProps) {

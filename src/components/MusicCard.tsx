@@ -18,10 +18,11 @@ interface Props {
   children?: React.ReactNode;
   music: SongType;
   favor: boolean;
+  setMusicSource?: (url: string) => void;
 }
 
-const MusicCard: React.FC<Props> = (props): JSX.Element => {
-  const { music, favor } = props;
+const MusicCard: React.FC<Props> = (props: Props): JSX.Element => {
+  const { music, favor, setMusicSource } = props;
   const dispatch = useAppDispatch();
 
   /** state **/
@@ -50,7 +51,7 @@ const MusicCard: React.FC<Props> = (props): JSX.Element => {
       };
       console.log(currentSong);
       dispatch(changePlay(currentSong));
-      // TODO: Play music
+      setMusicSource?.(url);
     })();
   };
 
