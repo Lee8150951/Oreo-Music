@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ChevronDownIcon } from 'tdesign-icons-react';
 import PubSub from 'pubsub-js';
 import LyricsBackground from '../components/LyricsBackground';
@@ -18,6 +18,8 @@ interface Props extends PropsType {
 
 const Play: React.FC<Props> = (props): JSX.Element => {
   const play = useAppSelector((state) => state.play);
+
+  const playRef = useRef(null);
 
   /** state **/
   const [colorList, setColorList] = useState<string[]>([]);
@@ -47,6 +49,8 @@ const Play: React.FC<Props> = (props): JSX.Element => {
     setIsLoad(false);
     (async () => {
       const res = await window.ipcChannel.getMainColor(play.coverImgUrl);
+      setPlayCover(play.coverImgUrl);
+      setPlaySong(play);
       setColorList(res);
       setIsLoad(true);
     })();
@@ -71,7 +75,7 @@ const Play: React.FC<Props> = (props): JSX.Element => {
         </span>
       </div>
       <Row className={'play-contain'}>
-        <Col span={6} className={'play-cover-contain'}>
+        <Col span={6} className={'play-cover-contain'} ref={playRef}>
           <Image src={playCover} className={'play-cover'} fit={'cover'} />
           <div className={'play-song-name'}>{playSong?.name}</div>
           <div className={'play-artist-name'}>{playSong?.artists[0].name}</div>
