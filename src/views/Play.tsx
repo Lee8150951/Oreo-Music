@@ -9,6 +9,7 @@ import { type PlaySongType } from '../store/types/play';
 import PreviousSVG from '../assets/svg/previous-playView.svg';
 import PlaySVG from '../assets/svg/play-playView.svg';
 import NextSVG from '../assets/svg/next-playView.svg';
+import PauseSVG from '../assets/svg/pause-playView.svg';
 import { type PropsType } from '../types/props';
 import '../style/views/Play.scss';
 
@@ -17,6 +18,7 @@ interface Props extends PropsType {
 }
 
 const Play: React.FC<Props> = (props): JSX.Element => {
+  const { playAudio, pauseAudio } = props;
   const play = useAppSelector((state) => state.play);
 
   const playRef = useRef(null);
@@ -26,6 +28,7 @@ const Play: React.FC<Props> = (props): JSX.Element => {
   const [isLoad, setIsLoad] = useState<boolean>(false);
   const [playCover, setPlayCover] = useState<string>('');
   const [playSong, setPlaySong] = useState<PlaySongType>();
+  const [isPlaying, setIsPlaying] = useState<boolean>(true);
 
   /** effect **/
   useEffect(() => {
@@ -52,6 +55,7 @@ const Play: React.FC<Props> = (props): JSX.Element => {
       setPlayCover(play.coverImgUrl);
       setPlaySong(play);
       setColorList(res);
+      setIsPlaying(true);
       setIsLoad(true);
     })();
   }, [playCover]);
@@ -60,6 +64,20 @@ const Play: React.FC<Props> = (props): JSX.Element => {
   const unfoldHandle = () => {
     PubSub.publish(DRAWER, false);
   };
+
+  const previousClick = () => {};
+
+  const playClick = () => {
+    setIsPlaying(true);
+    playAudio?.();
+  };
+
+  const pauseClick = () => {
+    setIsPlaying(false);
+    pauseAudio?.();
+  };
+
+  const nextClick = () => {};
 
   /** render **/
   if (!isLoad) {
@@ -81,13 +99,19 @@ const Play: React.FC<Props> = (props): JSX.Element => {
           <div className={'play-artist-name'}>{playSong?.artists[0].name}</div>
           <div className={'play-progress-bar'}></div>
           <div className={'play-function-panel'}>
-            <div className={'previous-panel'}>
+            <div className={'previous-panel'} onClick={previousClick}>
               <Image src={PreviousSVG} className={'func-icon'} overlayContent={<></>} />
             </div>
-            <div className={'play-panel'}>
-              <Image src={PlaySVG} className={'func-icon'} overlayContent={<></>} />
-            </div>
-            <div className={'next-panel'}>
+            {!isPlaying ? (
+              <div className={'play-panel'} onClick={playClick}>
+                <Image src={PlaySVG} className={'func-icon'} overlayContent={<></>} />
+              </div>
+            ) : (
+              <div className={'pause-panel'} onClick={pauseClick}>
+                <Image src={PauseSVG} className={'func-icon'} overlayContent={<></>} />
+              </div>
+            )}
+            <div className={'next-panel'} onClick={nextClick}>
               <Image src={NextSVG} className={'func-icon'} overlayContent={<></>} />
             </div>
           </div>
