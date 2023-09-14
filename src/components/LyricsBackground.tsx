@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Particle from '../models/Particle';
 import '../style/components/LyricsBackground.scss';
 
@@ -11,6 +11,7 @@ const LyricsBackground: React.FC<Props> = (props): JSX.Element => {
   const { colors } = props;
 
   /** state **/
+  const [randomBG, setRandomBG] = useState(0);
 
   /** effect **/
   useEffect(() => {
@@ -33,16 +34,17 @@ const LyricsBackground: React.FC<Props> = (props): JSX.Element => {
     animate();
   }, []);
 
+  useEffect(() => {
+    const number = Math.floor(Math.random() * colors.length);
+    setRandomBG(number);
+  }, []);
+
   /** methods **/
 
   /** render **/
   return (
     <div className={'lyrics-overlay'}>
-      <canvas
-        className={'lyrics-canvas'}
-        id="particleCanvas"
-        style={{ backgroundColor: colors[Math.floor(Math.random() * colors.length)] }}
-      ></canvas>
+      <canvas className={'lyrics-canvas'} id="particleCanvas" style={{ backgroundColor: colors[randomBG] }}></canvas>
     </div>
   );
 };
