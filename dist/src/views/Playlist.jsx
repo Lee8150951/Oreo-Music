@@ -44,7 +44,7 @@ const utils_1 = __importDefault(require("../util/utils"));
 require("../style/views/Playlist.scss");
 const Playlist = (props) => {
     const { id } = (0, react_router_dom_1.useParams)();
-    const { setMusicSource, playAudio } = props;
+    const { setMusicSource } = props;
     /** state **/
     const [songs, setSongs] = (0, react_1.useState)([]);
     const [playlistInfo, setPlaylistInfo] = (0, react_1.useState)();
@@ -94,7 +94,7 @@ const Playlist = (props) => {
         </div>
       </div>
       <div className={'playlist-list-contain'}>
-        {songs.map((item, index) => (<MusicCard_1.default key={item.id} music={item} favor={item.favor} setMusicSource={setMusicSource} playAudio={playAudio}/>))}
+        {songs.map((item, index) => (<MusicCard_1.default key={item.id} music={item} favor={item.favor} setMusicSource={setMusicSource}/>))}
       </div>
     </div>);
 };

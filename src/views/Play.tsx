@@ -4,7 +4,7 @@ import PubSub from 'pubsub-js';
 import LyricsBackground from '../components/LyricsBackground';
 import { DRAWER, PLAY } from '../event-types';
 import { useAppSelector } from '../store/hooks';
-import { Row, Col, Image } from 'tdesign-react';
+import { Row, Col, Image, Slider } from 'tdesign-react';
 import { type PlaySongType } from '../store/types/play';
 import PreviousSVG from '../assets/svg/previous-playView.svg';
 import PlaySVG from '../assets/svg/play-playView.svg';
@@ -18,7 +18,7 @@ interface Props extends PropsType {
 }
 
 const Play: React.FC<Props> = (props): JSX.Element => {
-  const { playAudio, pauseAudio } = props;
+  const { playAudio, pauseAudio, currentTime } = props;
   const play = useAppSelector((state) => state.play);
 
   const playRef = useRef(null);
@@ -29,6 +29,7 @@ const Play: React.FC<Props> = (props): JSX.Element => {
   const [playCover, setPlayCover] = useState<string>('');
   const [playSong, setPlaySong] = useState<PlaySongType>();
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
+  const [playProgress, setPlayProgress] = useState<number>(0);
 
   /** effect **/
   useEffect(() => {
@@ -59,6 +60,13 @@ const Play: React.FC<Props> = (props): JSX.Element => {
       setIsLoad(true);
     })();
   }, [playCover]);
+
+  useEffect(() => {
+    if (currentTime !== undefined) {
+      const progress = (currentTime / play.time) * 100;
+      setPlayProgress(progress);
+    }
+  }, [currentTime]);
 
   /** methods **/
   const unfoldHandle = () => {
@@ -97,7 +105,9 @@ const Play: React.FC<Props> = (props): JSX.Element => {
           <Image src={playCover} className={'play-cover'} fit={'cover'} />
           <div className={'play-song-name'}>{playSong?.name}</div>
           <div className={'play-artist-name'}>{playSong?.artists[0].name}</div>
-          <div className={'play-progress-bar'}></div>
+          <div className={'play-progress-bar'}>
+            <Slider label={false} value={playProgress}></Slider>
+          </div>
           <div className={'play-function-panel'}>
             <div className={'previous-panel'} onClick={previousClick}>
               <Image src={PreviousSVG} className={'func-icon'} overlayContent={<></>} />

@@ -34,7 +34,9 @@ const MusicCard: React.FC<Props> = (props: Props): JSX.Element => {
   const clickHandle = () => {
     (async () => {
       const res = (await playApi.getSongUrl(String(music.id), 'exhigh')) as ResponseType;
-      const { url, type, time, size } = res.data[0];
+      const songDetail = (await playApi.getSongDetail(String(music.id))) as ResponseType;
+      const { url, type, size } = res.data[0];
+      const { dt } = songDetail.songs[0];
       // Public event
       PubSub.publish(PLAY, music.id);
       // Save music info
@@ -43,7 +45,8 @@ const MusicCard: React.FC<Props> = (props: Props): JSX.Element => {
         name: music.name,
         url,
         type,
-        time,
+        // unit: second
+        time: Math.floor(dt / 1000),
         size,
         coverImgUrl: music.al.picUrl,
         artists: music.ar,

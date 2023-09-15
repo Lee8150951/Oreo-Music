@@ -53,22 +53,24 @@ function App() {
     // Reload audio elements
     (0, react_1.useEffect)(() => {
         if (audioRef.current !== null) {
+            audioRef.current.oncanplaythrough = () => {
+                if (audioRef.current !== null) {
+                    audioRef.current.play();
+                }
+            };
             audioRef.current.load();
         }
+        return () => {
+            if (audioRef.current !== null) {
+                audioRef.current.oncanplaythrough = null;
+            }
+        };
     }, [src]);
     /** methods **/
     // Play music
     const playAudio = () => {
         if (audioRef.current !== null) {
-            console.log('play music');
-            try {
-                audioRef.current.play().catch((error) => {
-                    console.log('Error with playing:', error);
-                });
-            }
-            catch (error) {
-                console.log('Failed to play:', error);
-            }
+            audioRef.current.play();
         }
     };
     // Pause music

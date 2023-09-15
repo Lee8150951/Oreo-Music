@@ -45,10 +45,19 @@
       }
       .play-progress-bar {
         margin-top: 20px;
-        height: 4px;
         width: 360px;
-        border-radius: 2px;
-        background-color: rgba(249, 249, 249, 0.75);
+        cursor: pointer;
+        .t-slider__button {
+          width: 0;
+          height: 0;
+          border: 2px solid rgba(249, 249, 249, 0.95);
+        }
+        .t-slider__rail {
+          background-color: rgba(249, 249, 249, 0.75);
+        }
+        .t-slider__track {
+          background-color: rgba(249, 249, 249, 0.95);
+        }
       }
       .play-function-panel {
         margin-top: 15px;

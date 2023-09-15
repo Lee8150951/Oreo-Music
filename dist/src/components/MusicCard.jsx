@@ -48,7 +48,7 @@ const hooks_1 = require("../store/hooks");
 const playSlice_1 = require("../store/slices/playSlice");
 require("../style/components/MusicCard.scss");
 const MusicCard = (props) => {
-    const { music, favor, setMusicSource, playAudio } = props;
+    const { music, favor, setMusicSource } = props;
     const dispatch = (0, hooks_1.useAppDispatch)();
     /** state **/
     const [isFavor, setIsFavor] = (0, react_1.useState)(favor);
@@ -74,9 +74,7 @@ const MusicCard = (props) => {
             };
             console.log(currentSong);
             dispatch((0, playSlice_1.changePlay)(currentSong));
-            // TODO: Play music
             setMusicSource === null || setMusicSource === void 0 ? void 0 : setMusicSource(url);
-            playAudio === null || playAudio === void 0 ? void 0 : playAudio();
         }))();
     };
     const favorClick = () => {

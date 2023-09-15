@@ -8,6 +8,7 @@ import NextSVG from '../assets/svg/next.svg';
 import CircleSVG from '../assets/svg/circle.svg';
 import RandomSVG from '../assets/svg/random.svg';
 import PlaySVG from '../assets/svg/play.svg';
+import PauseSVG from '../assets/svg/pause.svg';
 import PubSub from 'pubsub-js';
 import { DRAWER } from '../event-types';
 import { useAppSelector } from '../store/hooks';
@@ -20,27 +21,50 @@ interface Props extends PropsType {
 }
 
 const PlayBar: React.FC<Props> = (props): JSX.Element => {
+  const { playAudio, pauseAudio, currentTime } = props;
   const _playSong = useAppSelector((state) => state.play);
 
   /** state **/
   const [playSong, setPlaySong] = useState<PlaySongType>();
+  const [playProgress, setPlayProgress] = useState<number>(0);
+  const [isPlaying, setIsPlaying] = useState<boolean>(true);
 
   /** effect **/
   useEffect(() => {
     setPlaySong(_playSong);
   }, [_playSong]);
 
+  useEffect(() => {
+    if (currentTime !== undefined) {
+      const progress = (currentTime / _playSong.time) * 100;
+      setPlayProgress(progress);
+    }
+  }, [currentTime]);
+
   /** methods **/
   const spreadDrawer = () => {
     PubSub.publish(DRAWER, true);
   };
 
+  const previousClick = () => {};
+
+  const playClick = () => {
+    setIsPlaying(true);
+    playAudio?.();
+  };
+
+  const pauseClick = () => {
+    setIsPlaying(false);
+    pauseAudio?.();
+  };
+
+  const nextClick = () => {};
+
   /** render **/
   return (
     <div className={'play-bar-main'}>
       <div className={'progress-bar-panel'}>
-        <div className={'progress-bar played-bar'} style={{ width: `30%` }}></div>
-        <div className={'progress-bar'} style={{ width: `70%` }}></div>
+        <Slider label={false} value={playProgress}></Slider>
       </div>
       <Row className={'play-bar-contain'}>
         <Col className={'play-info'} span={5}>
@@ -59,13 +83,19 @@ const PlayBar: React.FC<Props> = (props): JSX.Element => {
           <div className={'random-icon-panel'}>
             <Image src={RandomSVG} className={'other-icon'} overlayContent={<></>} />
           </div>
-          <div className={'previous-icon-panel'}>
+          <div className={'previous-icon-panel'} onClick={previousClick}>
             <Image src={PreviousSVG} className={'func-icon'} overlayContent={<></>} />
           </div>
-          <div className={'play-icon-panel'}>
-            <Image src={PlaySVG} className={'play-icon'} overlayContent={<></>} />
-          </div>
-          <div className={'next-icon-panel'}>
+          {!isPlaying ? (
+            <div className={'play-icon-panel'} onClick={playClick}>
+              <Image src={PlaySVG} className={'play-icon'} overlayContent={<></>} />
+            </div>
+          ) : (
+            <div className={'pause-icon-panel'} onClick={pauseClick}>
+              <Image src={PauseSVG} className={'pause-icon'} overlayContent={<></>} />
+            </div>
+          )}
+          <div className={'next-icon-panel'} onClick={nextClick}>
             <Image src={NextSVG} className={'func-icon'} overlayContent={<></>} />
           </div>
           <div className={'single-icon-panel'}>

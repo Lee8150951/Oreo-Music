@@ -17,6 +17,8 @@ const createWindow = async () => {
     },
   });
 
+  win.webContents.openDevTools();
+
   await win.loadURL('http://localhost:3000/');
 };
 

@@ -45,14 +45,18 @@ const tdesign_react_1 = require("tdesign-react");
 const previous_playView_svg_1 = __importDefault(require("../assets/svg/previous-playView.svg"));
 const play_playView_svg_1 = __importDefault(require("../assets/svg/play-playView.svg"));
 const next_playView_svg_1 = __importDefault(require("../assets/svg/next-playView.svg"));
+const pause_playView_svg_1 = __importDefault(require("../assets/svg/pause-playView.svg"));
 require("../style/views/Play.scss");
 const Play = (props) => {
+    const { playAudio, pauseAudio, currentTime } = props;
     const play = (0, hooks_1.useAppSelector)((state) => state.play);
+    const playRef = (0, react_1.useRef)(null);
     /** state **/
     const [colorList, setColorList] = (0, react_1.useState)([]);
     const [isLoad, setIsLoad] = (0, react_1.useState)(false);
     const [playCover, setPlayCover] = (0, react_1.useState)('');
     const [playSong, setPlaySong] = (0, react_1.useState)();
+    const [isPlaying, setIsPlaying] = (0, react_1.useState)(true);
     /** effect **/
     (0, react_1.useEffect)(() => {
         setIsLoad(false);
@@ -74,14 +78,30 @@ const Play = (props) => {
         setIsLoad(false);
         (() => __awaiter(void 0, void 0, void 0, function* () {
             const res = yield window.ipcChannel.getMainColor(play.coverImgUrl);
+            setPlayCover(play.coverImgUrl);
+            setPlaySong(play);
             setColorList(res);
+            setIsPlaying(true);
             setIsLoad(true);
         }))();
     }, [playCover]);
+    (0, react_1.useEffect)(() => {
+        console.log(currentTime);
+    }, [currentTime]);
     /** methods **/
     const unfoldHandle = () => {
         pubsub_js_1.default.publish(event_types_1.DRAWER, false);
     };
+    const previousClick = () => { };
+    const playClick = () => {
+        setIsPlaying(true);
+        playAudio === null || playAudio === void 0 ? void 0 : playAudio();
+    };
+    const pauseClick = () => {
+        setIsPlaying(false);
+        pauseAudio === null || pauseAudio === void 0 ? void 0 : pauseAudio();
+    };
+    const nextClick = () => { };
     /** render **/
     if (!isLoad) {
         return <div></div>;
@@ -94,19 +114,21 @@ const Play = (props) => {
         </span>
       </div>
       <tdesign_react_1.Row className={'play-contain'}>
-        <tdesign_react_1.Col span={6} className={'play-cover-contain'}>
+        <tdesign_react_1.Col span={6} className={'play-cover-contain'} ref={playRef}>
           <tdesign_react_1.Image src={playCover} className={'play-cover'} fit={'cover'}/>
           <div className={'play-song-name'}>{playSong === null || playSong === void 0 ? void 0 : playSong.name}</div>
           <div className={'play-artist-name'}>{playSong === null || playSong === void 0 ? void 0 : playSong.artists[0].name}</div>
           <div className={'play-progress-bar'}></div>
           <div className={'play-function-panel'}>
-            <div className={'previous-panel'}>
+            <div className={'previous-panel'} onClick={previousClick}>
               <tdesign_react_1.Image src={previous_playView_svg_1.default} className={'func-icon'} overlayContent={<></>}/>
             </div>
-            <div className={'play-panel'}>
-              <tdesign_react_1.Image src={play_playView_svg_1.default} className={'func-icon'} overlayContent={<></>}/>
-            </div>
-            <div className={'next-panel'}>
+            {!isPlaying ? (<div className={'play-panel'} onClick={playClick}>
+                <tdesign_react_1.Image src={play_playView_svg_1.default} className={'func-icon'} overlayContent={<></>}/>
+              </div>) : (<div className={'pause-panel'} onClick={pauseClick}>
+                <tdesign_react_1.Image src={pause_playView_svg_1.default} className={'func-icon'} overlayContent={<></>}/>
+              </div>)}
+            <div className={'next-panel'} onClick={nextClick}>
               <tdesign_react_1.Image src={next_playView_svg_1.default} className={'func-icon'} overlayContent={<></>}/>
             </div>
           </div>

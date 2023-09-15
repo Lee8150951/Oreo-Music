@@ -32,6 +32,7 @@ require("../style/components/LyricsBackground.scss");
 const LyricsBackground = (props) => {
     const { colors } = props;
     /** state **/
+    const [randomBG, setRandomBG] = (0, react_1.useState)(0);
     /** effect **/
     (0, react_1.useEffect)(() => {
         const canvas = document.getElementById('particleCanvas');
@@ -52,10 +53,14 @@ const LyricsBackground = (props) => {
         }
         animate();
     }, []);
+    (0, react_1.useEffect)(() => {
+        const number = Math.floor(Math.random() * colors.length);
+        setRandomBG(number);
+    }, []);
     /** methods **/
     /** render **/
     return (<div className={'lyrics-overlay'}>
-      <canvas className={'lyrics-canvas'} id="particleCanvas" style={{ backgroundColor: colors[Math.floor(Math.random() * colors.length)] }}></canvas>
+      <canvas className={'lyrics-canvas'} id="particleCanvas" style={{ backgroundColor: colors[randomBG] }}></canvas>
     </div>);
 };
 exports.default = LyricsBackground;
