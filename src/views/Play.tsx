@@ -12,6 +12,7 @@ import NextSVG from '../assets/svg/next-playView.svg';
 import PauseSVG from '../assets/svg/pause-playView.svg';
 import { type PropsType } from '../types/props';
 import '../style/views/Play.scss';
+import { type LyricType } from './types/play';
 
 interface Props extends PropsType {
   children?: React.ReactNode;
@@ -22,20 +23,27 @@ const Play: React.FC<Props> = (props): JSX.Element => {
   const play = useAppSelector((state) => state.play);
 
   const playRef = useRef(null);
+  const activeSpanRef = useRef(null);
+  const lyricRef = useRef(null);
 
   /** state **/
   const [colorList, setColorList] = useState<string[]>([]);
   const [isLoad, setIsLoad] = useState<boolean>(false);
   const [playCover, setPlayCover] = useState<string>('');
   const [playSong, setPlaySong] = useState<PlaySongType>();
+  const [playLyric, setPlayLyric] = useState<string>('');
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [playProgress, setPlayProgress] = useState<number>(0);
+  const [lyric, setLyric] = useState<LyricType[]>([]);
+  const [currentLyric, setCurrentLyric] = useState<number>(0);
+  const [scrollHeight, setScrollHeight] = useState<number>(30);
 
   /** effect **/
   useEffect(() => {
     setIsLoad(false);
     const playEvent = PubSub.subscribe(PLAY, (_, data) => {
       setPlayCover(play.coverImgUrl);
+      setScrollHeight(0);
       setPlaySong(play);
       (async () => {
         const res = await window.ipcChannel.getMainColor(play.coverImgUrl);
@@ -55,6 +63,10 @@ const Play: React.FC<Props> = (props): JSX.Element => {
       const res = await window.ipcChannel.getMainColor(play.coverImgUrl);
       setPlayCover(play.coverImgUrl);
       setPlaySong(play);
+      if (play.lyric !== undefined) {
+        setPlayLyric(play.lyric);
+      }
+      setScrollHeight(0);
       setColorList(res);
       setIsPlaying(true);
       setIsLoad(true);
@@ -63,17 +75,62 @@ const Play: React.FC<Props> = (props): JSX.Element => {
 
   useEffect(() => {
     if (currentTime !== undefined) {
+      // Progress bar
       const progress = (currentTime / play.time) * 100;
       setPlayProgress(progress);
+
+      // Lyric display
+      const currentMicroTime = Math.floor(currentTime * 1000);
+      const index = lyric.findIndex((item) => {
+        return item.time >= currentMicroTime;
+      });
+      setCurrentLyric(index - 1);
     }
   }, [currentTime]);
+
+  useEffect(() => {
+    const lyrArr = playLyric.split('}');
+    const lyr = lyrArr[lyrArr.length - 1].split('\n');
+    lyr.shift();
+    const newLyric: LyricType[] = [];
+    lyr.forEach((value) => {
+      const time = String(value.split(']')[0].split('[')[1]);
+      if (time !== undefined && time !== 'undefined') {
+        const minute = time.split(':')[0];
+        const second = time.split(':')[1].split('.')[0];
+        const micro = time.split('.')[1];
+        const number = parseInt(minute) * 60 * 1000 + parseInt(second) * 1000 + parseInt(micro);
+        const str = value.split(']')[1];
+        if (str !== '') {
+          newLyric.push({ time: number, str });
+        }
+      }
+    });
+    newLyric.unshift({ time: 0, str: '. . .' });
+    setLyric(newLyric);
+  }, [playLyric]);
+
+  useEffect(() => {
+    const containerElement = lyricRef.current;
+    const activeElement = activeSpanRef.current;
+
+    if (containerElement !== null && activeElement !== null) {
+      const activeElementHeight = (activeElement as HTMLDivElement).offsetHeight;
+      console.log(activeElementHeight);
+
+      (containerElement as HTMLDivElement).scrollTop = scrollHeight + activeElementHeight + 37;
+      setScrollHeight(scrollHeight + activeElementHeight + 37);
+    }
+  }, [currentLyric]);
 
   /** methods **/
   const unfoldHandle = () => {
     PubSub.publish(DRAWER, false);
   };
 
-  const previousClick = () => {};
+  const previousClick = () => {
+    // TODO: previous music
+  };
 
   const playClick = () => {
     setIsPlaying(true);
@@ -85,7 +142,9 @@ const Play: React.FC<Props> = (props): JSX.Element => {
     pauseAudio?.();
   };
 
-  const nextClick = () => {};
+  const nextClick = () => {
+    // TODO: next music
+  };
 
   /** render **/
   if (!isLoad) {
@@ -126,7 +185,23 @@ const Play: React.FC<Props> = (props): JSX.Element => {
             </div>
           </div>
         </Col>
-        <Col span={6} className={'play-lyrics-contain'}></Col>
+        <Col span={6} className={'play-lyric-main'}>
+          <div ref={lyricRef} className={'play-lyrics-contain'}>
+            <div className={'lyric-top-mask'}></div>
+            <div>
+              {lyric.map((value, index) => (
+                <div className={'play-lyric-panel'} key={index}>
+                  <span
+                    className={index === currentLyric ? 'current-play' : 'not-play'}
+                    ref={index === currentLyric ? activeSpanRef : null}
+                  >
+                    {value.str}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Col>
       </Row>
     </div>
   );

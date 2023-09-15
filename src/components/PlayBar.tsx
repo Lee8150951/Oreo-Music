@@ -46,7 +46,9 @@ const PlayBar: React.FC<Props> = (props): JSX.Element => {
     PubSub.publish(DRAWER, true);
   };
 
-  const previousClick = () => {};
+  const previousClick = () => {
+    // TODO: previous music
+  };
 
   const playClick = () => {
     setIsPlaying(true);
@@ -58,7 +60,9 @@ const PlayBar: React.FC<Props> = (props): JSX.Element => {
     pauseAudio?.();
   };
 
-  const nextClick = () => {};
+  const nextClick = () => {
+    // TODO: next music
+  };
 
   /** render **/
   return (

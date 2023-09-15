@@ -51,12 +51,18 @@ const Play = (props) => {
     const { playAudio, pauseAudio, currentTime } = props;
     const play = (0, hooks_1.useAppSelector)((state) => state.play);
     const playRef = (0, react_1.useRef)(null);
+    const activeSpanRef = (0, react_1.useRef)(null);
+    const lyricRef = (0, react_1.useRef)(null);
     /** state **/
     const [colorList, setColorList] = (0, react_1.useState)([]);
     const [isLoad, setIsLoad] = (0, react_1.useState)(false);
     const [playCover, setPlayCover] = (0, react_1.useState)('');
     const [playSong, setPlaySong] = (0, react_1.useState)();
+    const [playLyric, setPlayLyric] = (0, react_1.useState)('');
     const [isPlaying, setIsPlaying] = (0, react_1.useState)(true);
+    const [playProgress, setPlayProgress] = (0, react_1.useState)(0);
+    const [lyric, setLyric] = (0, react_1.useState)([]);
+    const [currentLyric, setCurrentLyric] = (0, react_1.useState)(0);
     /** effect **/
     (0, react_1.useEffect)(() => {
         setIsLoad(false);
@@ -80,19 +86,66 @@ const Play = (props) => {
             const res = yield window.ipcChannel.getMainColor(play.coverImgUrl);
             setPlayCover(play.coverImgUrl);
             setPlaySong(play);
+            if (play.lyric !== undefined) {
+                setPlayLyric(play.lyric);
+            }
             setColorList(res);
             setIsPlaying(true);
             setIsLoad(true);
         }))();
     }, [playCover]);
     (0, react_1.useEffect)(() => {
-        console.log(currentTime);
+        if (currentTime !== undefined) {
+            // Progress bar
+            const progress = (currentTime / play.time) * 100;
+            setPlayProgress(progress);
+            // Lyric display
+            const currentMicroTime = Math.floor(currentTime * 1000);
+            const index = lyric.findIndex((item) => {
+                return item.time >= currentMicroTime;
+            });
+            setCurrentLyric(index - 1);
+        }
     }, [currentTime]);
+    (0, react_1.useEffect)(() => {
+        const lyrArr = playLyric.split('}');
+        const lyr = lyrArr[lyrArr.length - 1].split('\n');
+        lyr.shift();
+        const newLyric = [];
+        lyr.forEach((value) => {
+            const time = String(value.split(']')[0].split('[')[1]);
+            if (time !== undefined && time !== 'undefined') {
+                const minute = time.split(':')[0];
+                const second = time.split(':')[1].split('.')[0];
+                const micro = time.split('.')[1];
+                const number = parseInt(minute) * 60 * 1000 + parseInt(second) * 1000 + parseInt(micro);
+                const str = value.split(']')[1];
+                if (str !== '') {
+                    newLyric.push({ time: number, str });
+                }
+            }
+        });
+        newLyric.unshift({ time: 0, str: '. . .' });
+        setLyric(newLyric);
+    }, [playLyric]);
+    (0, react_1.useEffect)(() => {
+        console.log(currentLyric);
+        const containerElement = lyricRef.current;
+        const activeElement = activeSpanRef.current;
+        if (containerElement !== null && activeElement !== null) {
+            const containerHeight = containerElement.offsetHeight;
+            const activeElementHeight = containerElement.offsetHeight;
+            containerElement.scrollTop =
+                containerElement.offsetTop - (containerHeight - activeElementHeight) / 2;
+        }
+    }, [currentLyric]);
     /** methods **/
     const unfoldHandle = () => {
         pubsub_js_1.default.publish(event_types_1.DRAWER, false);
     };
-    const previousClick = () => { };
+    const previousClick = () => {
+        // TODO: previous music
+    };
     const playClick = () => {
         setIsPlaying(true);
         playAudio === null || playAudio === void 0 ? void 0 : playAudio();
@@ -101,7 +154,9 @@ const Play = (props) => {
         setIsPlaying(false);
         pauseAudio === null || pauseAudio === void 0 ? void 0 : pauseAudio();
     };
-    const nextClick = () => { };
+    const nextClick = () => {
+        // TODO: next music
+    };
     /** render **/
     if (!isLoad) {
         return <div></div>;
@@ -118,7 +173,9 @@ const Play = (props) => {
           <tdesign_react_1.Image src={playCover} className={'play-cover'} fit={'cover'}/>
           <div className={'play-song-name'}>{playSong === null || playSong === void 0 ? void 0 : playSong.name}</div>
           <div className={'play-artist-name'}>{playSong === null || playSong === void 0 ? void 0 : playSong.artists[0].name}</div>
-          <div className={'play-progress-bar'}></div>
+          <div className={'play-progress-bar'}>
+            <tdesign_react_1.Slider label={false} value={playProgress}></tdesign_react_1.Slider>
+          </div>
           <div className={'play-function-panel'}>
             <div className={'previous-panel'} onClick={previousClick}>
               <tdesign_react_1.Image src={previous_playView_svg_1.default} className={'func-icon'} overlayContent={<></>}/>
@@ -133,7 +190,17 @@ const Play = (props) => {
             </div>
           </div>
         </tdesign_react_1.Col>
-        <tdesign_react_1.Col span={6} className={'play-lyrics-contain'}></tdesign_react_1.Col>
+        <tdesign_react_1.Col span={6}>
+          <div ref={lyricRef} className={'play-lyrics-contain'}>
+            <div>
+              {lyric.map((value, index) => (<div className={'play-lyric-panel'} key={index}>
+                <span className={index === currentLyric ? 'current-play' : 'not-play'} ref={index === currentLyric ? activeSpanRef : null}>
+                  {value.str}
+                </span>
+                </div>))}
+            </div>
+          </div>
+        </tdesign_react_1.Col>
       </tdesign_react_1.Row>
     </div>);
 };

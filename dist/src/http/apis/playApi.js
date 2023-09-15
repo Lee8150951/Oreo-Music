@@ -17,7 +17,17 @@ const http_1 = __importDefault(require("../http"));
 const getSongUrl = (sid, level) => __awaiter(void 0, void 0, void 0, function* () {
     return yield http_1.default.get(`/song/url/v1?id=${sid}&level=${level}`);
 });
+// Get music detail
+const getSongDetail = (sid) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield http_1.default.get(`/song/detail?ids=${sid}`);
+});
+// Get lyric
+const getSongLyric = (sid) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield http_1.default.get(`/lyric/new?id=${sid}`);
+});
 exports.default = {
     getSongUrl,
+    getSongDetail,
+    getSongLyric,
 };
 //# sourceMappingURL=playApi.js.map

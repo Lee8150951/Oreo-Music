@@ -78,8 +78,34 @@
         }
       }
     }
-    .play-lyrics-contain {
+    .play-lyric-main {
+      .play-lyrics-contain {
+        overflow: scroll;
+        height: 630px;
+        padding: 270px 0;
+        transition: all 1s linear;
 
+        .play-lyric-panel {
+          font-size: 35px;
+          font-weight: bold;
+          margin-top: 40px;
+          line-height: 45px;
+          padding-right: 80px;
+          transition: 0.5s;
+
+          .not-play {
+            transition: 0.5s;
+            color: rgba(249, 249, 249, 0.75);
+            filter: blur(2px);
+          }
+
+          .current-play {
+            transition: 0.5s;
+            font-size: 36px;
+            color: rgba(249, 249, 249, 1);
+          }
+        }
+      }
     }
   }
 }

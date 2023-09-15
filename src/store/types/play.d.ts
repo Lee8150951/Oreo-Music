@@ -10,4 +10,5 @@ export interface PlaySongType {
   coverImgUrl: string;
   artists: ArtistType[];
   album: AlbumType;
+  lyric?: string;
 }

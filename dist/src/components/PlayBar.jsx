@@ -36,27 +36,50 @@ const next_svg_1 = __importDefault(require("../assets/svg/next.svg"));
 const circle_svg_1 = __importDefault(require("../assets/svg/circle.svg"));
 const random_svg_1 = __importDefault(require("../assets/svg/random.svg"));
 const play_svg_1 = __importDefault(require("../assets/svg/play.svg"));
+const pause_svg_1 = __importDefault(require("../assets/svg/pause.svg"));
 const pubsub_js_1 = __importDefault(require("pubsub-js"));
 const event_types_1 = require("../event-types");
 const hooks_1 = require("../store/hooks");
 require("../style/components/PlayBar.scss");
 const PlayBar = (props) => {
+    const { playAudio, pauseAudio, currentTime } = props;
     const _playSong = (0, hooks_1.useAppSelector)((state) => state.play);
     /** state **/
     const [playSong, setPlaySong] = (0, react_1.useState)();
+    const [playProgress, setPlayProgress] = (0, react_1.useState)(0);
+    const [isPlaying, setIsPlaying] = (0, react_1.useState)(true);
     /** effect **/
     (0, react_1.useEffect)(() => {
         setPlaySong(_playSong);
     }, [_playSong]);
+    (0, react_1.useEffect)(() => {
+        if (currentTime !== undefined) {
+            const progress = (currentTime / _playSong.time) * 100;
+            setPlayProgress(progress);
+        }
+    }, [currentTime]);
     /** methods **/
     const spreadDrawer = () => {
         pubsub_js_1.default.publish(event_types_1.DRAWER, true);
     };
+    const previousClick = () => {
+        // TODO: previous music
+    };
+    const playClick = () => {
+        setIsPlaying(true);
+        playAudio === null || playAudio === void 0 ? void 0 : playAudio();
+    };
+    const pauseClick = () => {
+        setIsPlaying(false);
+        pauseAudio === null || pauseAudio === void 0 ? void 0 : pauseAudio();
+    };
+    const nextClick = () => {
+        // TODO: next music
+    };
     /** render **/
     return (<div className={'play-bar-main'}>
       <div className={'progress-bar-panel'}>
-        <div className={'progress-bar played-bar'} style={{ width: `30%` }}></div>
-        <div className={'progress-bar'} style={{ width: `70%` }}></div>
+        <tdesign_react_1.Slider label={false} value={playProgress}></tdesign_react_1.Slider>
       </div>
       <tdesign_react_1.Row className={'play-bar-contain'}>
         <tdesign_react_1.Col className={'play-info'} span={5}>
@@ -75,13 +98,15 @@ const PlayBar = (props) => {
           <div className={'random-icon-panel'}>
             <tdesign_react_1.Image src={random_svg_1.default} className={'other-icon'} overlayContent={<></>}/>
           </div>
-          <div className={'previous-icon-panel'}>
+          <div className={'previous-icon-panel'} onClick={previousClick}>
             <tdesign_react_1.Image src={previous_svg_1.default} className={'func-icon'} overlayContent={<></>}/>
           </div>
-          <div className={'play-icon-panel'}>
-            <tdesign_react_1.Image src={play_svg_1.default} className={'play-icon'} overlayContent={<></>}/>
-          </div>
-          <div className={'next-icon-panel'}>
+          {!isPlaying ? (<div className={'play-icon-panel'} onClick={playClick}>
+              <tdesign_react_1.Image src={play_svg_1.default} className={'play-icon'} overlayContent={<></>}/>
+            </div>) : (<div className={'pause-icon-panel'} onClick={pauseClick}>
+              <tdesign_react_1.Image src={pause_svg_1.default} className={'pause-icon'} overlayContent={<></>}/>
+            </div>)}
+          <div className={'next-icon-panel'} onClick={nextClick}>
             <tdesign_react_1.Image src={next_svg_1.default} className={'func-icon'} overlayContent={<></>}/>
           </div>
           <div className={'single-icon-panel'}>

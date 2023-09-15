@@ -57,7 +57,11 @@ const MusicCard = (props) => {
     const clickHandle = () => {
         (() => __awaiter(void 0, void 0, void 0, function* () {
             const res = (yield playApi_1.default.getSongUrl(String(music.id), 'exhigh'));
-            const { url, type, time, size } = res.data[0];
+            const songDetail = (yield playApi_1.default.getSongDetail(String(music.id)));
+            const songLyric = (yield playApi_1.default.getSongLyric(String(music.id)));
+            const { url, type, size } = res.data[0];
+            const { dt } = songDetail.songs[0];
+            const { lyric } = songLyric.lrc;
             // Public event
             pubsub_js_1.default.publish(event_types_1.PLAY, music.id);
             // Save music info
@@ -66,7 +70,9 @@ const MusicCard = (props) => {
                 name: music.name,
                 url,
                 type,
-                time,
+                lyric,
+                // unit: second
+                time: Math.floor(dt / 1000),
                 size,
                 coverImgUrl: music.al.picUrl,
                 artists: music.ar,

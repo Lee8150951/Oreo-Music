@@ -10,7 +10,13 @@ const getSongDetail = async (sid: string) => {
   return await http.get(`/song/detail?ids=${sid}`);
 };
 
+// Get lyric
+const getSongLyric = async (sid: string) => {
+  return await http.get(`/lyric/new?id=${sid}`);
+};
+
 export default {
   getSongUrl,
   getSongDetail,
+  getSongLyric,
 };
