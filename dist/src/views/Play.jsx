@@ -63,11 +63,13 @@ const Play = (props) => {
     const [playProgress, setPlayProgress] = (0, react_1.useState)(0);
     const [lyric, setLyric] = (0, react_1.useState)([]);
     const [currentLyric, setCurrentLyric] = (0, react_1.useState)(0);
+    const [scrollHeight, setScrollHeight] = (0, react_1.useState)(50);
     /** effect **/
     (0, react_1.useEffect)(() => {
         setIsLoad(false);
         const playEvent = pubsub_js_1.default.subscribe(event_types_1.PLAY, (_, data) => {
             setPlayCover(play.coverImgUrl);
+            setScrollHeight(0);
             setPlaySong(play);
             (() => __awaiter(void 0, void 0, void 0, function* () {
                 const res = yield window.ipcChannel.getMainColor(play.coverImgUrl);
@@ -89,6 +91,7 @@ const Play = (props) => {
             if (play.lyric !== undefined) {
                 setPlayLyric(play.lyric);
             }
+            setScrollHeight(0);
             setColorList(res);
             setIsPlaying(true);
             setIsLoad(true);
@@ -129,14 +132,13 @@ const Play = (props) => {
         setLyric(newLyric);
     }, [playLyric]);
     (0, react_1.useEffect)(() => {
-        console.log(currentLyric);
         const containerElement = lyricRef.current;
         const activeElement = activeSpanRef.current;
         if (containerElement !== null && activeElement !== null) {
-            const containerHeight = containerElement.offsetHeight;
-            const activeElementHeight = containerElement.offsetHeight;
-            containerElement.scrollTop =
-                containerElement.offsetTop - (containerHeight - activeElementHeight) / 2;
+            const activeElementHeight = activeElement.offsetHeight;
+            console.log(activeElementHeight);
+            containerElement.scrollTop = scrollHeight + activeElementHeight + 37;
+            setScrollHeight(scrollHeight + activeElementHeight + 37);
         }
     }, [currentLyric]);
     /** methods **/
@@ -190,13 +192,14 @@ const Play = (props) => {
             </div>
           </div>
         </tdesign_react_1.Col>
-        <tdesign_react_1.Col span={6}>
+        <tdesign_react_1.Col span={6} className={'play-lyric-main'}>
           <div ref={lyricRef} className={'play-lyrics-contain'}>
+            <div className={'lyric-top-mask'}></div>
             <div>
               {lyric.map((value, index) => (<div className={'play-lyric-panel'} key={index}>
-                <span className={index === currentLyric ? 'current-play' : 'not-play'} ref={index === currentLyric ? activeSpanRef : null}>
-                  {value.str}
-                </span>
+                  <span className={index === currentLyric ? 'current-play' : 'not-play'} ref={index === currentLyric ? activeSpanRef : null}>
+                    {value.str}
+                  </span>
                 </div>))}
             </div>
           </div>

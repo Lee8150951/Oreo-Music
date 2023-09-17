@@ -36,14 +36,14 @@ const Play: React.FC<Props> = (props): JSX.Element => {
   const [playProgress, setPlayProgress] = useState<number>(0);
   const [lyric, setLyric] = useState<LyricType[]>([]);
   const [currentLyric, setCurrentLyric] = useState<number>(0);
-  const [scrollHeight, setScrollHeight] = useState<number>(30);
+  const [scrollHeight, setScrollHeight] = useState<number>(50);
 
   /** effect **/
   useEffect(() => {
     setIsLoad(false);
     const playEvent = PubSub.subscribe(PLAY, (_, data) => {
       setPlayCover(play.coverImgUrl);
-      setScrollHeight(0);
+      setScrollHeight(50);
       setPlaySong(play);
       (async () => {
         const res = await window.ipcChannel.getMainColor(play.coverImgUrl);
@@ -66,7 +66,7 @@ const Play: React.FC<Props> = (props): JSX.Element => {
       if (play.lyric !== undefined) {
         setPlayLyric(play.lyric);
       }
-      setScrollHeight(0);
+      setScrollHeight(50);
       setColorList(res);
       setIsPlaying(true);
       setIsLoad(true);
@@ -110,6 +110,7 @@ const Play: React.FC<Props> = (props): JSX.Element => {
     setLyric(newLyric);
   }, [playLyric]);
 
+  // Lyrics offset
   useEffect(() => {
     const containerElement = lyricRef.current;
     const activeElement = activeSpanRef.current;
