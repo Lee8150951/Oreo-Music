@@ -65,12 +65,15 @@ const MusicCard: React.FC<Props> = (props: Props): JSX.Element => {
       const playlist = (await playlistApi.getSongFromPlaylist(String(pid))) as ResponseType;
       const songs = playlist.songs as Array<{ id: string; name: string }>;
       const curPlaylist: PlaylistItemType[] = [];
-      songs.forEach((item) => {
-        curPlaylist.push({
-          sid: item.id,
-          name: item.name,
-        });
+      const index = songs.findIndex((item) => {
+        return String(item.id) === String(music.id);
       });
+      for (let i = index; i < songs.length; i++) {
+        curPlaylist.push({
+          sid: songs[i].id,
+          name: songs[i].name,
+        });
+      }
       dispatch(changePlaylist(curPlaylist));
     })();
   };
