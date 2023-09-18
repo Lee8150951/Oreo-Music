@@ -78,7 +78,7 @@ const Playlist: React.FC<Props> = (props): JSX.Element => {
       </div>
       <div className={'playlist-list-contain'}>
         {songs.map((item, index) => (
-          <MusicCard key={item.id} music={item} favor={item.favor} setMusicSource={setMusicSource} />
+          <MusicCard pid={String(id)} key={item.id} music={item} favor={item.favor} setMusicSource={setMusicSource} />
         ))}
       </div>
     </div>

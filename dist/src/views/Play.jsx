@@ -63,13 +63,17 @@ const Play = (props) => {
     const [playProgress, setPlayProgress] = (0, react_1.useState)(0);
     const [lyric, setLyric] = (0, react_1.useState)([]);
     const [currentLyric, setCurrentLyric] = (0, react_1.useState)(0);
-    const [scrollHeight, setScrollHeight] = (0, react_1.useState)(50);
+    const [scrollHeight, setScrollHeight] = (0, react_1.useState)(10);
     /** effect **/
     (0, react_1.useEffect)(() => {
         setIsLoad(false);
+        const containerElement = lyricRef.current;
+        if (containerElement !== null) {
+            containerElement.scrollTop = 10;
+        }
         const playEvent = pubsub_js_1.default.subscribe(event_types_1.PLAY, (_, data) => {
             setPlayCover(play.coverImgUrl);
-            setScrollHeight(0);
+            setScrollHeight(10);
             setPlaySong(play);
             (() => __awaiter(void 0, void 0, void 0, function* () {
                 const res = yield window.ipcChannel.getMainColor(play.coverImgUrl);
@@ -84,6 +88,10 @@ const Play = (props) => {
     }, [play]);
     (0, react_1.useEffect)(() => {
         setIsLoad(false);
+        const containerElement = lyricRef.current;
+        if (containerElement !== null) {
+            containerElement.scrollTop = 10;
+        }
         (() => __awaiter(void 0, void 0, void 0, function* () {
             const res = yield window.ipcChannel.getMainColor(play.coverImgUrl);
             setPlayCover(play.coverImgUrl);
@@ -91,7 +99,7 @@ const Play = (props) => {
             if (play.lyric !== undefined) {
                 setPlayLyric(play.lyric);
             }
-            setScrollHeight(0);
+            setScrollHeight(10);
             setColorList(res);
             setIsPlaying(true);
             setIsLoad(true);
@@ -131,12 +139,12 @@ const Play = (props) => {
         newLyric.unshift({ time: 0, str: '. . .' });
         setLyric(newLyric);
     }, [playLyric]);
+    // Lyrics offset
     (0, react_1.useEffect)(() => {
         const containerElement = lyricRef.current;
         const activeElement = activeSpanRef.current;
         if (containerElement !== null && activeElement !== null) {
             const activeElementHeight = activeElement.offsetHeight;
-            console.log(activeElementHeight);
             containerElement.scrollTop = scrollHeight + activeElementHeight + 37;
             setScrollHeight(scrollHeight + activeElementHeight + 37);
         }

@@ -78,9 +78,10 @@ const MusicCard = (props) => {
                 artists: music.ar,
                 album: music.al,
             };
-            console.log(currentSong);
             dispatch((0, playSlice_1.changePlay)(currentSong));
             setMusicSource === null || setMusicSource === void 0 ? void 0 : setMusicSource(url);
+            // Modify the current playlist
+            (() => __awaiter(void 0, void 0, void 0, function* () { }))();
         }))();
     };
     const favorClick = () => {

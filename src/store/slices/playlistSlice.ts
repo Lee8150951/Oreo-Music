@@ -8,13 +8,18 @@ export const playlistSlice = createSlice({
   name: 'playlist',
   initialState: initial,
   reducers: {
-    changePlaylist: (state, action: PayloadAction<string>) => {},
+    changePlaylist: (state, action: PayloadAction<PlaylistItemType[]>) => {
+      return action.payload;
+    },
     insertMusic: (state, action: PayloadAction<PlaylistItemType>) => {
       const newMusic = action.payload;
       state.shift();
       state.unshift(newMusic);
     },
-    customPlaylist: (state, action: PayloadAction<string>) => {},
+    customPlaylist: (state, action: PayloadAction<PlaylistItemType[]>) => {},
+    playMusic: (state) => {
+      state.shift();
+    },
   },
 });
 

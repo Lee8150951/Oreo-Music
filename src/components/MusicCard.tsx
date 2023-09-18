@@ -12,17 +12,20 @@ import { useAppDispatch } from '../store/hooks';
 import { changePlay } from '../store/slices/playSlice';
 import { type PlaySongType } from '../store/types/play';
 import type ResponseType from '../types/res';
+import { type PlaylistItemType } from '../store/types/playlist';
 import '../style/components/MusicCard.scss';
+import { changePlaylist } from '../store/slices/playlistSlice';
 
 interface Props {
   children?: React.ReactNode;
   music: SongType;
   favor: boolean;
+  pid?: string;
   setMusicSource?: (url: string) => void;
 }
 
 const MusicCard: React.FC<Props> = (props: Props): JSX.Element => {
-  const { music, favor, setMusicSource } = props;
+  const { music, favor, setMusicSource, pid } = props;
   const dispatch = useAppDispatch();
 
   /** state **/
@@ -55,9 +58,20 @@ const MusicCard: React.FC<Props> = (props: Props): JSX.Element => {
         artists: music.ar,
         album: music.al,
       };
-      console.log(currentSong);
       dispatch(changePlay(currentSong));
       setMusicSource?.(url);
+
+      // Modify the current playlist
+      const playlist = (await playlistApi.getSongFromPlaylist(String(pid))) as ResponseType;
+      const songs = playlist.songs as Array<{ id: string; name: string }>;
+      const curPlaylist: PlaylistItemType[] = [];
+      songs.forEach((item) => {
+        curPlaylist.push({
+          sid: item.id,
+          name: item.name,
+        });
+      });
+      dispatch(changePlaylist(curPlaylist));
     })();
   };
 

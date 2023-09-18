@@ -36,14 +36,18 @@ const Play: React.FC<Props> = (props): JSX.Element => {
   const [playProgress, setPlayProgress] = useState<number>(0);
   const [lyric, setLyric] = useState<LyricType[]>([]);
   const [currentLyric, setCurrentLyric] = useState<number>(0);
-  const [scrollHeight, setScrollHeight] = useState<number>(50);
+  const [scrollHeight, setScrollHeight] = useState<number>(10);
 
   /** effect **/
   useEffect(() => {
     setIsLoad(false);
+    const containerElement = lyricRef.current;
+    if (containerElement !== null) {
+      (containerElement as HTMLDivElement).scrollTop = 10;
+    }
     const playEvent = PubSub.subscribe(PLAY, (_, data) => {
       setPlayCover(play.coverImgUrl);
-      setScrollHeight(50);
+      setScrollHeight(10);
       setPlaySong(play);
       (async () => {
         const res = await window.ipcChannel.getMainColor(play.coverImgUrl);
@@ -59,6 +63,10 @@ const Play: React.FC<Props> = (props): JSX.Element => {
 
   useEffect(() => {
     setIsLoad(false);
+    const containerElement = lyricRef.current;
+    if (containerElement !== null) {
+      (containerElement as HTMLDivElement).scrollTop = 10;
+    }
     (async () => {
       const res = await window.ipcChannel.getMainColor(play.coverImgUrl);
       setPlayCover(play.coverImgUrl);
@@ -66,7 +74,7 @@ const Play: React.FC<Props> = (props): JSX.Element => {
       if (play.lyric !== undefined) {
         setPlayLyric(play.lyric);
       }
-      setScrollHeight(50);
+      setScrollHeight(10);
       setColorList(res);
       setIsPlaying(true);
       setIsLoad(true);
@@ -117,8 +125,6 @@ const Play: React.FC<Props> = (props): JSX.Element => {
 
     if (containerElement !== null && activeElement !== null) {
       const activeElementHeight = (activeElement as HTMLDivElement).offsetHeight;
-      console.log(activeElementHeight);
-
       (containerElement as HTMLDivElement).scrollTop = scrollHeight + activeElementHeight + 37;
       setScrollHeight(scrollHeight + activeElementHeight + 37);
     }

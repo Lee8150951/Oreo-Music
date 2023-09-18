@@ -58,6 +58,7 @@ const Favor = (props) => {
                 const songs = favorRes.tracks;
                 // Get favorite playlist and save
                 const resFavor = (yield playlistApi_1.default.getFavorPlaylist(uid));
+                console.log(resFavor);
                 const favor = resFavor.ids;
                 songs.map((item) => {
                     item.favor = favor.includes(item.id);

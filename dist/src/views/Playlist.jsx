@@ -94,7 +94,7 @@ const Playlist = (props) => {
         </div>
       </div>
       <div className={'playlist-list-contain'}>
-        {songs.map((item, index) => (<MusicCard_1.default key={item.id} music={item} favor={item.favor} setMusicSource={setMusicSource}/>))}
+        {songs.map((item, index) => (<MusicCard_1.default pid={String(id)} key={item.id} music={item} favor={item.favor} setMusicSource={setMusicSource}/>))}
       </div>
     </div>);
 };

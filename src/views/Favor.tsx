@@ -18,6 +18,7 @@ const Favor: React.FC<Props> = (props): JSX.Element => {
   /** state **/
   const [songs, setSongs] = useState<SongType[]>([]);
   const [favorInfo, setFavorInfo] = useState<FavorType>();
+  const [pid, setPid] = useState<string>('');
 
   /** effect **/
   useEffect(() => {
@@ -30,6 +31,7 @@ const Favor: React.FC<Props> = (props): JSX.Element => {
         const songs = favorRes.tracks;
         // Get favorite playlist and save
         const resFavor = (await playlistApi.getFavorPlaylist(uid)) as ResponseType;
+        setPid(favorRes.id);
         const favor: number[] = resFavor.ids;
         songs.map((item) => {
           item.favor = favor.includes(item.id);
@@ -59,7 +61,7 @@ const Favor: React.FC<Props> = (props): JSX.Element => {
       </div>
       <div className={'favor-list-contain'}>
         {songs.map((item, index) => (
-          <MusicCard key={item.id} music={item} favor={item.favor} />
+          <MusicCard pid={pid} key={item.id} music={item} favor={item.favor} />
         ))}
       </div>
     </div>
