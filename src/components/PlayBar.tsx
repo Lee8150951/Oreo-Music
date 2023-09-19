@@ -65,7 +65,6 @@ const PlayBar: React.FC<Props> = (props): JSX.Element => {
   };
 
   const slideChange = (value: SliderValue) => {
-    console.log(value);
     adjustPlaybackProgress?.(value as number);
   };
 

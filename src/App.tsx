@@ -5,8 +5,20 @@ import RouterView from './router';
 import 'tdesign-react/dist/reset.css';
 import '../src/style/theme.css';
 import './style/global.scss';
+import { useAppDispatch, useAppSelector } from './store/hooks';
+import { changePlaylist } from './store/slices/playlistSlice';
+import utils from './util/utils';
+import playApi from './http/apis/playApi';
+import type ResponseType from './types/res';
+import PubSub from 'pubsub-js';
+import { PLAY } from './event-types';
+import { type PlaySongType } from './store/types/play';
+import { changePlay } from './store/slices/playSlice';
 
 function App() {
+  const playlist = useAppSelector((state) => state.playlist);
+  const dispatch = useAppDispatch();
+
   // Music element ref
   const audioRef = useRef(null);
 
@@ -42,6 +54,37 @@ function App() {
       }
     };
   }, [src]);
+
+  // Play according to the playlist
+  useEffect(() => {
+    (async () => {
+      const music = playlist[0];
+      const res = (await playApi.getSongUrl(String(music.sid), 'exhigh')) as ResponseType;
+      const songDetail = (await playApi.getSongDetail(String(music.sid))) as ResponseType;
+      const songLyric = (await playApi.getSongLyric(String(music.sid))) as ResponseType;
+      const { url, type, size } = res.data[0];
+      const { dt } = songDetail.songs[0];
+      const { lyric } = songLyric.lrc;
+      // Public event
+      PubSub.publish(PLAY, music.sid);
+      // Save music info
+      const currentSong: PlaySongType = {
+        id: parseInt(music.sid),
+        name: music.name,
+        url,
+        type,
+        lyric,
+        // unit: second
+        time: Math.floor(dt / 1000),
+        size,
+        coverImgUrl: songDetail.songs[0].al.picUrl,
+        artists: songDetail.songs[0].ar,
+        album: songDetail.songs[0].al,
+      };
+      dispatch(changePlay(currentSong));
+      setMusicSource(url);
+    })();
+  }, [playlist]);
 
   /** methods **/
   // Play music
@@ -86,6 +129,18 @@ function App() {
     }
   };
 
+  // When the music is finished
+  const handleOnEnded = () => {
+    const bacPlaylist = utils.deepClone(playlist);
+    bacPlaylist.shift();
+    dispatch(changePlaylist(bacPlaylist));
+  };
+
+  // Triggered when there is a playback error
+  const handleOnError = () => {
+    console.log('Play Error');
+  };
+
   /** render **/
   return (
     <>
@@ -102,7 +157,13 @@ function App() {
         />
       </HashRouter>
       <div style={{ visibility: 'hidden', position: 'absolute' }}>
-        <audio ref={audioRef} onTimeUpdate={handleTimeUpdate} preload={'metadata'}>
+        <audio
+          ref={audioRef}
+          onTimeUpdate={handleTimeUpdate}
+          onEnded={handleOnEnded}
+          onError={handleOnError}
+          preload={'metadata'}
+        >
           <source src={src} />
         </audio>
       </div>
