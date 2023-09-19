@@ -16,7 +16,7 @@ interface Props extends PropsType {
 }
 
 const Frame: React.FC<Props> = (props): JSX.Element => {
-  const { children, currentTime, playAudio, pauseAudio, handleVolumeChange, volume } = props;
+  const { children, currentTime, playAudio, pauseAudio, handleVolumeChange, volume, adjustPlaybackProgress } = props;
   const { Content, Aside } = Layout;
   const play = useAppSelector((state) => state.play);
 
@@ -86,6 +86,7 @@ const Frame: React.FC<Props> = (props): JSX.Element => {
             playAudio={playAudio}
             pauseAudio={pauseAudio}
             handleVolumeChange={handleVolumeChange}
+            adjustPlaybackProgress={adjustPlaybackProgress}
           />
           <div className={'drawer'} style={{ top: marginTop }}>
             <Play
@@ -94,6 +95,7 @@ const Frame: React.FC<Props> = (props): JSX.Element => {
               playAudio={playAudio}
               pauseAudio={pauseAudio}
               handleVolumeChange={handleVolumeChange}
+              adjustPlaybackProgress={adjustPlaybackProgress}
             />
           </div>
         </div>

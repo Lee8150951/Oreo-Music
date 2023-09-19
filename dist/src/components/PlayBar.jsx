@@ -42,7 +42,7 @@ const event_types_1 = require("../event-types");
 const hooks_1 = require("../store/hooks");
 require("../style/components/PlayBar.scss");
 const PlayBar = (props) => {
-    const { playAudio, pauseAudio, currentTime } = props;
+    const { playAudio, pauseAudio, currentTime, adjustPlaybackProgress } = props;
     const _playSong = (0, hooks_1.useAppSelector)((state) => state.play);
     /** state **/
     const [playSong, setPlaySong] = (0, react_1.useState)();
@@ -76,10 +76,14 @@ const PlayBar = (props) => {
     const nextClick = () => {
         // TODO: next music
     };
+    const slideChange = (value) => {
+        console.log(value);
+        adjustPlaybackProgress === null || adjustPlaybackProgress === void 0 ? void 0 : adjustPlaybackProgress(value);
+    };
     /** render **/
     return (<div className={'play-bar-main'}>
       <div className={'progress-bar-panel'}>
-        <tdesign_react_1.Slider label={false} value={playProgress}></tdesign_react_1.Slider>
+        <tdesign_react_1.Slider label={false} value={playProgress} onChange={slideChange}/>
       </div>
       <tdesign_react_1.Row className={'play-bar-contain'}>
         <tdesign_react_1.Col className={'play-info'} span={5}>

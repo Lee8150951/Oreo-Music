@@ -13,4 +13,5 @@ export interface PropsType {
   pauseAudio?: () => void;
   handleVolumeChange?: (volume: number) => void;
   setMusicSource?: (url: string) => void;
+  adjustPlaybackProgress?: (percentage: number) => void;
 }

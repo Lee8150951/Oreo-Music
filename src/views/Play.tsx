@@ -4,7 +4,7 @@ import PubSub from 'pubsub-js';
 import LyricsBackground from '../components/LyricsBackground';
 import { DRAWER, PLAY } from '../event-types';
 import { useAppSelector } from '../store/hooks';
-import { Row, Col, Image, Slider } from 'tdesign-react';
+import { Row, Col, Image, Slider, type SliderValue } from 'tdesign-react';
 import { type PlaySongType } from '../store/types/play';
 import PreviousSVG from '../assets/svg/previous-playView.svg';
 import PlaySVG from '../assets/svg/play-playView.svg';
@@ -19,7 +19,7 @@ interface Props extends PropsType {
 }
 
 const Play: React.FC<Props> = (props): JSX.Element => {
-  const { playAudio, pauseAudio, currentTime } = props;
+  const { playAudio, pauseAudio, currentTime, adjustPlaybackProgress } = props;
   const play = useAppSelector((state) => state.play);
 
   const playRef = useRef(null);
@@ -165,6 +165,10 @@ const Play: React.FC<Props> = (props): JSX.Element => {
     // TODO: next music
   };
 
+  const slideChange = (value: SliderValue) => {
+    adjustPlaybackProgress?.(value as number);
+  };
+
   /** render **/
   if (!isLoad) {
     return <div></div>;
@@ -184,7 +188,7 @@ const Play: React.FC<Props> = (props): JSX.Element => {
           <div className={'play-song-name'}>{playSong?.name}</div>
           <div className={'play-artist-name'}>{playSong?.artists[0].name}</div>
           <div className={'play-progress-bar'}>
-            <Slider label={false} value={playProgress}></Slider>
+            <Slider label={false} value={playProgress} onChange={slideChange} />
           </div>
           <div className={'play-function-panel'}>
             <div className={'previous-panel'} onClick={previousClick}>
@@ -206,7 +210,6 @@ const Play: React.FC<Props> = (props): JSX.Element => {
         </Col>
         <Col span={6} className={'play-lyric-main'}>
           <div ref={lyricRef} className={'play-lyrics-contain'}>
-            <div className={'lyric-top-mask'}></div>
             <div>
               {showLyrics.map((value, index) => (
                 <div className={'play-lyric-panel'} key={index}>

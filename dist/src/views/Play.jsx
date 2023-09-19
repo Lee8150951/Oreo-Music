@@ -47,9 +47,8 @@ const play_playView_svg_1 = __importDefault(require("../assets/svg/play-playView
 const next_playView_svg_1 = __importDefault(require("../assets/svg/next-playView.svg"));
 const pause_playView_svg_1 = __importDefault(require("../assets/svg/pause-playView.svg"));
 require("../style/views/Play.scss");
-const react_transition_group_1 = require("react-transition-group");
 const Play = (props) => {
-    const { playAudio, pauseAudio, currentTime } = props;
+    const { playAudio, pauseAudio, currentTime, adjustPlaybackProgress } = props;
     const play = (0, hooks_1.useAppSelector)((state) => state.play);
     const playRef = (0, react_1.useRef)(null);
     // const activeSpanRef = useRef(null);
@@ -177,6 +176,9 @@ const Play = (props) => {
     const nextClick = () => {
         // TODO: next music
     };
+    const slideChange = (value) => {
+        adjustPlaybackProgress === null || adjustPlaybackProgress === void 0 ? void 0 : adjustPlaybackProgress(value);
+    };
     /** render **/
     if (!isLoad) {
         return <div></div>;
@@ -194,7 +196,7 @@ const Play = (props) => {
           <div className={'play-song-name'}>{playSong === null || playSong === void 0 ? void 0 : playSong.name}</div>
           <div className={'play-artist-name'}>{playSong === null || playSong === void 0 ? void 0 : playSong.artists[0].name}</div>
           <div className={'play-progress-bar'}>
-            <tdesign_react_1.Slider label={false} value={playProgress}></tdesign_react_1.Slider>
+            <tdesign_react_1.Slider label={false} value={playProgress} onChange={slideChange}/>
           </div>
           <div className={'play-function-panel'}>
             <div className={'previous-panel'} onClick={previousClick}>
@@ -211,13 +213,17 @@ const Play = (props) => {
           </div>
         </tdesign_react_1.Col>
         <tdesign_react_1.Col span={6} className={'play-lyric-main'}>
-          <div className="play-lyrics-contain">
+          <div ref={lyricRef} className={'play-lyrics-contain'}>
             <div>
-              {showLyrics.map((value, index) => (<react_transition_group_1.CSSTransition key={index} in={true} timeout={500} classNames="lyric-fade">
-                  <div className="play-lyric-panel">
-                    <span className={index === 0 ? 'current-play' : 'not-play'}>{value.str}</span>
-                  </div>
-                </react_transition_group_1.CSSTransition>))}
+              {showLyrics.map((value, index) => (<div className={'play-lyric-panel'} key={index}>
+                  {/* <span */}
+                  {/*  className={index === currentLyric ? 'current-play' : 'not-play'} */}
+                  {/*  ref={index === currentLyric ? activeSpanRef : null} */}
+                  {/* > */}
+                  {/*  {value.str} */}
+                  {/* </span> */}
+                  <span className={index === 0 ? 'current-play' : 'not-play'}>{value.str}</span>
+                </div>))}
             </div>
           </div>
         </tdesign_react_1.Col>

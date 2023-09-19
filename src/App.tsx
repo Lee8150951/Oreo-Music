@@ -78,6 +78,14 @@ function App() {
     setSrc(url);
   };
 
+  // Adjust the playback progress
+  const adjustPlaybackProgress = (percentage: number) => {
+    if (audioRef.current !== null) {
+      const duration = (audioRef.current as HTMLAudioElement).duration;
+      (audioRef.current as HTMLAudioElement).currentTime = duration * (percentage / 100);
+    }
+  };
+
   /** render **/
   return (
     <>
@@ -90,6 +98,7 @@ function App() {
           pauseAudio={pauseAudio}
           handleVolumeChange={handleVolumeChange}
           setMusicSource={setMusicSource}
+          adjustPlaybackProgress={adjustPlaybackProgress}
         />
       </HashRouter>
       <div style={{ visibility: 'hidden', position: 'absolute' }}>

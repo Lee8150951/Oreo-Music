@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Col, Slider, Image } from 'tdesign-react';
+import { Row, Col, Slider, Image, type SliderValue } from 'tdesign-react';
 import voice from '../assets/icon/voice.png';
 import like from '../assets/icon/like.png';
 import SpreadSVG from '../assets/svg/spread.svg';
@@ -21,7 +21,7 @@ interface Props extends PropsType {
 }
 
 const PlayBar: React.FC<Props> = (props): JSX.Element => {
-  const { playAudio, pauseAudio, currentTime } = props;
+  const { playAudio, pauseAudio, currentTime, adjustPlaybackProgress } = props;
   const _playSong = useAppSelector((state) => state.play);
 
   /** state **/
@@ -64,11 +64,16 @@ const PlayBar: React.FC<Props> = (props): JSX.Element => {
     // TODO: next music
   };
 
+  const slideChange = (value: SliderValue) => {
+    console.log(value);
+    adjustPlaybackProgress?.(value as number);
+  };
+
   /** render **/
   return (
     <div className={'play-bar-main'}>
       <div className={'progress-bar-panel'}>
-        <Slider label={false} value={playProgress}></Slider>
+        <Slider label={false} value={playProgress} onChange={slideChange} />
       </div>
       <Row className={'play-bar-contain'}>
         <Col className={'play-info'} span={5}>

@@ -96,11 +96,18 @@ function App() {
     const setMusicSource = (url) => {
         setSrc(url);
     };
+    // Adjust the playback progress
+    const adjustPlaybackProgress = (percentage) => {
+        if (audioRef.current !== null) {
+            const duration = audioRef.current.duration;
+            audioRef.current.currentTime = duration * (percentage / 100);
+        }
+    };
     /** render **/
     return (<>
       <DragBar_1.default />
       <react_router_dom_1.HashRouter>
-        <router_1.default currentTime={currentTime} volume={volume} playAudio={playAudio} pauseAudio={pauseAudio} handleVolumeChange={handleVolumeChange} setMusicSource={setMusicSource}/>
+        <router_1.default currentTime={currentTime} volume={volume} playAudio={playAudio} pauseAudio={pauseAudio} handleVolumeChange={handleVolumeChange} setMusicSource={setMusicSource} adjustPlaybackProgress={adjustPlaybackProgress}/>
       </react_router_dom_1.HashRouter>
       <div style={{ visibility: 'hidden', position: 'absolute' }}>
         <audio ref={audioRef} onTimeUpdate={handleTimeUpdate} preload={'metadata'}>
