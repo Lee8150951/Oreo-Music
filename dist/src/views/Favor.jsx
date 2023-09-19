@@ -46,6 +46,7 @@ const Favor = (props) => {
     /** state **/
     const [songs, setSongs] = (0, react_1.useState)([]);
     const [favorInfo, setFavorInfo] = (0, react_1.useState)();
+    const [pid, setPid] = (0, react_1.useState)('');
     /** effect **/
     (0, react_1.useEffect)(() => {
         (() => __awaiter(void 0, void 0, void 0, function* () {
@@ -58,7 +59,7 @@ const Favor = (props) => {
                 const songs = favorRes.tracks;
                 // Get favorite playlist and save
                 const resFavor = (yield playlistApi_1.default.getFavorPlaylist(uid));
-                console.log(resFavor);
+                setPid(favorRes.id);
                 const favor = resFavor.ids;
                 songs.map((item) => {
                     item.favor = favor.includes(item.id);
@@ -84,7 +85,7 @@ const Favor = (props) => {
         </div>
       </div>
       <div className={'favor-list-contain'}>
-        {songs.map((item, index) => (<MusicCard_1.default key={item.id} music={item} favor={item.favor}/>))}
+        {songs.map((item, index) => (<MusicCard_1.default pid={pid} key={item.id} music={item} favor={item.favor}/>))}
       </div>
     </div>);
 };

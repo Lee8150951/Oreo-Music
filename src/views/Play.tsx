@@ -23,7 +23,7 @@ const Play: React.FC<Props> = (props): JSX.Element => {
   const play = useAppSelector((state) => state.play);
 
   const playRef = useRef(null);
-  const activeSpanRef = useRef(null);
+  // const activeSpanRef = useRef(null);
   const lyricRef = useRef(null);
 
   /** state **/
@@ -36,7 +36,12 @@ const Play: React.FC<Props> = (props): JSX.Element => {
   const [playProgress, setPlayProgress] = useState<number>(0);
   const [lyric, setLyric] = useState<LyricType[]>([]);
   const [currentLyric, setCurrentLyric] = useState<number>(0);
-  const [scrollHeight, setScrollHeight] = useState<number>(10);
+
+  // Use div scrolling to trigger lyrics scrolling
+  // const [scrollHeight, setScrollHeight] = useState<number>(10);
+
+  // Use lyric list to trigger lyrics scrolling
+  const [showLyrics, setShowLyrics] = useState<LyricType[]>([]);
 
   /** effect **/
   useEffect(() => {
@@ -47,7 +52,7 @@ const Play: React.FC<Props> = (props): JSX.Element => {
     }
     const playEvent = PubSub.subscribe(PLAY, (_, data) => {
       setPlayCover(play.coverImgUrl);
-      setScrollHeight(10);
+      // setScrollHeight(10);
       setPlaySong(play);
       (async () => {
         const res = await window.ipcChannel.getMainColor(play.coverImgUrl);
@@ -74,7 +79,7 @@ const Play: React.FC<Props> = (props): JSX.Element => {
       if (play.lyric !== undefined) {
         setPlayLyric(play.lyric);
       }
-      setScrollHeight(10);
+      // setScrollHeight(10);
       setColorList(res);
       setIsPlaying(true);
       setIsLoad(true);
@@ -116,18 +121,25 @@ const Play: React.FC<Props> = (props): JSX.Element => {
     });
     newLyric.unshift({ time: 0, str: '. . .' });
     setLyric(newLyric);
+
+    // Init the show lyrics
+    setShowLyrics(newLyric.slice(0, 6));
   }, [playLyric]);
 
   // Lyrics offset
-  useEffect(() => {
-    const containerElement = lyricRef.current;
-    const activeElement = activeSpanRef.current;
+  // useEffect(() => {
+  //   const containerElement = lyricRef.current;
+  //   const activeElement = activeSpanRef.current;
+  //
+  //   if (containerElement !== null && activeElement !== null) {
+  //     const activeElementHeight = (activeElement as HTMLDivElement).offsetHeight;
+  //     (containerElement as HTMLDivElement).scrollTop = scrollHeight + activeElementHeight + 37;
+  //     setScrollHeight(scrollHeight + activeElementHeight + 37);
+  //   }
+  // }, [currentLyric]);
 
-    if (containerElement !== null && activeElement !== null) {
-      const activeElementHeight = (activeElement as HTMLDivElement).offsetHeight;
-      (containerElement as HTMLDivElement).scrollTop = scrollHeight + activeElementHeight + 37;
-      setScrollHeight(scrollHeight + activeElementHeight + 37);
-    }
+  useEffect(() => {
+    setShowLyrics(lyric.slice(currentLyric, currentLyric + 6));
   }, [currentLyric]);
 
   /** methods **/
@@ -196,14 +208,15 @@ const Play: React.FC<Props> = (props): JSX.Element => {
           <div ref={lyricRef} className={'play-lyrics-contain'}>
             <div className={'lyric-top-mask'}></div>
             <div>
-              {lyric.map((value, index) => (
+              {showLyrics.map((value, index) => (
                 <div className={'play-lyric-panel'} key={index}>
-                  <span
-                    className={index === currentLyric ? 'current-play' : 'not-play'}
-                    ref={index === currentLyric ? activeSpanRef : null}
-                  >
-                    {value.str}
-                  </span>
+                  {/* <span */}
+                  {/*  className={index === currentLyric ? 'current-play' : 'not-play'} */}
+                  {/*  ref={index === currentLyric ? activeSpanRef : null} */}
+                  {/* > */}
+                  {/*  {value.str} */}
+                  {/* </span> */}
+                  <span className={index === 0 ? 'current-play' : 'not-play'}>{value.str}</span>
                 </div>
               ))}
             </div>

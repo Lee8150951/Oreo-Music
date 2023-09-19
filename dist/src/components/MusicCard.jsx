@@ -47,8 +47,9 @@ const event_types_1 = require("../event-types");
 const hooks_1 = require("../store/hooks");
 const playSlice_1 = require("../store/slices/playSlice");
 require("../style/components/MusicCard.scss");
+const playlistSlice_1 = require("../store/slices/playlistSlice");
 const MusicCard = (props) => {
-    const { music, favor, setMusicSource } = props;
+    const { music, favor, setMusicSource, pid } = props;
     const dispatch = (0, hooks_1.useAppDispatch)();
     /** state **/
     const [isFavor, setIsFavor] = (0, react_1.useState)(favor);
@@ -81,7 +82,19 @@ const MusicCard = (props) => {
             dispatch((0, playSlice_1.changePlay)(currentSong));
             setMusicSource === null || setMusicSource === void 0 ? void 0 : setMusicSource(url);
             // Modify the current playlist
-            (() => __awaiter(void 0, void 0, void 0, function* () { }))();
+            const playlist = (yield playlistApi_1.default.getSongFromPlaylist(String(pid)));
+            const songs = playlist.songs;
+            const curPlaylist = [];
+            const index = songs.findIndex((item) => {
+                return String(item.id) === String(music.id);
+            });
+            for (let i = index; i < songs.length; i++) {
+                curPlaylist.push({
+                    sid: songs[i].id,
+                    name: songs[i].name,
+                });
+            }
+            dispatch((0, playlistSlice_1.changePlaylist)(curPlaylist));
         }))();
     };
     const favorClick = () => {
