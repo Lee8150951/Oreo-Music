@@ -9,12 +9,14 @@ import Recommend from '../assets/image/recommend.png';
 import { Image } from 'tdesign-react';
 import { ChevronRightIcon } from 'tdesign-icons-react';
 import '../style/views/Home.scss';
+import { useNavigate } from 'react-router-dom';
 
 interface Props extends PropsType {
   children?: React.ReactNode;
 }
 
 const Home: React.FC<Props> = (props): JSX.Element => {
+  const navigate = useNavigate();
   const mask = <div className={'recommend-mask'}></div>;
 
   /** state **/
@@ -38,6 +40,9 @@ const Home: React.FC<Props> = (props): JSX.Element => {
   }, []);
 
   /** methods **/
+  const forYouClick = (item: PlaylistType) => {
+    navigate(`/playlist/${item.id}`);
+  };
 
   /** render **/
   return (
@@ -56,6 +61,9 @@ const Home: React.FC<Props> = (props): JSX.Element => {
                 key={index}
                 style={{
                   marginLeft: index % 5 === 0 ? '0px' : '15px',
+                }}
+                onClick={() => {
+                  forYouClick(item);
                 }}
               >
                 <RecommendCard picture={item.picUrl} title={item.name} />

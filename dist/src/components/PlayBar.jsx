@@ -77,7 +77,6 @@ const PlayBar = (props) => {
         // TODO: next music
     };
     const slideChange = (value) => {
-        console.log(value);
         adjustPlaybackProgress === null || adjustPlaybackProgress === void 0 ? void 0 : adjustPlaybackProgress(value);
     };
     /** render **/

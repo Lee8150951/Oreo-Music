@@ -92,7 +92,7 @@ const Frame = (props) => {
         </tdesign_react_1.Layout>
       </tdesign_react_1.Layout>
       {(playSong === null || playSong === void 0 ? void 0 : playSong.id) === -1 ? (<></>) : (<div className={'footer'}>
-          <PlayBar_1.default currentTime={currentTime} volume={volume} playAudio={playAudio} pauseAudio={pauseAudio} handleVolumeChange={handleVolumeChange}/>
+          <PlayBar_1.default currentTime={currentTime} volume={volume} playAudio={playAudio} pauseAudio={pauseAudio} handleVolumeChange={handleVolumeChange} adjustPlaybackProgress={adjustPlaybackProgress}/>
           <div className={'drawer'} style={{ top: marginTop }}>
             <Play_1.default currentTime={currentTime} volume={volume} playAudio={playAudio} pauseAudio={pauseAudio} handleVolumeChange={handleVolumeChange} adjustPlaybackProgress={adjustPlaybackProgress}/>
           </div>
