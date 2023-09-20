@@ -6,6 +6,8 @@ import Download from '../views/Download';
 import Favor from '../views/Favor';
 import Playlist from '../views/Playlist';
 import Setting from '../views/Setting';
+import Singer from '../views/Singer';
+import Album from '../views/Album';
 
 const routes = [
   {
@@ -37,6 +39,16 @@ const routes = [
     path: '/setting',
     name: 'setting',
     component: Setting,
+  },
+  {
+    path: '/album/:id',
+    name: 'album',
+    component: Album,
+  },
+  {
+    path: '/singer/:id',
+    name: 'singer',
+    component: Singer,
   },
   {
     path: '/login',

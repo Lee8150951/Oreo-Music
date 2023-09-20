@@ -44,6 +44,18 @@ const Home: React.FC<Props> = (props): JSX.Element => {
     navigate(`/playlist/${item.id}`);
   };
 
+  const albumClick = (item: AlbumType) => {
+    navigate(`/album/${item.id}`);
+  };
+
+  const singerClick = (item: SingerType) => {
+    navigate(`/singer/${item.id}`);
+  };
+
+  const chartsClick = (item: ToplistType) => {
+    navigate(`/playlist/${item.id}`);
+  };
+
   /** render **/
   return (
     <div className={'home-main'}>
@@ -105,6 +117,9 @@ const Home: React.FC<Props> = (props): JSX.Element => {
                   style={{
                     marginLeft: index % 4 === 0 ? '0px' : '15px',
                   }}
+                  onClick={() => {
+                    singerClick(item);
+                  }}
                 >
                   <ArtistCard url={item.img1v1Url} name={item.name} />
                 </div>
@@ -129,6 +144,9 @@ const Home: React.FC<Props> = (props): JSX.Element => {
                   marginLeft: index % 5 === 0 ? '0px' : '15px',
                   marginTop: index >= 5 ? '15px' : '0px',
                 }}
+                onClick={() => {
+                  albumClick(item);
+                }}
               >
                 <RecommendCard picture={item.picUrl} title={item.name} />
               </div>
@@ -150,6 +168,9 @@ const Home: React.FC<Props> = (props): JSX.Element => {
                 key={index}
                 style={{
                   marginLeft: index % 5 === 0 ? '0px' : '15px',
+                }}
+                onClick={() => {
+                  chartsClick(item);
                 }}
               >
                 <RecommendCard picture={item.coverImgUrl} title={item.name} />
