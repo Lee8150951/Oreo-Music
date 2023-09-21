@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Input, Dropdown, Avatar, NotificationPlugin } from 'tdesign-react';
 import { useNavigate } from 'react-router-dom';
 import userApi from '../http/apis/userApi';
@@ -16,6 +16,7 @@ interface Props {
 
 const TopNavbar: React.FC<Props> = (props): JSX.Element => {
   const navigate = useNavigate();
+  // const location = useLocation();
   const dispatch = useAppDispatch();
   const optionsLogin = [
     {
@@ -43,6 +44,7 @@ const TopNavbar: React.FC<Props> = (props): JSX.Element => {
       prefixIcon: <LoginIcon />,
     },
   ];
+  const searchRef = useRef(null);
 
   /** state **/
   const [loginStatus, setLoginStatus] = useState<boolean>(false);
@@ -50,6 +52,7 @@ const TopNavbar: React.FC<Props> = (props): JSX.Element => {
   const [userAvatar, setUserAvatar] = useState<string>(
     'https://oreo-image-bed-1310232028.cos.ap-shanghai.myqcloud.com/image/avatar.png'
   );
+  // const [showBack, setShowBack] = useState<boolean>(false);
 
   /** effect **/
   useEffect(() => {
@@ -68,6 +71,23 @@ const TopNavbar: React.FC<Props> = (props): JSX.Element => {
       setLoginStatus(true);
     }
   }, []);
+  //
+  // useEffect(() => {
+  //   const { pathname } = location;
+  //   const allowList = ['/', '/cloud', '/download', '/favor'];
+  //   const searchElement = searchRef.current;
+  //   if (!allowList.includes(pathname)) {
+  //     setShowBack(false);
+  //     if (searchElement !== null) {
+  //       (searchElement as HTMLDivElement).style.width = 'calc(80% - 50px)';
+  //     }
+  //   } else {
+  //     setShowBack(true);
+  //     if (searchElement !== null) {
+  //       (searchElement as HTMLDivElement).style.width = '100%';
+  //     }
+  //   }
+  // }, [location]);
 
   /** methods **/
   const clickHandler = (data: any) => {
@@ -95,10 +115,19 @@ const TopNavbar: React.FC<Props> = (props): JSX.Element => {
     }
   };
 
+  // const backClick = () => {};
+
   /** render **/
   return (
     <div className={'top-navbar-main'}>
-      <div className={'search-bar'}>
+      {/* {showBack ? ( */}
+      {/*  <></> */}
+      {/* ) : ( */}
+      {/*  <div className={'back-btn'} onClick={backClick}> */}
+      {/*    <ChevronLeftIcon /> */}
+      {/*  </div> */}
+      {/* )} */}
+      <div className={'search-bar'} ref={searchRef}>
         <Input prefixIcon={<SearchIcon />} placeholder="搜索" align="left" size="medium" status="default" type="text" />
       </div>
       <div className={'user-bar'}>

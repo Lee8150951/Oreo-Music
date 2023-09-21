@@ -3,6 +3,15 @@
   height: 60px;
   display: flex;
   width: 100%;
+  .back-btn {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    margin-top: -15px;
+    width: 50px;
+    font-size: 20px;
+  }
   .search-bar {
     width: 80%;
     .t-input {
